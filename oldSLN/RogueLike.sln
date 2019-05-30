@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RogueLike", "RogueLike.csproj", "{6343281D-96E2-080A-90FC-6A8638B46477}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RogueLike.Editor", "RogueLike.Editor.csproj", "{A8C8FBD7-21BC-FB37-B649-B2EB1E498BB1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6343281D-96E2-080A-90FC-6A8638B46477}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6343281D-96E2-080A-90FC-6A8638B46477}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6343281D-96E2-080A-90FC-6A8638B46477}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6343281D-96E2-080A-90FC-6A8638B46477}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8C8FBD7-21BC-FB37-B649-B2EB1E498BB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8C8FBD7-21BC-FB37-B649-B2EB1E498BB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8C8FBD7-21BC-FB37-B649-B2EB1E498BB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8C8FBD7-21BC-FB37-B649-B2EB1E498BB1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {976B4291-C129-409A-9B50-D78484EABCEB}
+	EndGlobalSection
+EndGlobal
