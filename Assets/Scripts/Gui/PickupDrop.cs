@@ -121,7 +121,8 @@ public class PickupDrop : MonoBehaviour
     /// </summary>
     public void UpdateSprite()
     {
-        if (myInventoryGUI.targetInventory.GetItem(myIndex) == null)
+        
+        if (myIndex >= myInventoryGUI.targetInventory.inventoryCapacity || myInventoryGUI.targetInventory.GetItem(myIndex) == null)
         {
             GetSpriteRenderer().sprite = null;
             return;

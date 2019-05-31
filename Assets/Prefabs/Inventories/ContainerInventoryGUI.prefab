@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2893690461507066436}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.16, y: -1.01, z: 0}
+  m_LocalPosition: {x: -0.16, y: -0.56, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 6193898851668122727}
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
-  m_Size: {x: 0.86, y: 0.51}
+  m_Size: {x: 0.85, y: 0.82}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -115,7 +115,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6193898851668122724}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: -10.19, y: 6.98, z: -10}
   m_LocalScale: {x: 1.885, y: 1.885, z: 1}
   m_Children:
   - {fileID: 5187236778804076929}
@@ -136,7 +136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetInventory: {fileID: 0}
-  offset: {x: 0, y: 0}
+  offset: {x: 0, y: 2}
   separation: {x: 0.8, y: 0.8}
   scale: 1
   columns: 5
@@ -153,7 +153,7 @@ PrefabInstance:
     - target: {fileID: 4559653227575762201, guid: b643c41d795b58447a71eeeefd1de676,
         type: 3}
       propertyPath: text
-      value: <color.white>Default Container
+      value: <color.white>Container
       objectReference: {fileID: 0}
     - target: {fileID: 4559653227575762201, guid: b643c41d795b58447a71eeeefd1de676,
         type: 3}
@@ -183,12 +183,12 @@ PrefabInstance:
     - target: {fileID: 1666350211335365621, guid: b643c41d795b58447a71eeeefd1de676,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.02
+      value: 0.62
       objectReference: {fileID: 0}
     - target: {fileID: 1666350211335365621, guid: b643c41d795b58447a71eeeefd1de676,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.9
+      value: 2.89
       objectReference: {fileID: 0}
     - target: {fileID: 1666350211335365621, guid: b643c41d795b58447a71eeeefd1de676,
         type: 3}

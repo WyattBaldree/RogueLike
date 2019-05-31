@@ -22,7 +22,7 @@ public class UnitController : MonoBehaviour
         unitList = new List<Unit>();
 
         //Create a player
-        Player player = (Player)Instantiate(playerSource, new Vector3(6, 14), Quaternion.identity, transform);
+        Player player = (Player)Instantiate(playerSource, new Vector3(5, 3), Quaternion.identity, transform);
         player.Initialize();
         unitList.Add(player);
         myPlayer = player;
@@ -35,7 +35,7 @@ public class UnitController : MonoBehaviour
         unit.Initialize();
         unitList.Add(unit);
 
-        unit = (Unit)Instantiate(demon, new Vector3(8, 14), Quaternion.identity, transform);
+        unit = (Unit)Instantiate(demon, new Vector3(5, 14), Quaternion.identity, transform);
         unit.Initialize();
         unitList.Add(unit);
     }
