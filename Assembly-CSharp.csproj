@@ -65,6 +65,9 @@
     <Compile Include="Assets\_ideas.cs" />
     <Compile Include="Assets\Scripts\Darkness.cs" />
     <Compile Include="Assets\Scripts\GameController.cs" />
+    <Compile Include="Assets\Scripts\Gui\Button.cs" />
+    <Compile Include="Assets\Scripts\Gui\Interactive.cs" />
+    <Compile Include="Assets\Scripts\Gui\InteractiveGUI.cs" />
     <Compile Include="Assets\Scripts\Gui\PageGroup.cs" />
     <Compile Include="Assets\Scripts\Gui\PickupDrop.cs" />
     <Compile Include="Assets\Scripts\Gui\Tab.cs" />

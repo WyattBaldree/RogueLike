@@ -10,6 +10,8 @@ public class Wall : MonoBehaviour
 
     private string debugString = "";
 
+    public string wallName = "wall";
+
     //Does this block characters?
     public bool solid = true;
 
@@ -17,20 +19,11 @@ public class Wall : MonoBehaviour
 
     public float cost = float.MaxValue;
 
-    private bool initialized = false;
-    // Start is called before the first frame update
-    void Start()
-    {
-        if (!initialized) Initalize();
-        //RefreshSprite();
-    }
-
-    private void Initalize()
+    public virtual void Initialize()
     {
         mapController = GameController.mapC;
 
         spriteController = GetComponent<SpriteController>();
-        initialized = true;
     }
 
     // Update is called once per frame
@@ -51,8 +44,6 @@ public class Wall : MonoBehaviour
 
     public virtual void RefreshSprite()
     {
-        if (!initialized) Initalize();
-
         /* At the end of the double for loop, nearbyList will be filled in this order
          * 258
          * 147

@@ -57,6 +57,8 @@ MonoBehaviour:
   bulletWidth: 0.3
   waveDuration: 13
   waveCharacterSpacing: 12
+  rainbowDuration: 80
+  rainbowCharacterSpacing: 40
   bounceWaitTime: 0.1
 --- !u!1 &5774983322163281784
 GameObject:

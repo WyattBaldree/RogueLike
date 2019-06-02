@@ -37,21 +37,17 @@ public class GameController : MonoBehaviour
         ScreenResInPixels = new Vector2(ScreenResInUnits.x, ScreenResInUnits.y);
 
         gameC = this;
-
-        inventoryC = inventoryControllerInstance;
-        inventoryC.Initialize();
-
         mapC = (MapController)Instantiate(mapControllerClass);
-        mapC.Initialize(Camera.main);
-
+        inventoryC = inventoryControllerInstance;
         itemC = (ItemController)Instantiate(itemControllerClass);
-        itemC.Initialize();
-
         unitC = (UnitController)Instantiate(unitControllerClass);
-        unitC.Initialize();
-
         logC = (LogController)Instantiate(logControllerClass);
+
         logC.Initialize();
+        mapC.Initialize(Camera.main);
+        inventoryC.Initialize();
+        itemC.Initialize();
+        unitC.Initialize();
 
 
         inventoryC.InitializePickupDrops();

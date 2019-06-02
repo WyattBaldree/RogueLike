@@ -68,7 +68,7 @@ MonoBehaviour:
   myInventoryGUI: {fileID: 1356086442712527106, guid: c6e4e0578cd8226449229f14428cfcfa,
     type: 3}
   myInventoryGUIEnum: 10
-  inventoryName: <color.white>Container
+  inventoryName: <color.white><anim.rainbow>Container
   external: 0
   openable: 1
   itemChangedEvent:

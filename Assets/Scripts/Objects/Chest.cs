@@ -9,10 +9,11 @@ public class Chest : Wall
     public bool opened = false;
 
     public Inventory inventorySource;
-    private Inventory inventory;
+    public Inventory inventory;
 
-    private void Start()
+    public override void Initialize()
     {
+        base.Initialize();
         Refresh();
         inventory = Instantiate<Inventory>(inventorySource, GameController.inventoryC.transform);
         inventory.Initialize();
@@ -22,12 +23,14 @@ public class Chest : Wall
     {
         opened = true;
         GetComponent<SpriteRenderer>().sprite = openedSprite;
+        GameController.logC.NewEntry("The " + wallName + " is opened.");
     }
 
     public void Close()
     {
         opened = false;
         GetComponent<SpriteRenderer>().sprite = closedSprite;
+        GameController.logC.NewEntry("The " + wallName + " is closed.");
     }
 
     public override void OnInteract()

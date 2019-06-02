@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: -8714987661991641740}
   - component: {fileID: 4929345612919752150}
   - component: {fileID: 1081528065809823095}
+  - component: {fileID: 223794530073375860}
   m_Layer: 0
   m_Name: Chest
   m_TagString: Untagged
@@ -46,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dffb40ef86afe0842b525852fa57546c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wallName: wall
   solid: 1
   influenceFloors: 0
   cost: 3.4028235e+38
@@ -56,6 +58,7 @@ MonoBehaviour:
   opened: 0
   inventorySource: {fileID: 5475488527503361341, guid: 525073cbe64e8da43a43ff5b053f6937,
     type: 3}
+  inventory: {fileID: 0}
 --- !u!210 &4929345612919752150
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -115,6 +118,49 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &223794530073375860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5530373120345876156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8c2583ec77053a41808ac2253654190, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myInteractions:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -8714987661991641740}
+        m_MethodName: Open
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -8714987661991641740}
+        m_MethodName: Close
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1001 &352951020910441572
 PrefabInstance:
   m_ObjectHideFlags: 0

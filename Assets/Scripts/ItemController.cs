@@ -57,6 +57,11 @@ public class ItemController : MonoBehaviour
         MakeItem(ringmailSource, 50, inventoryArray[7, 13]);
         MakeItem(leatherGlovesSource, 50, inventoryArray[7, 13]);
         MakeItem(bootsSource, 50, inventoryArray[7, 13]);
+
+        MakeItem(bootsSource, 1, ((Chest)(GameController.mapC.wallMapArray[3,2])).inventory);
+        MakeItem(ironCapSource, 1, ((Chest)(GameController.mapC.wallMapArray[3, 2])).inventory);
+        MakeItem(leatherGlovesSource, 1, ((Chest)(GameController.mapC.wallMapArray[3, 2])).inventory);
+        MakeItem(ringmailSource, 1, ((Chest)(GameController.mapC.wallMapArray[3, 2])).inventory);
     }
 
     /// <summary>

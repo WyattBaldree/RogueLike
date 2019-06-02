@@ -66,7 +66,7 @@ public class MapController : MonoBehaviour
             {
                 Wall wall = (Wall)Instantiate(wallArray[0], new Vector3(i, j), Quaternion.identity, transform);
                 wallMapArray[i, j] = wall;
-
+                wall.Initialize();
             }
         }
 
@@ -127,12 +127,16 @@ public class MapController : MonoBehaviour
 
         Door door = (Door)Instantiate(doorSourceObject, new Vector3(5, 4), Quaternion.identity, transform);
         wallMapArray[5, 4] = door;
+        door.Initialize();
 
         //Destroy(wallMapArray[3, 2].gameObject);
         wallMapArray[3, 2] = null;
 
         Chest chest = (Chest)Instantiate(chestSourceObject, new Vector3(3, 2), Quaternion.identity, transform);
         wallMapArray[3, 2] = chest;
+        chest.Initialize();
+
+
 
         //create all pits
         pitMapArray = new Pit[(int)GameController.gameC.ScreenResInUnits.x, (int)(GameController.gameC.ScreenResInUnits.y)];
