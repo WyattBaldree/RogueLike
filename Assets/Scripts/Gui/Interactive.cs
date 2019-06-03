@@ -14,4 +14,14 @@ public class Interactive : MonoBehaviour
         return true;
     }
 
+    public void ShowMenu()
+    {
+        GameController.interactiveGUI.Show(this);
+    }
+
+    public void HideMenu()
+    {
+        GameController.interactiveGUI.Hide(this);
+    }
+
 }

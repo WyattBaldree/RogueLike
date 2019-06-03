@@ -4,14 +4,10 @@ using UnityEngine;
 
 public class InteractiveGUI : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    List<Button> myButtons;
+    Interactive targetInteractive;
 
-    // Update is called once per frame
-    void Update()
+    public void Initialize()
     {
         
     }

@@ -10,12 +10,18 @@ public class GameController : MonoBehaviour
     public static InventoryController inventoryC;
     public static ItemController itemC;
 
+    /// <summary>
+    /// The InteractiveGUI class we use for context menues;
+    /// </summary>
+    public static InteractiveGUI interactiveGUI;
+
     public MapController mapControllerClass;
     public UnitController unitControllerClass;
     public LogController logControllerClass;
     public ItemController itemControllerClass;
 
     public InventoryController inventoryControllerInstance;
+    public InteractiveGUI interactiveGUIInstance;
 
     public bool debug = false;
 
@@ -38,10 +44,12 @@ public class GameController : MonoBehaviour
 
         gameC = this;
         mapC = (MapController)Instantiate(mapControllerClass);
-        inventoryC = inventoryControllerInstance;
         itemC = (ItemController)Instantiate(itemControllerClass);
         unitC = (UnitController)Instantiate(unitControllerClass);
         logC = (LogController)Instantiate(logControllerClass);
+
+        inventoryC = inventoryControllerInstance;
+        interactiveGUI = interactiveGUIInstance;
 
         logC.Initialize();
         mapC.Initialize(Camera.main);
