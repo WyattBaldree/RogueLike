@@ -167,29 +167,11 @@ public class PickupDrop : MonoBehaviour
         //if we are held, let our item sprite renderere follow the movement of the mouse.
         if (held)
         {
-            itemSpriteRenderer.gameObject.transform.position = GetMousePosition();
+            itemSpriteRenderer.gameObject.transform.position = GameController.GetMousePosition();
         }
     }
 
-    /// <summary>
-    /// Returns the mosue position on the screen.
-    /// </summary>
-    /// <returns></returns>
-    Vector3 GetMousePosition()
-    {
-        Camera cam = Camera.main;
-
-        Vector3 point = new Vector3();
-        Event currentEvent = Event.current;
-        Vector2 mousePos = new Vector2();
-
-        // Get the mouse position from Event.
-        // Note that the y position from Event is inverted.
-        mousePos.x = Input.mousePosition.x;
-        mousePos.y = Input.mousePosition.y;
-
-        return cam.ScreenToWorldPoint(new Vector3(mousePos.x - 25f, mousePos.y - 25f, cam.nearClipPlane));
-    }
+    
 
     SpriteRenderer mySpriteRenderer;
 

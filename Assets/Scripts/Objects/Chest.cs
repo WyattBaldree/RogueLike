@@ -44,6 +44,8 @@ public class Chest : Wall
         {
             inventory.ShowInventoryGUI();
         }
+
+        GetComponent<Interactive>().ShowMenu();
     }
 
     public void Refresh()
