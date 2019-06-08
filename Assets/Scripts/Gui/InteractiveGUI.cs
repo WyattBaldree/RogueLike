@@ -16,6 +16,9 @@ public class InteractiveGUI : MonoBehaviour
     public Vector2 separation;
     public Vector2 offset;
     public Vector2 dimensions;
+    public Vector2 guiMargin;
+    public float entryHeight = 0.8f;
+
 
     public Button buttonSource;
 
@@ -50,28 +53,41 @@ public class InteractiveGUI : MonoBehaviour
         for (int i = 0; i < numButtons; i++)
         {
             Button newButton = Instantiate<Button>(buttonSource, transform);
+            newButton.Initialize();
             newButton.downEvent.AddListener(targetInteractive.myInteractions[i].interactionEvent.Invoke);
 
             myButtons.Add(newButton);
         }
-
-        transform.position = GameController.GetMousePosition();
-        UpdateButtons();
+        Vector2 mousePos = GameController.GetMousePosition();
+        transform.position = new Vector3(mousePos.x, mousePos.y, transform.position.z);
+        interactiveNameEntry.EntryInitialize(targetInteractive.name, 20000, font);
+        UpdateGUIDimensions();
 
         //load new the buttons from sourceInteractive
         //Keep a tally on our total height
         //update the height of the background texture
         //
-
-        interactiveNameEntry.EntryInitialize(targetInteractive.name, 100000, font);
     }
 
-    private void UpdateButtons()
+    private void UpdateGUIDimensions()
     {
+        float height = offset.y;
         for (int i = 0; i < numButtons; i++)
         {
-            myButtons[i].transform.localPosition = new Vector2(offset.x, offset.y + separation.y*i);
+            myButtons[i].transform.localPosition = new Vector3(offset.x, height, transform.position.z);
+            myButtons[i].GetSpriteRenderer().size = dimensions;
+            height += dimensions.y + separation.y;
         }
+
+        background.transform.localPosition = new Vector3(-guiMargin.x, -guiMargin.y);
+
+        background.size = new Vector2((dimensions.x / background.transform.localScale.x) + (guiMargin.x / background.transform.localScale.x * 2), (height / background.transform.localScale.y) + (guiMargin.y / background.transform.localScale.y * 2) + (entryHeight / background.transform.localScale.y * interactiveNameEntry.GetHeight()));
+        interactiveNameEntry.transform.localPosition = new Vector3(0, height + (entryHeight * (interactiveNameEntry.GetHeight() - 1)), interactiveNameEntry.transform.localPosition.z);
+    }
+
+    private void OnValidate()
+    {
+        UpdateGUIDimensions();
     }
 
     public void Hide()

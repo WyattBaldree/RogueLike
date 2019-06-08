@@ -141,7 +141,7 @@ public class Button : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    public void Initialize()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         UpdateButtonSprite();
@@ -161,6 +161,11 @@ public class Button : MonoBehaviour
             if (triggerEvents) upEvent.Invoke();
         }
         UpdateButtonSprite();
+    }
+
+    public SpriteRenderer GetSpriteRenderer()
+    {
+        return spriteRenderer;
     }
 
 }
