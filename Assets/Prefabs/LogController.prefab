@@ -48,6 +48,6 @@ MonoBehaviour:
   logHeightMax: 30
   textHeight: 1
   textWidth: 1
-  textBoxWidth: 22500
+  textBoxWidth: 24
   messageMargin: 0
   font: {fileID: 12800000, guid: b46184bf1a086e94087f849d4db058dd, type: 3}

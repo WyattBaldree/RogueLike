@@ -58,6 +58,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -115,7 +116,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1604530632925109795}
-  - component: {fileID: 225161766733963807}
   - component: {fileID: 256325411732351838}
   m_Layer: 0
   m_Name: TextContainer
@@ -144,25 +144,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!95 &225161766733963807
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 225161766733963806}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5196144e46135544782397ea9d8b2b9f, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &256325411732351838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,9 +156,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a15733ed740fc3740ba89379c7a81a8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charTransform: {fileID: 0}
+  textMesh: {fileID: 225161766415156988}
   anim: 1
   animationTime: 0
   animationSpeed: 1.5
   animationLoopDelay: 1
   animationLoopTime: 0
+  width: 0

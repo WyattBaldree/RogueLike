@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-public class Floor : MonoBehaviour
+public class Floor : Object
 {
     SpriteController spriteController;
     MapController mapController;

@@ -11,7 +11,7 @@ public class Gold : Item
         Initialize();
     }
 
-    public void Initialize()
+    public override void Initialize()
     {
         base.Initialize();
         UpdateImage();

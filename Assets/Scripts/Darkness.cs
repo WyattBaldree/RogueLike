@@ -8,8 +8,6 @@ public class Darkness : MonoBehaviour
     Sprites mySprite;
     SpriteController spriteController;
 
-    private string debugString = "";
-
     private bool visibility = true;
 
     private bool initialized = false;

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : Unit
 {
     //on player step, subtract our speed and potentially start our turn.
-    public void Step()
+    public override void Step()
     {
         speedCounter--;
         if (speedCounter < 0)
@@ -99,7 +99,7 @@ public class Player : Unit
         GameController.unitC.FinishStep();
     }
 
-    public void PickUp()
+    public override void PickUp()
     {
         //base.PickUp();
         //inventory.ShowInventoryGUI();

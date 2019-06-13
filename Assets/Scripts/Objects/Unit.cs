@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using System;
 
-public class Unit : MonoBehaviour
+public class Unit : Object
 {
     public SpriteController mySpriteController;
 
@@ -39,9 +39,6 @@ public class Unit : MonoBehaviour
     public float greed = 0.5f;
     public float fear = 0.1f;
     public float aggression = 0.8f;
-
-
-    public string unitName = "Unit";
 
     //Enumerator for directions up, down, left, right
     public enum dir { none, up, right, down, left, ur, ul, dr, dl };
@@ -97,12 +94,12 @@ public class Unit : MonoBehaviour
         if (newWeapon)
         {
             weaponAttackBonus = newWeapon.damage;
-            GameController.logC.NewEntry("<d>The " +unitName + "<d> wields the " + newWeapon.itemName + "<d>.");
+            GameController.logC.NewEntry("<d>The " + instanceName + "<d> wields the " + newWeapon.instanceName + "<d>.");
         }
         else
         {
             weaponAttackBonus = 0;
-            GameController.logC.NewEntry(unitName + "<d> is disarmed.");
+            GameController.logC.NewEntry(instanceName + "<d> is disarmed.");
         }
         Debug.Log("Weapon Attack Bonus: " + weaponAttackBonus);
     }
@@ -115,12 +112,12 @@ public class Unit : MonoBehaviour
         if (newHelmet)
         {
             helmetArmorBonus = newHelmet.armor;
-            GameController.logC.NewEntry("<d>The " + unitName + "<d> dons the " + newHelmet.itemName + "<d>.");
+            GameController.logC.NewEntry("<d>The " + instanceName + "<d> dons the " + newHelmet.instanceName + "<d>.");
         }
         else
         {
             helmetArmorBonus = 0;
-            GameController.logC.NewEntry(unitName + "'s<d> helmet is removed.");
+            GameController.logC.NewEntry(instanceName + "'s<d> helmet is removed.");
         }
         Debug.Log("helmet armor Bonus: " + helmetArmorBonus);
     }
@@ -133,12 +130,12 @@ public class Unit : MonoBehaviour
         if (newChest)
         {
             chestArmorBonus = newChest.armor;
-            GameController.logC.NewEntry("<d>The " + unitName + "<d> dons the " + newChest.itemName + "<d>.");
+            GameController.logC.NewEntry("<d>The " + instanceName + "<d> dons the " + newChest.instanceName + "<d>.");
         }
         else
         {
             chestArmorBonus = 0;
-            GameController.logC.NewEntry(unitName + "'s<d> chestpiece is removed.");
+            GameController.logC.NewEntry(instanceName + "'s<d> chestpiece is removed.");
         }
         Debug.Log("chest armor Bonus: " + chestArmorBonus);
     }
@@ -151,12 +148,12 @@ public class Unit : MonoBehaviour
         if (newGloves)
         {
             glovesArmorBonus = newGloves.armor;
-            GameController.logC.NewEntry("<d>The " + unitName + "<d> dons the " + newGloves.itemName + "<d>.");
+            GameController.logC.NewEntry("<d>The " + instanceName + "<d> dons the " + newGloves.instanceName + "<d>.");
         }
         else
         {
             glovesArmorBonus = 0;
-            GameController.logC.NewEntry(unitName + "'s<d> gloves are removed.");
+            GameController.logC.NewEntry(instanceName + "'s<d> gloves are removed.");
         }
         Debug.Log("gloves armor Bonus: " + glovesArmorBonus);
     }
@@ -169,12 +166,12 @@ public class Unit : MonoBehaviour
         if (newBoots)
         {
             bootsArmorBonus = newBoots.armor;
-            GameController.logC.NewEntry("<d>The " + unitName + "<d> dons the " + newBoots.itemName + "<d>.");
+            GameController.logC.NewEntry("<d>The " + instanceName + "<d> dons the " + newBoots.instanceName + "<d>.");
         }
         else
         {
             bootsArmorBonus = 0;
-            GameController.logC.NewEntry(unitName + "'s<d> boots are removed.");
+            GameController.logC.NewEntry(instanceName + "'s<d> boots are removed.");
         }
         Debug.Log("boots armor Bonus: " + bootsArmorBonus);
     }
@@ -186,11 +183,11 @@ public class Unit : MonoBehaviour
 
         if (newAmulet)
         {
-            GameController.logC.NewEntry("<d>The " + unitName + "<d> dons the " + newAmulet.itemName + "<d>.");
+            GameController.logC.NewEntry("<d>The " + instanceName + "<d> dons the " + newAmulet.instanceName + "<d>.");
         }
         else
         {
-            GameController.logC.NewEntry(unitName + "'s<d> amulet is removed.");
+            GameController.logC.NewEntry(instanceName + "'s<d> amulet is removed.");
         }
     }
     
@@ -201,11 +198,11 @@ public class Unit : MonoBehaviour
 
         if (newRing1)
         {
-            GameController.logC.NewEntry("<d>The " + unitName + "<d> puts on the " + newRing1.itemName + "<d>.");
+            GameController.logC.NewEntry("<d>The " + instanceName + "<d> puts on the " + newRing1.instanceName + "<d>.");
         }
         else
         {
-            GameController.logC.NewEntry(unitName + "'s<d> Ring is removed.");
+            GameController.logC.NewEntry(instanceName + "'s<d> Ring is removed.");
         }
     }
 
@@ -216,11 +213,11 @@ public class Unit : MonoBehaviour
 
         if (newRing2)
         {
-            GameController.logC.NewEntry("<d>The " + unitName + "<d> puts on the " + newRing2.itemName + "<d>.");
+            GameController.logC.NewEntry("<d>The " + instanceName + "<d> puts on the " + newRing2.instanceName + "<d>.");
         }
         else
         {
-            GameController.logC.NewEntry(unitName + "'s<d> Ring is removed.");
+            GameController.logC.NewEntry(instanceName + "'s<d> Ring is removed.");
         }
     }
 
@@ -261,7 +258,7 @@ public class Unit : MonoBehaviour
 
     //Subtract from our speed counter
     //
-    public void Step()
+    public virtual void Step()
     {
         speedCounter--;
         if(speedCounter < 0)
@@ -588,7 +585,7 @@ public class Unit : MonoBehaviour
                 u.SetHealth(u.health - damageOutput);
                 StartAnimation(AnimationStateEnum.BounceAnimation, 7, deltaX, deltaY, 1.2f);
                 u.StartAnimation(AnimationStateEnum.BounceAnimation, 5, deltaX, deltaY, 0.3f);
-                GameController.logC.NewEntry("<d>The " + unitName + "<d> attacks " + u.unitName + "<d> for <color.red>" + damageOutput + "<d> damage.");
+                GameController.logC.NewEntry("<d>The " + instanceName + "<d> attacks " + u.instanceName + "<d> for <color.red>" + damageOutput + "<d> damage.");
 
                 return false;
             }
@@ -653,7 +650,7 @@ public class Unit : MonoBehaviour
     /// <summary>
     /// Currently only picks up the first available stack under the unit
     /// </summary>
-    public void PickUp()
+    public virtual void PickUp()
     {
         //pick up the first item available (for now)
         Inventory sourceInventory = GetInventoryBelow();
@@ -663,7 +660,7 @@ public class Unit : MonoBehaviour
         if(sourceInventory.MoveItem(itemIndex, this.inventory, -1))
         {
             Item pickupItem = sourceInventory.GetItem(sourceInventory.GetAvailableStack());
-            GameController.logC.NewEntry(name + "<d> obtained " + pickupItem.itemName + "<d>.");
+            GameController.logC.NewEntry(name + "<d> obtained " + pickupItem.instanceName + "<d>.");
         }
     }
 

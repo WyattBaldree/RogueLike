@@ -47,14 +47,15 @@ MonoBehaviour:
   textContainerClass: {fileID: 256325411732351838, guid: 43290fbbff9b2e44abb9f1bd65f482c7,
     type: 3}
   text: no string set
+  alignment: 0
   color: {r: 1, g: 1, b: 1, a: 1}
   fontSize: 3
   bold: 0
   italic: 0
   anim: 0
-  widthAdjust: 0.001
   heightAdjust: 0.85
   bulletWidth: 0.3
+  textBoxWidth: 0
   waveDuration: 13
   waveCharacterSpacing: 12
   rainbowDuration: 80
@@ -117,6 +118,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0

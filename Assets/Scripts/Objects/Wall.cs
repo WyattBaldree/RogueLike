@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-public class Wall : MonoBehaviour
+public class Wall : Object
 {
     SpriteController spriteController;
     MapController mapController;
 
     private string debugString = "";
-
-    public string wallName = "wall";
 
     //Does this block characters?
     public bool solid = true;

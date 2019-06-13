@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : MonoBehaviour
+public class Item : Object
 {
     public SpriteController mySpriteController;
 
     List<Sprites> mySprites;
 
-    public string itemName = "item";
     public string uniqueId = "item";
 
     public List<string> typeList = new List<string>()
@@ -29,7 +28,7 @@ public class Item : MonoBehaviour
     public enum Rarity{normal, superior, outstanding, exceptional, superb};
     public Rarity rarity = Rarity.normal;
 
-    public void Initialize()
+    public virtual void Initialize()
     {
         mySprites = mySpriteController.GetMySpriteRenderers();
     }
