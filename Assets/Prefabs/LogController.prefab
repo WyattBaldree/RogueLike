@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3818705538002068022}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.1, y: -6.2, z: 0}
+  m_LocalPosition: {x: 1.1, y: -6.38, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -45,9 +45,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entryClass: {fileID: 4559653227575762201, guid: b643c41d795b58447a71eeeefd1de676,
     type: 3}
-  logHeightMax: 30
-  textHeight: 1
+  logHeightMax: 100
   textWidth: 1
-  textBoxWidth: 24
+  logWidth: 22
   messageMargin: 0
+  entryScale: 0.017
   font: {fileID: 12800000, guid: b46184bf1a086e94087f849d4db058dd, type: 3}

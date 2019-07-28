@@ -3,12 +3,12 @@ using System.Collections;
 
 public class GameController : MonoBehaviour
 {
-    public static GameController gameC;
-    public static MapController mapC;
-    public static UnitController unitC;
-    public static LogController logC;
-    public static InventoryController inventoryC;
-    public static ItemController itemC;
+    public static GameController gameC = null;
+    public static MapController mapC = null;
+    public static UnitController unitC = null;
+    public static LogController logC = null;
+    public static InventoryController inventoryC = null;
+    public static ItemController itemC = null;
 
     /// <summary>
     /// The InteractiveGUI class we use for context menues;

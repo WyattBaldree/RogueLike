@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 6193898851668122724}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
-  m_LocalScale: {x: 1.885, y: 1.885, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -44,8 +44,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetInventory: {fileID: 0}
-  offset: {x: 0, y: 0}
-  separation: {x: 0.8, y: 0.8}
+  separation: {x: 0.09, y: 0.09}
+  scale: 1.41
   columns: 1
   numFrames: 1
   pickupDropSource: {fileID: 4930997810015011465, guid: ce2f3d1c82f420f48861c4354dea1747,

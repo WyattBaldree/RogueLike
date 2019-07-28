@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Assertions;
 
 public class PickupDrop : Object
 {
@@ -11,16 +12,29 @@ public class PickupDrop : Object
 
     public static List<PickupDrop> pickupDropList = new List<PickupDrop>();
     public InventoryGUI myInventoryGUI;
-    public SpriteRenderer itemSpriteRenderer;
     public SpriteRenderer backgroundSpriteRenderer;
+    public SpriteRenderer itemSpriteRenderer;
+    public SpriteRenderer disabledSpriteRenderer;
+    
+    public Sprite spriteButton;
+    public Sprite spriteButtonHovered;
 
+    [System.NonSerialized]
     public int myIndex = 0;
 
+    public bool disabled = false;
+
+    public bool hidden = false;
+
     public bool mouseHovering = false;
+
+    private int defaultItemSortingOrder;
 
     public void Initialize()
     {
         pickupDropList.Add(this);
+        home = itemSpriteRenderer.transform.position;
+        defaultItemSortingOrder = itemSpriteRenderer.sortingOrder;
     }
 
     private void Update()
@@ -68,6 +82,7 @@ public class PickupDrop : Object
     /// Called when the user picks us up
     void Pickup()
     {
+        if (disabled || hidden) return;
         held = true;
         home = itemSpriteRenderer.gameObject.transform.position;
         itemSpriteRenderer.sortingOrder++;
@@ -109,11 +124,11 @@ public class PickupDrop : Object
     {
         held = false;
 
-        itemSpriteRenderer.gameObject.transform.position = home;
+        itemSpriteRenderer.gameObject.transform.position = backgroundSpriteRenderer.transform.position;//home;
 
-        itemSpriteRenderer.sortingOrder--;
+        itemSpriteRenderer.sortingOrder = defaultItemSortingOrder;
 
-        DropItem();
+        if (!disabled && !hidden) DropItem();
     }
     
     /// <summary>
@@ -121,19 +136,80 @@ public class PickupDrop : Object
     /// </summary>
     public void UpdateSprite()
     {
-        
-        if (myIndex >= myInventoryGUI.targetInventory.inventoryCapacity || myInventoryGUI.targetInventory.GetItem(myIndex) == null)
-        {
-            GetSpriteRenderer().sprite = null;
-            return;
-        }
+        Assert.IsNotNull(itemSpriteRenderer);
+        Assert.IsNotNull(backgroundSpriteRenderer);
+        Assert.IsNotNull(disabledSpriteRenderer);
+        Assert.IsNotNull(spriteButton);
+        Assert.IsNotNull(spriteButtonHovered);
 
-        Sprites sprite = myInventoryGUI.targetInventory.GetItem(myIndex).mySpriteController.GetMySpriteRenderers()[0];
-
-        if (sprite)
+        if (hidden)
         {
-            GetSpriteRenderer().sprite = sprite.mySprite;
+            itemSpriteRenderer.gameObject.SetActive(false);
+            backgroundSpriteRenderer.gameObject.SetActive(false);
+            disabledSpriteRenderer.gameObject.SetActive(false);
         }
+        else
+        {
+            itemSpriteRenderer.gameObject.SetActive(true);
+            backgroundSpriteRenderer.gameObject.SetActive(true);
+
+            if (disabled)
+            {
+                disabledSpriteRenderer.gameObject.SetActive(true);
+            }
+            else
+            {
+                disabledSpriteRenderer.gameObject.SetActive(false);
+            }
+
+            if (mouseHovering)
+            {
+                backgroundSpriteRenderer.sprite = spriteButtonHovered;
+            }
+            else
+            {
+                backgroundSpriteRenderer.sprite = spriteButton;
+            }
+
+            if (myInventoryGUI && myInventoryGUI.targetInventory)
+            {
+                if (myIndex >= myInventoryGUI.targetInventory.inventoryCapacity || myInventoryGUI.targetInventory.GetItem(myIndex) == null)
+                {
+                    itemSpriteRenderer.sprite = null;
+                    return;
+                }
+
+                Sprites sprite = myInventoryGUI.targetInventory.GetItem(myIndex).mySpriteController.GetMySpriteRenderers()[0];
+
+                if (sprite)
+                {
+                    itemSpriteRenderer.sprite = sprite.mySprite;
+                }
+            }
+
+        }
+    }
+
+    public void SetDisabled(bool doDisable)
+    {
+        disabled = doDisable;
+        if (disabled)
+        {
+            mouseHovering = false;
+            Drop();
+        }
+        UpdateSprite();
+    }
+
+    public void SetHidden(bool doHide)
+    {
+        hidden = doHide;
+        if (hidden)
+        {
+            mouseHovering = false;
+            Drop();
+        }
+        UpdateSprite();
     }
 
     private void OnMouseDown()
@@ -148,18 +224,18 @@ public class PickupDrop : Object
 
     private void OnMouseEnter()
     {
+        if (disabled || hidden) return;
         mouseHovering = true;
 
-        //turn the whole background a solid color to highlight the one we are hovering over.
-        backgroundSpriteRenderer.sortingOrder += 2;
+        UpdateSprite();
     }
 
     private void OnMouseExit()
     {
+        if (disabled || hidden) return;
         mouseHovering = false;
 
-        //undo the highlight
-        backgroundSpriteRenderer.sortingOrder -= 2;
+        UpdateSprite();
     }
 
     private void LateUpdate()
@@ -171,29 +247,18 @@ public class PickupDrop : Object
         }
     }
 
-    
-
-    SpriteRenderer mySpriteRenderer;
-
-    /// <summary>
-    /// Returns the item sprite renderer.
-    /// </summary>
-    /// <returns></returns>
-    SpriteRenderer GetSpriteRenderer()
-    {
-        if(mySpriteRenderer == null)
-        {
-            mySpriteRenderer = itemSpriteRenderer.GetComponent<SpriteRenderer>();
-        }
-        return mySpriteRenderer;
-    }
-
     /// <summary>
     /// Set the item sprite
     /// </summary>
     /// <param name="s"></param>
     public void SetSprite(Sprite s)
     {
-        GetSpriteRenderer().sprite = s;
+        itemSpriteRenderer.sprite = s;
+    }
+
+    private void OnValidate()
+    {
+        SetDisabled(disabled);
+        SetHidden(hidden);
     }
 }

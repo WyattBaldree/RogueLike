@@ -139,7 +139,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactiveNameEntry: {fileID: 8042286122822410093}
   background: {fileID: 1810100341885677430}
-  font: {fileID: 12800000, guid: b46184bf1a086e94087f849d4db058dd, type: 3}
   separation: {x: 0, y: 0.2}
   offset: {x: 0, y: 0}
   dimensions: {x: 3, y: 0.8}
@@ -169,6 +168,11 @@ PrefabInstance:
         type: 3}
       propertyPath: text
       value: <color.white>Actions
+      objectReference: {fileID: 0}
+    - target: {fileID: 166633152711463897, guid: b643c41d795b58447a71eeeefd1de676,
+        type: 3}
+      propertyPath: m_Name
+      value: Entry
       objectReference: {fileID: 0}
     - target: {fileID: 1666350211335365621, guid: b643c41d795b58447a71eeeefd1de676,
         type: 3}
@@ -224,11 +228,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 166633152711463897, guid: b643c41d795b58447a71eeeefd1de676,
-        type: 3}
-      propertyPath: m_Name
-      value: Entry
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b643c41d795b58447a71eeeefd1de676, type: 3}

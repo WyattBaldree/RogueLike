@@ -293,7 +293,7 @@ public static class Pathfinding
         }
 
         //Print out the 2d node array distances
-        if (GameController.gameC.debug)
+        if (GameController.gameC && GameController.gameC.debug)
         {
             for (int i = 0; i < GameController.gameC.ScreenResInUnits.x; i++)
             {

@@ -397,7 +397,7 @@ public class Inventory : MonoBehaviour
         Entry title = myInventoryGUI.GetComponentInChildren<Entry>();
         if (title)
         {
-            title.EntryInitialize(inventoryName, 100000, GameController.logC.font);
+            title.EntryInitialize(inventoryName);
         }
         UpdateInventoryGUI();
     }
