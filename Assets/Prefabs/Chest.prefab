@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4929345612919752150}
   - component: {fileID: 1081528065809823095}
   - component: {fileID: 223794530073375860}
+  - component: {fileID: -6494846056065696746}
   m_Layer: 0
   m_Name: Chest
   m_TagString: Untagged
@@ -47,7 +48,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dffb40ef86afe0842b525852fa57546c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallName: <color.tan>Chest
+  instanceName: Default instanceName
+  instanceDescription: This object's description is nonexistant. Please set instanceDescription.
   solid: 1
   influenceFloors: 0
   cost: 3.4028235e+38
@@ -56,9 +58,7 @@ MonoBehaviour:
   closedSprite: {fileID: 5607192684409146979, guid: cae0e4476c6767144bae16a50cc0ebdf,
     type: 3}
   opened: 0
-  inventorySource: {fileID: 5475488527503361341, guid: 525073cbe64e8da43a43ff5b053f6937,
-    type: 3}
-  inventory: {fileID: 0}
+  inventory: {fileID: -6494846056065696746}
 --- !u!210 &4929345612919752150
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -95,6 +95,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -165,6 +166,112 @@ MonoBehaviour:
           m_CallState: 2
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
+--- !u!114 &-6494846056065696746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5530373120345876156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41b6bd70d139bcb4aa77cfa5b7126647, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  inventoryCapacity: 20
+  myInventoryGUI: {fileID: 0}
+  myInventoryGUIEnum: 0
+  inventoryName: default inventory
+  external: 0
+  openable: 0
+  itemChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  acceptableTypes:
+  - item
 --- !u!1001 &352951020910441572
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -172,11 +279,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7648085084092363944}
     m_Modifications:
-    - target: {fileID: 670676429838453391, guid: 5ccf58dd7fffe3b44a55fcc6e8d18e6b,
-        type: 3}
-      propertyPath: m_Name
-      value: Sprites
-      objectReference: {fileID: 0}
     - target: {fileID: 670676429838453390, guid: 5ccf58dd7fffe3b44a55fcc6e8d18e6b,
         type: 3}
       propertyPath: sprData.sourceTex
@@ -251,6 +353,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 670676429838453391, guid: 5ccf58dd7fffe3b44a55fcc6e8d18e6b,
+        type: 3}
+      propertyPath: m_Name
+      value: Sprites
       objectReference: {fileID: 0}
     - target: {fileID: 896492220805874488, guid: 5ccf58dd7fffe3b44a55fcc6e8d18e6b,
         type: 3}

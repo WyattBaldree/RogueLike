@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,20 +9,27 @@ public class GUIButton : GUIComponent
     public SpriteRenderer buttonSpriteRenderer = null;
     public BoxCollider2D collider = null;
 
-    public Sprite upSprite;
-    public Sprite downSprite;
-    public Sprite hoverSprite;
+    public Sprite spriteOut;
+    public Sprite spriteOutHighlight;
+    public Sprite spriteOutDisabled;
+    public Sprite spriteIn;
+    public Sprite spriteInHighlight;
+    public Sprite spriteInDisabled;
 
     public bool toggle = false;
+    public bool disabled = false;
 
     private bool pressed = false;
     private bool hovered = false;
+
+    
 
     public UnityEvent pressEvent;
     public UnityEvent releaseEvent;
 
     private void OnMouseDown()
     {
+        if (disabled) return;
         if (toggle)
         {
             Toggle();
@@ -72,24 +80,43 @@ public class GUIButton : GUIComponent
         else Press();
     }
 
+    void SetDisabled(bool d)
+    {
+        disabled = d;
+        UpdateSprite();
+    }
+
     public void UpdateSprite()
     {
         if (pressed)
         {
             // down sprite
-            buttonSpriteRenderer.sprite = downSprite;
-        }
-        else
-        {
-            if (hovered)
+            if (spriteInDisabled && disabled)
             {
-                // hovered sprite
-                buttonSpriteRenderer.sprite = hoverSprite;
+                buttonSpriteRenderer.sprite = spriteInDisabled;
+            }
+            else if (spriteInHighlight && hovered)
+            {
+                buttonSpriteRenderer.sprite = spriteInHighlight;
             }
             else
             {
-                // up sprite
-                buttonSpriteRenderer.sprite = upSprite;
+                buttonSpriteRenderer.sprite = spriteIn;
+            }
+        }
+        else
+        {
+            if (spriteOutDisabled && disabled)
+            {
+                buttonSpriteRenderer.sprite = spriteOutDisabled;
+            }
+            else if (spriteOutHighlight && hovered)
+            {
+                buttonSpriteRenderer.sprite = spriteOutHighlight;
+            }
+            else
+            {
+                buttonSpriteRenderer.sprite = spriteOut;
             }
         }
 
@@ -98,7 +125,7 @@ public class GUIButton : GUIComponent
 
     public override Vector2 GetDimensions()
     {
-        return buttonSpriteRenderer.size;
+        return (Vector2)buttonSpriteRenderer.bounds.size;
     }
 
     public override void Align()
@@ -136,12 +163,14 @@ public class GUIButton : GUIComponent
         }
 
         Vector2 alignment = new Vector2(xAlign, -yAlign);
-        collider.offset = new Vector2(0.5f, -0.5f) + alignment;
+        collider.offset = new Vector2(size.x/2, -size.y/2) + alignment;
+        collider.size = size;
         buttonSpriteRenderer.transform.position = transform.position + (Vector3)alignment + new Vector3(0, -size.y, 0);
     }
 
     public override void UpdateGUI()
     {
         UpdateSprite();
+        if (!Application.isPlaying) EditorUtility.SetDirty(this);
     }
 }

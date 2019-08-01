@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class Window : GUIComponent
@@ -39,5 +40,6 @@ public class Window : GUIComponent
     public override void UpdateGUI()
     {
         SetDimension(maxSize);
+        if (!Application.isPlaying) EditorUtility.SetDirty(this);
     }
 }

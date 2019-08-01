@@ -1,21 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class Chest : Wall
 {
     public Sprite openedSprite;
     public Sprite closedSprite;
     public bool opened = false;
-
-    public Inventory inventorySource;
     public Inventory inventory;
 
     public override void Initialize()
     {
         base.Initialize();
         Refresh();
-        inventory = Instantiate<Inventory>(inventorySource, GameController.inventoryC.transform);
+        Assert.IsNotNull(inventory);
         inventory.Initialize();
     }
 
@@ -42,7 +41,7 @@ public class Chest : Wall
         }
         else
         {
-            inventory.ShowInventoryGUI();
+            GameController.popupC.containerGUI.Popup(new Vector2(), inventory);
         }
 
         GetComponent<Interactive>().ShowMenu();

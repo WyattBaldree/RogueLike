@@ -60,31 +60,36 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Controllers\GameController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\InventoryController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\ItemController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\LogController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\MapController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\PopupController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\SpriteController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\UnitController.cs" />
     <Compile Include="Assets\Scripts\Darkness.cs" />
-    <Compile Include="Assets\Scripts\GameController.cs" />
     <Compile Include="Assets\Scripts\Gui\Button.cs" />
+    <Compile Include="Assets\Scripts\Gui\ContainerGUI.cs" />
+    <Compile Include="Assets\Scripts\Gui\Entry.cs" />
     <Compile Include="Assets\Scripts\Gui\GUIButton.cs" />
     <Compile Include="Assets\Scripts\Gui\GUIComponent.cs" />
     <Compile Include="Assets\Scripts\Gui\GUIComponentEditor.cs" />
+    <Compile Include="Assets\Scripts\Gui\GUIPopup.cs" />
     <Compile Include="Assets\Scripts\Gui\Interactive.cs" />
     <Compile Include="Assets\Scripts\Gui\InteractiveGUI.cs" />
+    <Compile Include="Assets\Scripts\Gui\InventoryGUI.cs" />
     <Compile Include="Assets\Scripts\Gui\PageGroup.cs" />
     <Compile Include="Assets\Scripts\Gui\PickupDrop.cs" />
     <Compile Include="Assets\Scripts\Gui\Tab.cs" />
     <Compile Include="Assets\Scripts\Gui\TabGroup.cs" />
     <Compile Include="Assets\Scripts\Gui\TestGUI.cs" />
+    <Compile Include="Assets\Scripts\Gui\TextContainer.cs" />
     <Compile Include="Assets\Scripts\Gui\Window.cs" />
     <Compile Include="Assets\Scripts\Gui\triggerOnEnableInventoryTab.cs" />
     <Compile Include="Assets\Scripts\Healthbar.cs" />
     <Compile Include="Assets\Scripts\Helper.cs" />
     <Compile Include="Assets\Scripts\Inventory\Inventory.cs" />
-    <Compile Include="Assets\Scripts\Inventory\InventoryController.cs" />
-    <Compile Include="Assets\Scripts\Inventory\InventoryGUI.cs" />
-    <Compile Include="Assets\Scripts\ItemController.cs" />
-    <Compile Include="Assets\Scripts\Log\Entry.cs" />
-    <Compile Include="Assets\Scripts\Log\LogController.cs" />
-    <Compile Include="Assets\Scripts\Log\TextContainer.cs" />
-    <Compile Include="Assets\Scripts\MapController.cs" />
     <Compile Include="Assets\Scripts\Objects\Armor.cs" />
     <Compile Include="Assets\Scripts\Objects\Chest.cs" />
     <Compile Include="Assets\Scripts\Objects\Door.cs" />
@@ -100,9 +105,7 @@
     <Compile Include="Assets\Scripts\Objects\Weapon.cs" />
     <Compile Include="Assets\Scripts\Pathfinding.cs" />
     <Compile Include="Assets\Scripts\SortingLayerExposer.cs" />
-    <Compile Include="Assets\Scripts\SpriteController.cs" />
     <Compile Include="Assets\Scripts\Sprites.cs" />
-    <Compile Include="Assets\Scripts\UnitController.cs" />
     <Compile Include="Assets\Scripts\moveup.cs" />
     <Compile Include="Assets\_ideas.cs" />
     <Reference Include="Unity.Timeline.Editor">

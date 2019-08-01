@@ -103,12 +103,12 @@ public class Player : Unit
     {
         //base.PickUp();
         //inventory.ShowInventoryGUI();
-        GetInventoryBelow().Open(transform.position);
+        GameController.popupC.containerGUI.Popup(new Vector2(), GetInventoryBelow());
     }
 
     public override bool AttackMoveLocal(int deltaX, int deltaY)
     {
-        GetInventoryBelow().Close();
+        GameController.popupC.containerGUI.Hide();
         return base.AttackMoveLocal(deltaX, deltaY);
     }
 
@@ -118,7 +118,7 @@ public class Player : Unit
 
         //Hook up the inventorys to the correct PickUpDrops
 
-        slotWeapon.myInventoryGUIEnum = InventoryController.inventoryEnum.weapon;
+        /*slotWeapon.myInventoryGUIE = InventoryController.inventoryEnum.weapon;
         slotWeapon.Initialize();
 
         slotHelmet.myInventoryGUIEnum = InventoryController.inventoryEnum.helmet;
@@ -132,7 +132,7 @@ public class Player : Unit
 
         slotBoots.myInventoryGUIEnum = InventoryController.inventoryEnum.boots;
         slotBoots.Initialize();
-
+        */
        /*slotGloves
         slotGreaves
         slotBoots

@@ -22,11 +22,6 @@ public class InteractiveGUI : MonoBehaviour
 
     private int numButtons = 0;
 
-    public void Initialize()
-    {
-        
-    }
-
     public void Show(Interactive sourceInteractive)
     {
         if (myButtons != null)
@@ -67,6 +62,11 @@ public class InteractiveGUI : MonoBehaviour
         //
     }
 
+    public void Hide()
+    {
+
+    }
+
     private void UpdateGUIDimensions()
     {
         float height = offset.y;
@@ -86,10 +86,5 @@ public class InteractiveGUI : MonoBehaviour
     private void OnValidate()
     {
         UpdateGUIDimensions();
-    }
-
-    public void Hide()
-    {
-
     }
 }

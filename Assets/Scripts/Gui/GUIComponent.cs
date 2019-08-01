@@ -1,17 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public abstract class GUIComponent : MonoBehaviour
 {
+    public enum HorizontalAlignmentEnum { left, middle, right };
+    public enum VerticalAlignmentEnum { bottom, middle, top };
+
+    [Header("GUI Component")]
+    public HorizontalAlignmentEnum horizontalAlignment = HorizontalAlignmentEnum.left;
+    public VerticalAlignmentEnum verticalAlignment = VerticalAlignmentEnum.top;
+
     public Vector2 maxSize = new Vector2();
     public Vector2 minSize = new Vector2();
-
-    public enum HorizontalAlignmentEnum { left, middle, right };
-    public HorizontalAlignmentEnum horizontalAlignment = HorizontalAlignmentEnum.left;
-
-    public enum VerticalAlignmentEnum { bottom, middle, top };
-    public VerticalAlignmentEnum verticalAlignment = VerticalAlignmentEnum.top;
 
     public abstract void Align();
 

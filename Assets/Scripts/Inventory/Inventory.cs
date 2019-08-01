@@ -15,7 +15,7 @@ public class Inventory : MonoBehaviour
     ///The gui we are currently hooked up to
     public InventoryGUI myInventoryGUI;
 
-    public InventoryController.inventoryEnum myInventoryGUIEnum = InventoryController.inventoryEnum.none;
+    //public InventoryController.inventoryEnum myInventoryGUIEnum = InventoryController.inventoryEnum.none;
 
     public string inventoryName = "default inventory";
 
@@ -42,7 +42,9 @@ public class Inventory : MonoBehaviour
         "item"
     };
 
-    /// <summary>
+
+
+    /*/// <summary>
     /// Shows the inventory gui and moves its position to the position supplied.
     /// </summary>
     /// <param name="position">Where the inventory will open on the screen.</param>
@@ -73,14 +75,14 @@ public class Inventory : MonoBehaviour
         }
         HideInventoryGUI();
         return true;
-    }
+    }*/
 
     /// <summary>
     /// Called upon being created. Currently updates myInventoryGUI based on what our myInventoryGUIEnum
     /// </summary>
     public void Initialize()
     {
-        ChangeInventoryGUI(myInventoryGUIEnum);
+        //ChangeInventoryGUI(myInventoryGUIEnum);
     }
 
     /// <summary>
@@ -367,7 +369,7 @@ public class Inventory : MonoBehaviour
         return -1;
     }
 
-    ////////////////////////////////////////Inventory GUI stuff
+    /*////////////////////////////////////////Inventory GUI stuff
     /// <summary>
     /// Change the inventory gui of this inventory.
     /// </summary>
@@ -409,6 +411,7 @@ public class Inventory : MonoBehaviour
     {
         myInventoryGUI.gameObject.SetActive(false);
     }
+    */
 
     /// <summary>
     /// Update our inventoryGUI.

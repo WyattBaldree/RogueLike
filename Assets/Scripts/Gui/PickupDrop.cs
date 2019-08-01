@@ -186,6 +186,10 @@ public class PickupDrop : Object
                     itemSpriteRenderer.sprite = sprite.mySprite;
                 }
             }
+            else
+            {
+                itemSpriteRenderer.sprite = null;
+            }
 
         }
     }

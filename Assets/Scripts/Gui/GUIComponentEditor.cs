@@ -9,9 +9,11 @@ public class ObjectBuilderEditor : Editor
 
     public override void OnInspectorGUI()
     {
+        
         DrawDefaultInspector();
 
         GUIComponent myScript = (GUIComponent)target;
+
 
         if (GUILayout.Button("UpdateGUI"))
         {
