@@ -35,8 +35,12 @@ public class InventoryGUI : GUIComponent
     /// </summary>
     public PickupDrop pickupDropSource;
 
-    //hold the number of rows we have
+    //the total number of rows we have
     private int rows = 0;
+
+    //how many rows are visble
+    private int visibleRows = 0;
+
     //hold the number of columns we have
     private int columns = 0;
 
@@ -96,7 +100,7 @@ public class InventoryGUI : GUIComponent
         int rowCount = 1;
 
         // used to determine how many rows are visible
-        bool stillVisible = true;
+        bool rowVisible = false;
         int visibleRowCount = 0;
 
         // reset our rows variable to 0 to be updated when a pickupDrop is placed on a row.
@@ -104,9 +108,11 @@ public class InventoryGUI : GUIComponent
 
         for (int i = 0; i < pickupDropList.Count; i++)
         {
+            // only update our rows variable when we actually place something on the row.
+            rows = rowCount;
+
             if (!hasPlacedOnRow)
             {
-                hasPlacedOnRow = true;
                 if (i == 0)
                 {
                     currentHeight += scale;
@@ -115,16 +121,29 @@ public class InventoryGUI : GUIComponent
                 {
                     currentHeight += (scale + separation.y);
                 }
+
+                //Determine if the row we are currently on is visible or not.
+                if (rows <= scrollAmount || currentHeight - (scrollAmount * (scale + separation.y)) > maxSize.y)
+                {
+                    rowVisible = false;
+                }
+                else
+                {
+                    rowVisible = true;
+                    visibleRowCount++;
+                }
             }
             
             //pickupDropList[i].transform.localPosition = new Vector2((i % columns) * (scale + separation.x),-scale - (float)Math.Floor(((float)i) / columns) * (scale + separation.y));
             pickupDropList[i].transform.position = transform.position + new Vector3(currentWidth, - currentHeight + (scrollAmount * (scale + separation.y)), 0);
             
             pickupDropsOnLine++;
-            // only update our rows variable when we actually place something on the row.
-            rows = rowCount;
 
             currentWidth += (scale + separation.x);
+
+            hasPlacedOnRow = true;
+
+            
 
             if (currentWidth - separation.x > maxSize.x)
             {
@@ -152,24 +171,25 @@ public class InventoryGUI : GUIComponent
                 hasWrapped = true;
                 hasPlacedOnRow = false;
                 rowCount++;
-                if (stillVisible) visibleRowCount++;
                 currentWidth = 0;
                 pickupDropsOnLine = 0;
+
+
             }
 
             // Set the pickup drops to hidden if they fall outside of the max size
-            if (rows <= scrollAmount || currentHeight-(scrollAmount * (scale + separation.y)) > maxSize.y)
-            {
-                pickupDropList[i].SetHidden(true);
-                stillVisible = false;
-            }
-            else
+            if (rowVisible)
             {
                 pickupDropList[i].SetHidden(false);
             }
+            else
+            {
+                pickupDropList[i].SetHidden(true);
+            }
         }
-        if (stillVisible) visibleRowCount++;
+        //if (stillVisible) visibleRowCount++;
 
+        visibleRows = visibleRowCount;
         actualSize.y = (visibleRowCount * scale) + ((visibleRowCount - 1) * separation.y);
         totalHeight = currentHeight;
         Align();
@@ -236,20 +256,18 @@ public class InventoryGUI : GUIComponent
 
     public void SetScrollAmount(int amount)
     {
-        scrollAmount = Mathf.Clamp(amount, 0, rows);
+        scrollAmount = Mathf.Clamp(amount, 0, rows - visibleRows);
         UpdateFrameLocations();
     }
 
     public void ScrollUp()
     {
-        scrollAmount = Mathf.Clamp(scrollAmount-1, 0, rows);
-        UpdateFrameLocations();
+        SetScrollAmount(scrollAmount-1);
     }
 
     public void ScrollDown()
     {
-        scrollAmount = Mathf.Clamp(scrollAmount + 1, 0, rows);
-        UpdateFrameLocations();
+        SetScrollAmount(scrollAmount + 1);
     }
 
     public int GetRows()

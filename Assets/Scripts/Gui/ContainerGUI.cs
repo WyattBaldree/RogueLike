@@ -57,7 +57,9 @@ public class ContainerGUI : GUIPopup
     public override void UpdateGUI()
     {
         Align();
+        scrollUpButton.pressEvent.RemoveAllListeners();
         scrollUpButton.pressEvent.AddListener(inventorySlots.ScrollUp);
+        scrollDownButton.pressEvent.RemoveAllListeners();
         scrollDownButton.pressEvent.AddListener(inventorySlots.ScrollDown);
         if (!Application.isPlaying) EditorUtility.SetDirty(this);
     }

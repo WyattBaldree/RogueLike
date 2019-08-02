@@ -27,7 +27,6 @@ public class UnitController : MonoBehaviour
         unitList.Add(player);
         myPlayer = player;
 
-
         //Create a unit
         Unit demon = demonSource;// load the default unit
         

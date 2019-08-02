@@ -259,9 +259,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  inventoryCapacity: 20
+  inventoryCapacity: 40
   myInventoryGUI: {fileID: 0}
-  myInventoryGUIEnum: 0
   inventoryName: default inventory
   external: 0
   openable: 0

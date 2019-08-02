@@ -22,14 +22,14 @@ public class Chest : Wall
     {
         opened = true;
         GetComponent<SpriteRenderer>().sprite = openedSprite;
-        GameController.logC.NewEntry("The " + instanceName + " is opened.");
+        if (GameController.logC) GameController.logC.NewEntry("The " + instanceName + " is opened.");
     }
 
     public void Close()
     {
         opened = false;
         GetComponent<SpriteRenderer>().sprite = closedSprite;
-        GameController.logC.NewEntry("The " + instanceName + " is closed.");
+        if(GameController.logC) GameController.logC.NewEntry("The " + instanceName + " is closed.");
     }
 
     public override void OnInteract()

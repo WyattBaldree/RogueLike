@@ -76,8 +76,8 @@ public class Healthbar : MonoBehaviour
     void SetPercentage(Sprites sprites, float percentage)
     {
         Sprite s = sprites.GetSprite();
-        Sprite newSprite = Sprite.Create(s.texture, new Rect(0, 0, s.texture.width*percentage, s.texture.height), Vector2.zero, 16);
-        sprites.SetSprite(newSprite);
+        //Sprite newSprite = Sprite.Create(s.texture, new Rect(0, 0, s.texture.width*percentage, s.texture.height), Vector2.zero, 16);
+        //sprites.SetSprite(newSprite);
     }
 
     private void SetHealthPercent()
