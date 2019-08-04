@@ -6,7 +6,7 @@ using System;
 
 public class Unit : Object
 {
-    public SpriteController mySpriteController;
+    public SpriteRenderer mySpriteRenderer;
 
     public Inventory inventorySource;
     public Inventory inventory;
@@ -500,32 +500,30 @@ public class Unit : Object
         {
             animationTime += Time.deltaTime * animationSpeed;
 
-            foreach (Sprites s in mySpriteController.GetMySpriteRenderers())
+            
+            if (animationStateCurrent == AnimationStateEnum.BounceAnimation)
             {
-                if (animationStateCurrent == AnimationStateEnum.BounceAnimation)
+                if (animationTime < 0.5f)
                 {
-                    if (animationTime < 0.5f)
-                    {
-                        s.transform.localPosition = new Vector3(animationTime * animationParam1, animationTime * animationParam2, 0) * animationParam3;
-                    }
-                    else
-                    {
-                        s.transform.localPosition = new Vector3((1 - animationTime) * animationParam1, (1 - animationTime) * animationParam2, 0) * animationParam3;
-                    }
+                    mySpriteRenderer.transform.localPosition = new Vector3(animationTime * animationParam1, animationTime * animationParam2, 0) * animationParam3;
                 }
-                else if (animationStateCurrent == AnimationStateEnum.MoveAnimation)
+                else
                 {
-                    s.transform.localPosition = new Vector3((1-animationTime) * -animationParam1, (1 - animationTime) * -animationParam2, 0);
+                    mySpriteRenderer.transform.localPosition = new Vector3((1 - animationTime) * animationParam1, (1 - animationTime) * animationParam2, 0) * animationParam3;
                 }
-                else if (animationStateCurrent == AnimationStateEnum.ShakeAnimation)
-                {
-                    s.transform.localPosition = new Vector3((float)(Math.Sin(animationTime * animationParam3) * animationParam1), (float)(Math.Sin(animationTime * animationParam3) * animationParam2), 0);
-                }
+            }
+            else if (animationStateCurrent == AnimationStateEnum.MoveAnimation)
+            {
+                mySpriteRenderer.transform.localPosition = new Vector3((1-animationTime) * -animationParam1, (1 - animationTime) * -animationParam2, 0);
+            }
+            else if (animationStateCurrent == AnimationStateEnum.ShakeAnimation)
+            {
+                mySpriteRenderer.transform.localPosition = new Vector3((float)(Math.Sin(animationTime * animationParam3) * animationParam1), (float)(Math.Sin(animationTime * animationParam3) * animationParam2), 0);
+            }
 
-                if (animationTime >= 1.0f)
-                {
-                    s.transform.localPosition = new Vector3(0, 0, 0);
-                }
+            if (animationTime >= 1.0f)
+            {
+                mySpriteRenderer.transform.localPosition = new Vector3(0, 0, 0);
             }
             if (animationTime >= 1.0f)
             {

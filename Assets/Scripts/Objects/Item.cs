@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class Item : Object
 {
-    public SpriteController mySpriteController;
-
-    List<Sprites> mySprites;
+    public SpriteRenderer mySpriteRenderer;
+    public Sprite itemSprite;
 
     public string uniqueId = "item";
 
@@ -22,25 +21,26 @@ public class Item : Object
     bool autoPickup = false;
 
     public bool dropped = true;
-
-    Inventory myInventory = null;
+    
+    public Inventory myInventory = null;
 
     public enum Rarity{normal, superior, outstanding, exceptional, superb};
     public Rarity rarity = Rarity.normal;
 
     public virtual void Initialize()
     {
-        mySprites = mySpriteController.GetMySpriteRenderers();
+        //mySpriteRenderer.sprite = itemSprite;
     }
 
-    public virtual void Obtained(Inventory newInventory)
+    private void Start()
+    {
+        //mySpriteRenderer.sprite = itemSprite;
+    }
+
+    public virtual void Obtained()
     {
         dropped = false;
-        foreach (Sprites s in mySprites)
-        {
-            s.GetComponent<SpriteRenderer>().enabled = false;
-        }
-        myInventory = newInventory;
+        mySpriteRenderer.sprite = null;
     }
 
     public virtual void UpdateImage()
@@ -51,11 +51,7 @@ public class Item : Object
     public virtual void Dropped()
     {
         dropped = true;
-        foreach (Sprites s in mySprites)
-        {
-            s.GetComponent<SpriteRenderer>().enabled = true;
-        }
-        myInventory = null;
+        mySpriteRenderer.sprite = itemSprite;
     }
 
     public void SetStackSize(int newStackSize)

@@ -5,8 +5,8 @@ using UnityEngine;
 public class Darkness : MonoBehaviour
 {
     MapController mapController;
-    Sprites mySprite;
-    SpriteController spriteController;
+    public SpriteRenderer mySpriteRenderer;
+    public Sprite darknessSprite;
 
     private bool visibility = true;
 
@@ -20,10 +20,6 @@ public class Darkness : MonoBehaviour
     private void Initalize()
     {
         mapController = GameController.mapC;
-
-        mySprite = GetComponentInChildren<Sprites>();
-
-        spriteController = GetComponent<SpriteController>();
 
         initialized = true;
     }
@@ -80,9 +76,7 @@ public class Darkness : MonoBehaviour
     public void SetVisibility(bool visible)
     {
         visibility = visible;
-        //gameObject.SetActive(visible);
-        //mySprite.gameObject.SetActive(visible);
-        spriteController.SetSprite((visible)? 0 : 1);
+        mySpriteRenderer.sprite = (visible) ? darknessSprite : null;
     }
 
     public bool GetVisibility()

@@ -5,9 +5,9 @@ using System;
 
 public class Healthbar : MonoBehaviour
 {
-    public Sprites backgroundObj;
-    public Sprites healthObj;
-    public Sprites redHealthObj;
+    public SpriteRenderer backgroundSpriteRenderer;
+    public SpriteRenderer healthSpriteRenderer;
+    public SpriteRenderer redHealthSpriteRenderer;
 
     public float redHealthDelay = 2.0f;
     private float redHealthDelayCurrent;
@@ -27,11 +27,7 @@ public class Healthbar : MonoBehaviour
         redHealthDelayCurrent = 0;
 
 
-        SetPercentage(backgroundObj, 1f);
-
-        SetPercentage(redHealthObj, 1f);
-
-        SetPercentage(healthObj, health);
+        SetPercentage(1f);
     }
 
     public void SetParent(Transform t)
@@ -69,20 +65,19 @@ public class Healthbar : MonoBehaviour
         }
 
         //update redhealth sprite.
-        SetPercentage(redHealthObj, redHealth);
+        //SetPercentage(redHealthObj, redHealth);
     }
 
     //This functino just sets the specified sprite to the specified length [0 - 1]
-    void SetPercentage(Sprites sprites, float percentage)
+    void SetPercentage(float percentage)
     {
-        Sprite s = sprites.GetSprite();
         //Sprite newSprite = Sprite.Create(s.texture, new Rect(0, 0, s.texture.width*percentage, s.texture.height), Vector2.zero, 16);
         //sprites.SetSprite(newSprite);
     }
 
     private void SetHealthPercent()
     {
-        SetPercentage(healthObj, health);
+        SetPercentage(health);
         oldHealth = health;
         redHealthDelayCurrent = redHealthDelay;
     }

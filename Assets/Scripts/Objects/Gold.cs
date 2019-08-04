@@ -10,18 +10,27 @@ public class Gold : Item
     {
         Initialize();
     }
+    public Sprite copperSingle;
+    public Sprite copperStack;
+    public Sprite copperPile;
+    public Sprite silverSingle;
+    public Sprite silverStack;
+    public Sprite silverPile;
+    public Sprite goldSingle;
+    public Sprite goldStack;
+    public Sprite goldPile;
 
     public override void Initialize()
     {
         base.Initialize();
         UpdateImage();
-        goldList.Add(this);
-        Pathfinding.GenerateToGoldMap();
+        //goldList.Add(this);
+        //Pathfinding.GenerateToGoldMap();
     }
 
     public void OnDestroy()
     {
-        goldList.Remove(this);
+        //goldList.Remove(this);
     }
 
     private void OnValidate()
@@ -33,52 +42,54 @@ public class Gold : Item
     {
         if (stackSize > 500)
         {
-            mySpriteController.SetSprite(1);
+            itemSprite = goldPile;
         }
         else if (stackSize > 100)
         {
-            mySpriteController.SetSprite(3);
+            itemSprite = goldStack;
         }
         else if (stackSize == 100)
         {
-            mySpriteController.SetSprite(5);
+            itemSprite = goldSingle;
         }
         else if (stackSize > 50)
         {
-            mySpriteController.SetSprite(7);
+            itemSprite = silverPile;
         }
         else if (stackSize > 10)
         {
-            mySpriteController.SetSprite(9);
+            itemSprite = silverStack;
         }
         else if (stackSize == 10)
         {
-            mySpriteController.SetSprite(11);
+            itemSprite = silverSingle;
         }
         else if (stackSize > 5)
         {
-            mySpriteController.SetSprite(0);
+            itemSprite = copperPile;
         }
         else if (stackSize > 1)
         {
-            mySpriteController.SetSprite(2);
+            itemSprite = copperStack;
         }
         else
         {
-            mySpriteController.SetSprite(4);
+            itemSprite = copperSingle;
         }
+
+        mySpriteRenderer.sprite = itemSprite;
     }
 
-    public override void Obtained(Inventory newInventory)
+    public override void Obtained()
     {
-        base.Obtained(newInventory);
-        Pathfinding.GenerateToGoldMap();
+        base.Obtained();
+        //Pathfinding.GenerateToGoldMap();
     }
 
     public override void Dropped()
     {
         base.Dropped();
-        Pathfinding.GenerateToGoldMap();
+        //Pathfinding.GenerateToGoldMap();
     }
 
 }

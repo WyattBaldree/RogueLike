@@ -5,10 +5,25 @@ using UnityEditor;
 
 public class Wall : Object
 {
-    SpriteController spriteController;
+    public SpriteRenderer mySpriteRenderer;
     MapController mapController;
 
     private string debugString = "";
+
+    public Sprite topLeft;
+    public Sprite topRight;
+    public Sprite bottomLeft;
+    public Sprite bottomRight;
+    public Sprite horizontal;
+    public Sprite vertical;
+    public Sprite bottomCap;
+    public Sprite surrounded;
+    public Sprite fourWay;
+    public Sprite tLeftRightDown;
+    public Sprite tLeftRightUp;
+    public Sprite tRightDownUp;
+    public Sprite tLeftDownUp;
+
 
     //Does this block characters?
     public bool solid = true;
@@ -20,8 +35,6 @@ public class Wall : Object
     public virtual void Initialize()
     {
         mapController = GameController.mapC;
-
-        spriteController = GetComponent<SpriteController>();
     }
 
     // Update is called once per frame
@@ -98,41 +111,41 @@ public class Wall : Object
 
         if (nearbyCount == 8)
         {
-            spriteController.SetSprite(9);
+            mySpriteRenderer.sprite = surrounded;
         }
         else if (nearbyCount == 7)
         {
             if (nearbyList[0] == 0)
             {
-                spriteController.SetSprite(6);
+                mySpriteRenderer.sprite = topRight;
             }
             else if (nearbyList[1] == 0)
             {
-                spriteController.SetSprite(1);
+                mySpriteRenderer.sprite = vertical;
             }
             else if (nearbyList[2] == 0)
             {
-                spriteController.SetSprite(8);
+                mySpriteRenderer.sprite = bottomRight;
             }
             else if (nearbyList[3] == 0)
             {
-                spriteController.SetSprite(3);
+                mySpriteRenderer.sprite = horizontal;
             }
             else if (nearbyList[5] == 0)
             {
-                spriteController.SetSprite(3);
+                mySpriteRenderer.sprite = horizontal;
             }
             else if (nearbyList[6] == 0)
             {
-                spriteController.SetSprite(0);
+                mySpriteRenderer.sprite = topLeft;
             }
             else if (nearbyList[7] == 0)
             {
-                spriteController.SetSprite(1);
+                mySpriteRenderer.sprite = vertical;
             }
             else if (nearbyList[8] == 0)
             {
-                spriteController.SetSprite(2);
+                mySpriteRenderer.sprite = bottomLeft;
             }
         }
         else if (nearbyCount == 6)
@@ -143,37 +156,37 @@ public class Wall : Object
                 // and right
                 if (nearbyList[7] == 0)
                 {
-                    spriteController.SetSprite(1);
+                    mySpriteRenderer.sprite = vertical;
                 }
                 // and down 
                 else if (nearbyList[3] == 0)
                 {
-                    spriteController.SetSprite(2);
+                    mySpriteRenderer.sprite = bottomLeft;
                 }
                 //and up
                 else if (nearbyList[5] == 0)
                 {
-                    spriteController.SetSprite(0);
+                    mySpriteRenderer.sprite = topLeft;
                 }
                 //and ul
                 else if (nearbyList[2] == 0)
                 {
-                    spriteController.SetSprite(1);
+                    mySpriteRenderer.sprite = vertical;
                 }
                 //and ur
                 else if (nearbyList[8] == 0)
                 {
-                    spriteController.SetSprite(10);
+                    mySpriteRenderer.sprite = tRightDownUp;
                 }
                 //and dl
                 else if (nearbyList[0] == 0)
                 {
-                    spriteController.SetSprite(1);
+                    mySpriteRenderer.sprite = vertical;
                 }
                 //and dr
                 else if (nearbyList[6] == 0)
                 {
-                    spriteController.SetSprite(10);
+                    mySpriteRenderer.sprite = tRightDownUp;
                 }
             }
             // right
@@ -182,32 +195,32 @@ public class Wall : Object
                 // and down 
                 if (nearbyList[3] == 0)
                 {
-                    spriteController.SetSprite(8);
+                    mySpriteRenderer.sprite = bottomRight;
                 }
                 //and up
                 else if (nearbyList[5] == 0)
                 {
-                    spriteController.SetSprite(6);
+                    mySpriteRenderer.sprite = topRight;
                 }
                 //and ul
                 else if (nearbyList[2] == 0)
                 {
-                    spriteController.SetSprite(16);
+                    mySpriteRenderer.sprite = tLeftDownUp;
                 }
                 //and ur
                 else if (nearbyList[8] == 0)
                 {
-                    spriteController.SetSprite(1);
+                    mySpriteRenderer.sprite = vertical;
                 }
                 //and dl
                 else if (nearbyList[0] == 0)
                 {
-                    spriteController.SetSprite(16);
+                    mySpriteRenderer.sprite = tLeftDownUp;
                 }
                 //and dr
                 else if (nearbyList[6] == 0)
                 {
-                    spriteController.SetSprite(1);
+                    mySpriteRenderer.sprite = vertical;
                 }
             }
             // down
@@ -216,27 +229,27 @@ public class Wall : Object
                 //and up
                 if (nearbyList[5] == 0)
                 {
-                    spriteController.SetSprite(3);
+                    mySpriteRenderer.sprite = horizontal;
                 }
                 //and ul
                 else if (nearbyList[2] == 0)
                 {
-                    spriteController.SetSprite(14);
+                    mySpriteRenderer.sprite = tLeftRightUp;
                 }
                 //and ur
                 else if (nearbyList[8] == 0)
                 {
-                    spriteController.SetSprite(14);
+                    mySpriteRenderer.sprite = tLeftRightUp;
                 }
                 //and dl
                 else if (nearbyList[0] == 0)
                 {
-                    spriteController.SetSprite(3);
+                    mySpriteRenderer.sprite = horizontal;
                 }
                 //and dr
                 else if (nearbyList[6] == 0)
                 {
-                    spriteController.SetSprite(3);
+                    mySpriteRenderer.sprite = horizontal;
                 }
             }
 
@@ -246,22 +259,22 @@ public class Wall : Object
                 //and ul
                 if (nearbyList[2] == 0)
                 {
-                    spriteController.SetSprite(3);
+                    mySpriteRenderer.sprite = horizontal;
                 }
                 //and ur
                 else if (nearbyList[8] == 0)
                 {
-                    spriteController.SetSprite(3);
+                    mySpriteRenderer.sprite = horizontal;
                 }
                 //and dl
                 else if (nearbyList[0] == 0)
                 {
-                    spriteController.SetSprite(12);
+                    mySpriteRenderer.sprite = tLeftRightDown;
                 }
                 //and dr
                 else if (nearbyList[6] == 0)
                 {
-                    spriteController.SetSprite(12);
+                    mySpriteRenderer.sprite = tLeftRightDown;
                 }
             }
             // ul
@@ -270,17 +283,17 @@ public class Wall : Object
                 //and ur
                 if (nearbyList[8] == 0)
                 {
-                    spriteController.SetSprite(14);
+                    mySpriteRenderer.sprite = tLeftRightUp;
                 }
                 //and dl
                 else if (nearbyList[0] == 0)
                 {
-                    spriteController.SetSprite(16);
+                    mySpriteRenderer.sprite = tLeftDownUp;
                 }
                 //and dr
                 else if (nearbyList[6] == 0)
                 {
-                    spriteController.SetSprite(13);
+                    mySpriteRenderer.sprite = fourWay;
                 }
             }
             // ur
@@ -289,12 +302,12 @@ public class Wall : Object
                 //and dl
                 if (nearbyList[0] == 0)
                 {
-                    spriteController.SetSprite(13);
+                    mySpriteRenderer.sprite = fourWay;
                 }
                 //and dr
                 else if (nearbyList[6] == 0)
                 {
-                    spriteController.SetSprite(10);
+                    mySpriteRenderer.sprite = tRightDownUp;
                 }
             }
             // dl
@@ -303,7 +316,7 @@ public class Wall : Object
                 //and dr
                 if (nearbyList[6] == 0)
                 {
-                    spriteController.SetSprite(12);
+                    mySpriteRenderer.sprite = tLeftRightDown;
                 }
             }
 
@@ -314,115 +327,115 @@ public class Wall : Object
             // up ul ur
             if (nearbyList[5] == 0 && nearbyList[2] == 0 && nearbyList[8] == 0)
             {
-                spriteController.SetSprite(3);
+                mySpriteRenderer.sprite = horizontal;
             }
             // down dl dr
             else if (nearbyList[3] == 0 && nearbyList[0] == 0 && nearbyList[6] == 0)
             {
-                spriteController.SetSprite(3);
+                mySpriteRenderer.sprite = horizontal;
             }
             // left dl ul
             else if (nearbyList[1] == 0 && nearbyList[0] == 0 && nearbyList[2] == 0)
             {
-                spriteController.SetSprite(1);
+                mySpriteRenderer.sprite = vertical;
             }
             // right dr ur
             else if (nearbyList[7] == 0 && nearbyList[6] == 0 && nearbyList[8] == 0)
             {
-                spriteController.SetSprite(1);
+                mySpriteRenderer.sprite = vertical;
             }
             //corners
             // up ul left
             else if (nearbyList[5] == 0 && nearbyList[2] == 0 && nearbyList[1] == 0)
             {
-                spriteController.SetSprite(0);
+                mySpriteRenderer.sprite = topLeft;
             }
             // down dl left
             else if (nearbyList[3] == 0 && nearbyList[0] == 0 && nearbyList[1] == 0)
             {
-                spriteController.SetSprite(2);
+                mySpriteRenderer.sprite = bottomLeft;
             }
             // up ur right
             else if (nearbyList[5] == 0 && nearbyList[8] == 0 && nearbyList[7] == 0)
             {
-                spriteController.SetSprite(6);
+                mySpriteRenderer.sprite = topRight;
             }
             // down dr right
             else if (nearbyList[3] == 0 && nearbyList[6] == 0 && nearbyList[7] == 0)
             {
-                spriteController.SetSprite(8);
+                mySpriteRenderer.sprite = bottomRight;
             }
             //cross
             // down up right left
             else if (nearbyList[1] == 1 && nearbyList[3] == 1 && nearbyList[5] == 1 && nearbyList[7] == 1)
             {
-                spriteController.SetSprite(13);
+                mySpriteRenderer.sprite = fourWay;
             }
 
             // Ts
             // down up left
             else if (nearbyList[1] == 1 && nearbyList[3] == 1 && nearbyList[5] == 1)
             {
-                spriteController.SetSprite(16);
+                mySpriteRenderer.sprite = tLeftDownUp;
             }
             // down up right
             else if (nearbyList[7] == 1 && nearbyList[3] == 1 && nearbyList[5] == 1)
             {
-                spriteController.SetSprite(10);
+                mySpriteRenderer.sprite = tRightDownUp;
             }
             // left up right
             else if (nearbyList[7] == 1 && nearbyList[1] == 1 && nearbyList[5] == 1)
             {
-                spriteController.SetSprite(14);
+                mySpriteRenderer.sprite = tLeftRightUp;
             }
             // left down right
             else if (nearbyList[7] == 1 && nearbyList[3] == 1 && nearbyList[1] == 1)
             {
-                spriteController.SetSprite(12);
+                mySpriteRenderer.sprite = tLeftRightDown;
             }
 
             // Ls
             // up left
             else if (nearbyList[1] == 1 && nearbyList[5] == 1)
             {
-                spriteController.SetSprite(8);
+                mySpriteRenderer.sprite = bottomRight;
             }
             // up right
             else if (nearbyList[7] == 1 && nearbyList[5] == 1)
             {
-                spriteController.SetSprite(2);
+                mySpriteRenderer.sprite = bottomLeft;
             }
             // down right
             else if (nearbyList[7] == 1 && nearbyList[3] == 1)
             {
-                spriteController.SetSprite(0);
+                mySpriteRenderer.sprite = topLeft;
             }
             // down left
             else if (nearbyList[1] == 1 && nearbyList[3] == 1)
             {
-                spriteController.SetSprite(6);
+                mySpriteRenderer.sprite = topRight;
             }
 
             // Is
             // left
             else if (nearbyList[1] == 1)
             {
-                spriteController.SetSprite(3);
+                mySpriteRenderer.sprite = horizontal;
             }
             // right
             else if (nearbyList[7] == 1)
             {
-                spriteController.SetSprite(3);
+                mySpriteRenderer.sprite = horizontal;
             }
             // down
             else if (nearbyList[3] == 1)
             {
-                spriteController.SetSprite(1);
+                mySpriteRenderer.sprite = vertical;
             }
             // up
             else if (nearbyList[5] == 1)
             {
-                spriteController.SetSprite(4);
+                mySpriteRenderer.sprite = bottomCap;
             }
         }
         else if (nearbyCount == 4)
@@ -430,7 +443,7 @@ public class Wall : Object
             //touchingCount is 4
             if (touchingCount == 4)
             {
-                spriteController.SetSprite(13);
+                mySpriteRenderer.sprite = fourWay;
             }
             //touchingCount is 3
             else if (touchingCount == 3)
@@ -438,22 +451,22 @@ public class Wall : Object
                 // left empty
                 if (nearbyList[1] == 0)
                 {
-                    spriteController.SetSprite(10);
+                    mySpriteRenderer.sprite = tRightDownUp;
                 }
                 // down empty
                 else if (nearbyList[3] == 0)
                 {
-                    spriteController.SetSprite(14);
+                    mySpriteRenderer.sprite = tLeftRightUp;
                 }
                 // up empty
                 else if (nearbyList[5] == 0)
                 {
-                    spriteController.SetSprite(12);
+                    mySpriteRenderer.sprite = tLeftRightDown;
                 }
                 // right empty
                 else if (nearbyList[7] == 0)
                 {
-                    spriteController.SetSprite(16);
+                    mySpriteRenderer.sprite = tLeftDownUp;
                 }
             }
             //touchingCount is 2
@@ -465,17 +478,17 @@ public class Wall : Object
                     // right
                     if (nearbyList[7] == 1)
                     {
-                        spriteController.SetSprite(3);
+                        mySpriteRenderer.sprite = horizontal;
                     }
                     // up
                     else if (nearbyList[5] == 1)
                     {
-                        spriteController.SetSprite(8);
+                        mySpriteRenderer.sprite = bottomRight;
                     }
                     // down
                     else if (nearbyList[3] == 1)
                     {
-                        spriteController.SetSprite(6);
+                        mySpriteRenderer.sprite = topRight;
                     }
                 }
                 // right
@@ -484,12 +497,12 @@ public class Wall : Object
                     // up
                     if (nearbyList[5] == 1)
                     {
-                        spriteController.SetSprite(2);
+                        mySpriteRenderer.sprite = bottomLeft;
                     }
                     // down
                     else if (nearbyList[3] == 1)
                     {
-                        spriteController.SetSprite(0);
+                        mySpriteRenderer.sprite = topLeft;
                     }
                 }
                 // up
@@ -498,7 +511,7 @@ public class Wall : Object
                     // down
                     if (nearbyList[3] == 1)
                     {
-                        spriteController.SetSprite(1);
+                        mySpriteRenderer.sprite = vertical;
                     }
                 }
             }
@@ -508,28 +521,28 @@ public class Wall : Object
                 // left
                 if (nearbyList[1] == 1)
                 {
-                    spriteController.SetSprite(3);
+                    mySpriteRenderer.sprite = horizontal;
                 }
                 // down
                 else if (nearbyList[3] == 1)
                 {
-                    spriteController.SetSprite(1);
+                    mySpriteRenderer.sprite = vertical;
                 }
                 // up
                 else if (nearbyList[5] == 1)
                 {
-                    spriteController.SetSprite(4);
+                    mySpriteRenderer.sprite = bottomCap;
                 }
                 // right
                 else if (nearbyList[7] == 1)
                 {
-                    spriteController.SetSprite(3);
+                    mySpriteRenderer.sprite = horizontal;
                 }
             }
             //touchingCount is 0
             else if (touchingCount == 0)
             {
-                spriteController.SetSprite(14);
+                mySpriteRenderer.sprite = tLeftRightUp;
             }
         }
         else if (nearbyCount == 3)
@@ -540,22 +553,22 @@ public class Wall : Object
                 // left empty
                 if (nearbyList[1] == 0)
                 {
-                    spriteController.SetSprite(10);
+                    mySpriteRenderer.sprite = tRightDownUp;
                 }
                 // down empty
                 else if (nearbyList[3] == 0)
                 {
-                    spriteController.SetSprite(14);
+                    mySpriteRenderer.sprite = tLeftRightUp;
                 }
                 // up empty
                 else if (nearbyList[5] == 0)
                 {
-                    spriteController.SetSprite(12);
+                    mySpriteRenderer.sprite = tLeftRightDown;
                 }
                 // right empty
                 else if (nearbyList[7] == 0)
                 {
-                    spriteController.SetSprite(16);
+                    mySpriteRenderer.sprite = tLeftDownUp;
                 }
             }
             //touchingCount is 2
@@ -567,17 +580,17 @@ public class Wall : Object
                     // right
                     if (nearbyList[7] == 1)
                     {
-                        spriteController.SetSprite(3);
+                        mySpriteRenderer.sprite = horizontal;
                     }
                     // up
                     else if (nearbyList[5] == 1)
                     {
-                        spriteController.SetSprite(8);
+                        mySpriteRenderer.sprite = bottomRight;
                     }
                     // down
                     else if (nearbyList[3] == 1)
                     {
-                        spriteController.SetSprite(6);
+                        mySpriteRenderer.sprite = topRight;
                     }
                 }
                 // right
@@ -586,12 +599,12 @@ public class Wall : Object
                     // up
                     if (nearbyList[5] == 1)
                     {
-                        spriteController.SetSprite(2);
+                        mySpriteRenderer.sprite = bottomLeft;
                     }
                     // down
                     else if (nearbyList[3] == 1)
                     {
-                        spriteController.SetSprite(0);
+                        mySpriteRenderer.sprite = topLeft;
                     }
                 }
                 // up
@@ -600,7 +613,7 @@ public class Wall : Object
                     // down
                     if (nearbyList[3] == 1)
                     {
-                        spriteController.SetSprite(1);
+                        mySpriteRenderer.sprite = vertical;
                     }
                 }
             }
@@ -610,28 +623,28 @@ public class Wall : Object
                 // left
                 if (nearbyList[1] == 1)
                 {
-                    spriteController.SetSprite(3);
+                    mySpriteRenderer.sprite = horizontal;
                 }
                 // down
                 else if (nearbyList[3] == 1)
                 {
-                    spriteController.SetSprite(1);
+                    mySpriteRenderer.sprite = vertical;
                 }
                 // up
                 else if (nearbyList[5] == 1)
                 {
-                    spriteController.SetSprite(4);
+                    mySpriteRenderer.sprite = bottomCap;
                 }
                 // right
                 else if (nearbyList[7] == 1)
                 {
-                    spriteController.SetSprite(3);
+                    mySpriteRenderer.sprite = horizontal;
                 }
             }
             //touchingCount is 0
             else if (touchingCount == 0)
             {
-                spriteController.SetSprite(14);
+                mySpriteRenderer.sprite = tLeftRightUp;
             }
         }
         else if (nearbyCount == 2)
@@ -642,21 +655,21 @@ public class Wall : Object
                 // right
                 if (nearbyList[7] == 1)
                 {
-                    spriteController.SetSprite(3);
+                    mySpriteRenderer.sprite = horizontal;
                 }
                 // down 
                 else if (nearbyList[3] == 1)
                 {
-                    spriteController.SetSprite(6);
+                    mySpriteRenderer.sprite = topRight;
                 }
                 //up
                 else if (nearbyList[5] == 1)
                 {
-                    spriteController.SetSprite(8);
+                    mySpriteRenderer.sprite = bottomRight;
                 }
                 else
                 {
-                    spriteController.SetSprite(3);
+                    mySpriteRenderer.sprite = horizontal;
                 }
             }
             // right
@@ -665,16 +678,16 @@ public class Wall : Object
                 // down 
                 if (nearbyList[3] == 1)
                 {
-                    spriteController.SetSprite(0);
+                    mySpriteRenderer.sprite = topLeft;
                 }
                 //up
                 else if (nearbyList[5] == 1)
                 {
-                    spriteController.SetSprite(2);
+                    mySpriteRenderer.sprite = bottomLeft;
                 }
                 else
                 {
-                    spriteController.SetSprite(3);
+                    mySpriteRenderer.sprite = horizontal;
                 }
             }
             // down
@@ -683,21 +696,21 @@ public class Wall : Object
                 //up
                 if (nearbyList[5] == 1)
                 {
-                    spriteController.SetSprite(1);
+                    mySpriteRenderer.sprite = vertical;
                 }
                 else
                 {
-                    spriteController.SetSprite(1);
+                    mySpriteRenderer.sprite = vertical;
                 }
             }
             // up
             else if (nearbyList[5] == 1)
             {
-                spriteController.SetSprite(4);
+                mySpriteRenderer.sprite = bottomCap;
             }
             else
             {
-                spriteController.SetSprite(14);
+                mySpriteRenderer.sprite = tLeftRightUp;
             }
         }
         else if (nearbyCount == 1)
@@ -705,31 +718,31 @@ public class Wall : Object
             // left
             if (nearbyList[1] == 1)
             {
-                spriteController.SetSprite(3);
+                mySpriteRenderer.sprite = horizontal;
             }
             // right
             else if (nearbyList[7] == 1)
             {
-                spriteController.SetSprite(3);
+                mySpriteRenderer.sprite = horizontal;
             }
             // down 
             else if (nearbyList[3] == 1)
             {
-                spriteController.SetSprite(1);
+                mySpriteRenderer.sprite = vertical;
             }
             //up
             else if (nearbyList[5] == 1)
             {
-                spriteController.SetSprite(4);
+                mySpriteRenderer.sprite = bottomCap;
             }
             else
             {
-                spriteController.SetSprite(14);
+                mySpriteRenderer.sprite = tLeftRightUp;
             }
         }
         else if (nearbyCount == 0)
         {
-            spriteController.SetSprite(14);
+            mySpriteRenderer.sprite = tLeftRightUp;
         }
     }
 

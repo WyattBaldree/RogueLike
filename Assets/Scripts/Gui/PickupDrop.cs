@@ -179,11 +179,11 @@ public class PickupDrop : Object
                     return;
                 }
 
-                Sprites sprite = myInventoryGUI.targetInventory.GetItem(myIndex).mySpriteController.GetMySpriteRenderers()[0];
+                Sprite sprite = myInventoryGUI.targetInventory.GetItem(myIndex).itemSprite;
 
                 if (sprite)
                 {
-                    itemSpriteRenderer.sprite = sprite.mySprite;
+                    itemSpriteRenderer.sprite = sprite;
                 }
             }
             else

@@ -5,8 +5,20 @@ using UnityEditor;
 
 public class Pit : MonoBehaviour
 {
-    SpriteController spriteController;
+    public SpriteRenderer mySpriteRenderer;
     MapController mapController;
+
+    public Sprite topLeft;
+    public Sprite topRight;
+    public Sprite top;
+    public Sprite left;
+    public Sprite right;
+    public Sprite topCap;
+    public Sprite vertical;
+    public Sprite surrounded;
+    public Sprite curveLeft;
+    public Sprite curveUp;
+    public Sprite curveRight;
 
     private string debugString = "";
 
@@ -21,8 +33,6 @@ public class Pit : MonoBehaviour
     private void Initalize()
     {
         mapController = GameController.mapC;
-
-        spriteController = GetComponent<SpriteController>();
         initialized = true;
     }
 
@@ -93,29 +103,29 @@ public class Pit : MonoBehaviour
 
         if (touchingCount == 4)
         {
-            spriteController.SetSprite(3);
+            //spriteController.SetSprite(3);
         }
         else if (touchingCount == 3)
         {
             // left empty
             if (nearbyList[1] == 0)
             {
-                spriteController.SetSprite(1);
+                //spriteController.SetSprite(1);
             }
             // down empty
             else if (nearbyList[3] == 0)
             {
-                spriteController.SetSprite(3);
+                //spriteController.SetSprite(3);
             }
             // up empty
             else if (nearbyList[5] == 0)
             {
-                spriteController.SetSprite(2);
+                //spriteController.SetSprite(2);
             }
             // right empty
             else if (nearbyList[7] == 0)
             {
-                spriteController.SetSprite(5);
+                //spriteController.SetSprite(5);
             }
         }
         else if (touchingCount == 2)
@@ -126,17 +136,17 @@ public class Pit : MonoBehaviour
                 // right
                 if (nearbyList[7] == 1)
                 {
-                    spriteController.SetSprite(2);
+                    //spriteController.SetSprite(2);
                 }
                 // up
                 else if (nearbyList[5] == 1)
                 {
-                    spriteController.SetSprite(5);
+                    //spriteController.SetSprite(5);
                 }
                 // down
                 else if (nearbyList[3] == 1)
                 {
-                    spriteController.SetSprite(4);
+                    //spriteController.SetSprite(4);
                 }
             }
             // right
@@ -145,12 +155,12 @@ public class Pit : MonoBehaviour
                 // up
                 if (nearbyList[5] == 1)
                 {
-                    spriteController.SetSprite(1);
+                    //spriteController.SetSprite(1);
                 }
                 // down
                 else if (nearbyList[3] == 1)
                 {
-                    spriteController.SetSprite(0);
+                    //spriteController.SetSprite(0);
                 }
             }
             // up
@@ -159,7 +169,7 @@ public class Pit : MonoBehaviour
                 // down
                 if (nearbyList[3] == 1)
                 {
-                    spriteController.SetSprite(9);
+                    //spriteController.SetSprite(9);
                 }
             }
         }
@@ -168,27 +178,27 @@ public class Pit : MonoBehaviour
             // left
             if (nearbyList[1] == 1)
             {
-                spriteController.SetSprite(4);
+                //spriteController.SetSprite(4);
             }
             // down
             else if (nearbyList[3] == 1)
             {
-                spriteController.SetSprite(8);
+                //spriteController.SetSprite(8);
             }
             // up
             else if (nearbyList[5] == 1)
             {
-                spriteController.SetSprite(9);
+                //spriteController.SetSprite(9);
             }
             // right
             else if (nearbyList[7] == 1)
             {
-                spriteController.SetSprite(0);
+                //spriteController.SetSprite(0);
             }
         }
         else if (touchingCount == 0)
         {
-            spriteController.SetSprite(3);
+            //spriteController.SetSprite(3);
         }
     }
 

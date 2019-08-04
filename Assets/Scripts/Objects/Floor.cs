@@ -5,8 +5,25 @@ using UnityEditor;
 
 public class Floor : Object
 {
-    SpriteController spriteController;
+    public SpriteRenderer mySpriteRenderer;
     MapController mapController;
+
+    public Sprite topLeft;
+    public Sprite topRight;
+    public Sprite bottomLeft;
+    public Sprite bottomRight;
+    public Sprite top;
+    public Sprite left;
+    public Sprite right;
+    public Sprite bottom;
+    public Sprite alone;
+    public Sprite topCap;
+    public Sprite vertical;
+    public Sprite bottomCap;
+    public Sprite leftCap;
+    public Sprite horizontal;
+    public Sprite rightCap;
+    public Sprite surrounded;
 
     private string debugString = "";
 
@@ -21,8 +38,7 @@ public class Floor : Object
     private void Initalize()
     {
         mapController = GameController.mapC;
-
-        spriteController = GetComponent<SpriteController>();
+        
         initialized = true;
     }
 
@@ -94,29 +110,29 @@ public class Floor : Object
 
         if (touchingCount == 4)
         {
-            spriteController.SetSprite(15);
+            mySpriteRenderer.sprite = surrounded;
         }
         else if (touchingCount == 3)
         {
             // left empty
             if (nearbyList[1] == 0)
             {
-                spriteController.SetSprite(19);
+                mySpriteRenderer.sprite = rightCap;
             }
             // down empty
             else if (nearbyList[3] == 0)
             {
-                spriteController.SetSprite(9);
+                mySpriteRenderer.sprite = topCap;
             }
             // up empty
             else if (nearbyList[5] == 0)
             {
-                spriteController.SetSprite(11);
+                mySpriteRenderer.sprite = bottomCap;
             }
             // right empty
             else if (nearbyList[7] == 0)
             {
-                spriteController.SetSprite(13);
+                mySpriteRenderer.sprite = leftCap;
             }
         }
         else if (touchingCount == 2)
@@ -127,17 +143,17 @@ public class Floor : Object
                 // right
                 if (nearbyList[7] == 1)
                 {
-                    spriteController.SetSprite(10);
+                    mySpriteRenderer.sprite = vertical;
                 }
                 // up
                 else if (nearbyList[5] == 1)
                 {
-                    spriteController.SetSprite(0);
+                    mySpriteRenderer.sprite = topLeft;
                 }
                 // down
                 else if (nearbyList[3] == 1)
                 {
-                    spriteController.SetSprite(2);
+                    mySpriteRenderer.sprite = bottomLeft;
                 }
             }
             // right
@@ -146,12 +162,12 @@ public class Floor : Object
                 // up
                 if (nearbyList[5] == 1)
                 {
-                    spriteController.SetSprite(6);
+                    mySpriteRenderer.sprite = topRight;
                 }
                 // down
                 else if (nearbyList[3] == 1)
                 {
-                    spriteController.SetSprite(8);
+                    mySpriteRenderer.sprite = bottomRight;
                 }
             }
             // up
@@ -160,7 +176,7 @@ public class Floor : Object
                 // down
                 if (nearbyList[3] == 1)
                 {
-                    spriteController.SetSprite(16);
+                    mySpriteRenderer.sprite = horizontal;
                 }
             }
         }
@@ -169,27 +185,27 @@ public class Floor : Object
             // left
             if (nearbyList[1] == 1)
             {
-                spriteController.SetSprite(1);
+                mySpriteRenderer.sprite = left;
             }
             // down
             else if (nearbyList[3] == 1)
             {
-                spriteController.SetSprite(5);
+                mySpriteRenderer.sprite = bottom;
             }
             // up
             else if (nearbyList[5] == 1)
             {
-                spriteController.SetSprite(3);
+                mySpriteRenderer.sprite = top;
             }
             // right
             else if (nearbyList[7] == 1)
             {
-                spriteController.SetSprite(7);
+                mySpriteRenderer.sprite = right;
             }
         }
         else if (touchingCount == 0)
         {
-            spriteController.SetSprite(4);
+            mySpriteRenderer.sprite = alone;
         }
     }
 

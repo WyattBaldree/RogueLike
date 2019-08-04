@@ -175,9 +175,9 @@ public class Inventory : MonoBehaviour
         else
         {
             //else the item is obtains and will not show up in the world.
-            newItem.Obtained(this);
+            newItem.Obtained();
         }
-
+        newItem.myInventory = this;
         UpdateInventoryGUI(index);
         itemChangedEvent.Invoke();
         return true;
