@@ -15,8 +15,6 @@ public class Inventory : MonoBehaviour
     ///The gui we are currently hooked up to
     public InventoryGUI myInventoryGUI;
 
-    //public InventoryController.inventoryEnum myInventoryGUIEnum = InventoryController.inventoryEnum.none;
-
     public string inventoryName = "default inventory";
 
     /// <summary>
@@ -42,47 +40,12 @@ public class Inventory : MonoBehaviour
         "item"
     };
 
-
-
-    /*/// <summary>
-    /// Shows the inventory gui and moves its position to the position supplied.
-    /// </summary>
-    /// <param name="position">Where the inventory will open on the screen.</param>
-    /// <returns></returns>
-    public bool Open(Vector3 position)
-    {
-        if(openable == false)
-        {
-            Debug.Log("unable to open inventory, openable is false");
-            return false;
-        }
-        myInventoryGUI.transform.position = new Vector2(Mathf.Clamp(position.x-3.13f, 0, GameController.gameC.ScreenResInUnits.x - 7.45f), Mathf.Clamp(position.y+3f, 0, GameController.gameC.ScreenResInUnits.y - 1.41f));
-        ShowInventoryGUI();
-        
-        return true;
-    }
-    
     /// <summary>
-    /// Hides the inventory gui.
-    /// </summary>
-    /// <returns></returns>
-    public bool Close()
-    {
-        if (openable == false)
-        {
-            Debug.Log("unable to close inventory, openable is false");
-            return false;
-        }
-        HideInventoryGUI();
-        return true;
-    }*/
-
-    /// <summary>
-    /// Called upon being created. Currently updates myInventoryGUI based on what our myInventoryGUIEnum
+    /// Called upon being created.
     /// </summary>
     public void Initialize()
     {
-        //ChangeInventoryGUI(myInventoryGUIEnum);
+
     }
 
     /// <summary>
@@ -368,50 +331,6 @@ public class Inventory : MonoBehaviour
 
         return -1;
     }
-
-    /*////////////////////////////////////////Inventory GUI stuff
-    /// <summary>
-    /// Change the inventory gui of this inventory.
-    /// </summary>
-    /// <param name="i"></param>
-    public void ChangeInventoryGUI(InventoryController.inventoryEnum i)
-    {
-        if ((int)i == 0) return;
-
-        if (myInventoryGUI)
-        {
-            if (myInventoryGUI.targetInventory == this)
-            {
-                myInventoryGUI.targetInventory = null;
-            }
-        }
-        myInventoryGUI = GameController.inventoryC.getInventoryGUI(i);
-        myInventoryGUI.targetInventory = this;
-    }
-
-    /// <summary>
-    /// Show the inventoryGUI in myInventoryGUI.
-    /// </summary>
-    public void ShowInventoryGUI()
-    {
-        myInventoryGUI.targetInventory = this;
-        myInventoryGUI.gameObject.SetActive(true);
-        Entry title = myInventoryGUI.GetComponentInChildren<Entry>();
-        if (title)
-        {
-            title.EntryInitialize(inventoryName);
-        }
-        UpdateInventoryGUI();
-    }
-
-    /// <summary>
-    /// Hide our inventoryGUI.
-    /// </summary>
-    public void HideInventoryGUI()
-    {
-        myInventoryGUI.gameObject.SetActive(false);
-    }
-    */
 
     /// <summary>
     /// Update our inventoryGUI.

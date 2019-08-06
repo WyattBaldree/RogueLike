@@ -16,10 +16,10 @@ public class GameController : MonoBehaviour
     /// </summary>
     public static InteractiveGUI interactiveGUI;
 
-    public MapController mapControllerClass;
-    public UnitController unitControllerClass;
-    public LogController logControllerClass;
-    public ItemController itemControllerClass;
+    public MapController mapControllerInstance;
+    public UnitController unitControllerInstance;
+    public LogController logControllerInstance;
+    public ItemController itemControllerInstance;
 
     public InventoryController inventoryControllerInstance;
     public PopupController popupControllerInstance;
@@ -44,10 +44,10 @@ public class GameController : MonoBehaviour
         ScreenResInPixels = new Vector2(ScreenResInUnits.x, ScreenResInUnits.y);
 
         gameC = this;
-        mapC = (MapController)Instantiate(mapControllerClass);
-        itemC = (ItemController)Instantiate(itemControllerClass);
-        unitC = (UnitController)Instantiate(unitControllerClass);
-        logC = (LogController)Instantiate(logControllerClass);
+        mapC = mapControllerInstance;
+        itemC = itemControllerInstance;
+        unitC = unitControllerInstance;
+        logC = logControllerInstance;
 
         inventoryC = inventoryControllerInstance;
         popupC = popupControllerInstance;

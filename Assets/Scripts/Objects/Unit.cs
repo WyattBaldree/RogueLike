@@ -50,21 +50,21 @@ public class Unit : Object
 
         inventory.Initialize();
 
-        slotWeapon = newInventory(equipmentSlotSource, "Weapon", InventoryController.inventoryEnum.none, new List<string> { "weapon" }, UpdateWeapon);
+        slotWeapon = newInventory(equipmentSlotSource, "Weapon", new List<string> { "weapon" }, UpdateWeapon);
 
-        slotHelmet = newInventory(equipmentSlotSource, "Head", InventoryController.inventoryEnum.none, new List<string> { "helmet" }, UpdateHelmet);
+        slotHelmet = newInventory(equipmentSlotSource, "Head", new List<string> { "helmet" }, UpdateHelmet);
 
-        slotChest = newInventory(equipmentSlotSource, "Chest", InventoryController.inventoryEnum.none, new List<string> { "chest" }, UpdateChest);
+        slotChest = newInventory(equipmentSlotSource, "Chest", new List<string> { "chest" }, UpdateChest);
 
-        slotGloves = newInventory(equipmentSlotSource, "Hands", InventoryController.inventoryEnum.none, new List<string> { "gloves" }, UpdateGloves);
+        slotGloves = newInventory(equipmentSlotSource, "Hands", new List<string> { "gloves" }, UpdateGloves);
         
-        slotBoots = newInventory(equipmentSlotSource, "Feet", InventoryController.inventoryEnum.none, new List<string> { "boots" }, UpdateBoots);
+        slotBoots = newInventory(equipmentSlotSource, "Feet", new List<string> { "boots" }, UpdateBoots);
 
-        slotRing1 = newInventory(equipmentSlotSource, "Ring Finger", InventoryController.inventoryEnum.none, new List<string> { "ring" }, null);
+        slotRing1 = newInventory(equipmentSlotSource, "Ring Finger", new List<string> { "ring" }, null);
 
-        slotRing2 = newInventory(equipmentSlotSource, "Index Finger", InventoryController.inventoryEnum.none, new List<string> { "ring" }, null);
+        slotRing2 = newInventory(equipmentSlotSource, "Index Finger", new List<string> { "ring" }, null);
 
-        slotAmulet = newInventory(equipmentSlotSource, "Neck", InventoryController.inventoryEnum.none, new List<string> { "amulet" }, null);
+        slotAmulet = newInventory(equipmentSlotSource, "Neck", new List<string> { "amulet" }, null);
     }
 
     /// <summary>
@@ -76,7 +76,7 @@ public class Unit : Object
     /// <param name="_acceptableTypes">A list of strings which define what items can be placed into the inventory</param>
     /// <param name="updateListenerFunction">The function that is called when the inventory contents change</param>
     /// <returns></returns>
-    Inventory newInventory(Inventory source, string name, InventoryController.inventoryEnum invEnum, List<string> _acceptableTypes, UnityAction updateListenerFunction = null)
+    Inventory newInventory(Inventory source, string name, List<string> _acceptableTypes, UnityAction updateListenerFunction = null)
     {
         Inventory inv = Instantiate<Inventory>(source, transform);
         inv.inventoryName = name;

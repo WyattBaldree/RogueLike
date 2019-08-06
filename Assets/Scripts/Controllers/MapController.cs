@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEngine.Assertions;
 using System;
 
 public class MapController : MonoBehaviour
@@ -41,12 +42,22 @@ public class MapController : MonoBehaviour
         animationCount += animationSpeed * Time.deltaTime;
     }
 
+    private Vector2 GetMapSize()
+    {
+        return GameController.gameC.ScreenResInUnits;
+    }
+
 
     public void Initialize(Camera cam)
     {
+        Vector2 size = GetMapSize();
+        ClearWalls();
+        ClearFloors();
+        ClearPits();
+        ClearDarkness();
 
         // create all floors
-        floorMapArray = new Floor[(int)GameController.gameC.ScreenResInUnits.x, (int)(GameController.gameC.ScreenResInUnits.y)];
+        floorMapArray = new Floor[(int)size.x, (int)size.y];
 
         for (int i = 0; i < GameController.gameC.ScreenResInUnits.x; i++)
         {
@@ -58,7 +69,7 @@ public class MapController : MonoBehaviour
         }
 
         //create all walls
-        wallMapArray = new Wall[(int)GameController.gameC.ScreenResInUnits.x, (int)(GameController.gameC.ScreenResInUnits.y)];
+        wallMapArray = new Wall[(int)size.x, (int)size.y];
 
         for (int i = 0; i < GameController.gameC.ScreenResInUnits.x; i++)
         {
@@ -139,7 +150,7 @@ public class MapController : MonoBehaviour
 
 
         //create all pits
-        pitMapArray = new Pit[(int)GameController.gameC.ScreenResInUnits.x, (int)(GameController.gameC.ScreenResInUnits.y)];
+        pitMapArray = new Pit[(int)size.x, (int)size.y];
 
         for (int i = 0; i < GameController.gameC.ScreenResInUnits.x; i++)
         {
@@ -159,7 +170,7 @@ public class MapController : MonoBehaviour
         }
 
         //create all darkness
-        darknessMapArray = new Darkness[(int)GameController.gameC.ScreenResInUnits.x, (int)(GameController.gameC.ScreenResInUnits.y)];
+        darknessMapArray = new Darkness[(int)size.x, (int)size.y];
 
         for (int i = 0; i < GameController.gameC.ScreenResInUnits.x; i++)
         {
@@ -207,7 +218,6 @@ public class MapController : MonoBehaviour
         }
     }
 
-
     public Wall GetWall(int x, int y)
     {
         if(wallMapArray[x, y])
@@ -217,13 +227,31 @@ public class MapController : MonoBehaviour
         return null;
     }
 
-    public Pit GetPit(int x, int y)
+    public void ClearWalls()
     {
-        if (pitMapArray[x, y])
+        if (wallMapArray == null) return;
+
+        Vector2 size = GetMapSize();
+        for (int i = 0; i < size.x; i++)
         {
-            return pitMapArray[x, y];
+            for (int j = 0; j < size.y; j++)
+            {
+                ClearWall(i, j);
+            }
         }
-        return null;
+    }
+
+    public bool ClearWall(int x, int y)
+    {
+        Vector2 size = GetMapSize();
+        if (x < 0 || x >= (int)size.x || y < 0 || y >= (int)size.y)
+        {
+            Debug.Log("The wall that was attempted to clear was outside of the bounds of the map.");
+            return false;
+        }
+        Destroy(wallMapArray[x, y].gameObject);
+        wallMapArray[x, y] = null;
+        return true;
     }
 
     public Floor GetFloor(int x, int y)
@@ -235,6 +263,69 @@ public class MapController : MonoBehaviour
         return null;
     }
 
+    public void ClearFloors()
+    {
+        if (floorMapArray == null) return;
+
+        Vector2 size = GetMapSize();
+        for (int i = 0; i < size.x; i++)
+        {
+            for (int j = 0; j < size.y; j++)
+            {
+                ClearFloor(i, j);
+            }
+        }
+    }
+
+    public bool ClearFloor(int x, int y)
+    {
+        Vector2 size = GetMapSize();
+        if (x < 0 || x >= (int)size.x || y < 0 || y >= (int)size.y)
+        {
+            Debug.Log("The wall that was attempted to clear was outside of the bounds of the map.");
+            return false;
+        }
+        Destroy(floorMapArray[x, y].gameObject);
+        floorMapArray[x, y] = null;
+        return true;
+    }
+
+    public Pit GetPit(int x, int y)
+    {
+        if (pitMapArray[x, y])
+        {
+            return pitMapArray[x, y];
+        }
+        return null;
+    }
+
+    public void ClearPits()
+    {
+        if (pitMapArray == null) return;
+
+        Vector2 size = GetMapSize();
+        for (int i = 0; i < size.x; i++)
+        {
+            for (int j = 0; j < size.y; j++)
+            {
+                ClearPit(i, j);
+            }
+        }
+    }
+
+    public bool ClearPit(int x, int y)
+    {
+        Vector2 size = GetMapSize();
+        if (x < 0 || x >= (int)size.x || y < 0 || y >= (int)size.y)
+        {
+            Debug.Log("The wall that was attempted to clear was outside of the bounds of the map.");
+            return false;
+        }
+        Destroy(pitMapArray[x, y].gameObject);
+        pitMapArray[x, y] = null;
+        return true;
+    }
+
     public Darkness GetDarkness(int x, int y)
     {
         if (darknessMapArray[x, y])
@@ -242,6 +333,33 @@ public class MapController : MonoBehaviour
             return darknessMapArray[x, y];
         }
         return null;
+    }
+
+    public void ClearDarkness()
+    {
+        if (darknessMapArray == null) return;
+
+        Vector2 size = GetMapSize();
+        for (int i = 0; i < size.x; i++)
+        {
+            for (int j = 0; j < size.y; j++)
+            {
+                ClearPit(i, j);
+            }
+        }
+    }
+
+    public bool ClearDarkness(int x, int y)
+    {
+        Vector2 size = GetMapSize();
+        if (x < 0 || x >= (int)size.x || y < 0 || y >= (int)size.y)
+        {
+            Debug.Log("The wall that was attempted to clear was outside of the bounds of the map.");
+            return false;
+        }
+        Destroy(darknessMapArray[x, y].gameObject);
+        darknessMapArray[x, y] = null;
+        return true;
     }
 
     public bool IsEmpty(int x, int y)

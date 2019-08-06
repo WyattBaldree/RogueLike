@@ -115,29 +115,5 @@ public class Player : Unit
     public override void Initialize()
     {
         base.Initialize();
-
-        //Hook up the inventorys to the correct PickUpDrops
-
-        /*slotWeapon.myInventoryGUIE = InventoryController.inventoryEnum.weapon;
-        slotWeapon.Initialize();
-
-        slotHelmet.myInventoryGUIEnum = InventoryController.inventoryEnum.helmet;
-        slotHelmet.Initialize();
-
-        slotChest.myInventoryGUIEnum = InventoryController.inventoryEnum.chest;
-        slotChest.Initialize();
-
-        slotGloves.myInventoryGUIEnum = InventoryController.inventoryEnum.gloves;
-        slotGloves.Initialize();
-
-        slotBoots.myInventoryGUIEnum = InventoryController.inventoryEnum.boots;
-        slotBoots.Initialize();
-        */
-       /*slotGloves
-        slotGreaves
-        slotBoots
-        slotRing1
-        slotRing2
-        slotAmulet*/
     }
 }
