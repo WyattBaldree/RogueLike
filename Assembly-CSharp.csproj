@@ -103,6 +103,13 @@
     <Compile Include="Assets\Scripts\Objects\Wall.cs" />
     <Compile Include="Assets\Scripts\Objects\Weapon.cs" />
     <Compile Include="Assets\Scripts\Pathfinding.cs" />
+    <Compile Include="Assets\Scripts\RoguelikeObject\ConnectedWall.cs" />
+    <Compile Include="Assets\Scripts\RoguelikeObject\Floor2.cs" />
+    <Compile Include="Assets\Scripts\RoguelikeObject\RoguelikeObject.cs" />
+    <Compile Include="Assets\Scripts\RoguelikeObject\RoguelikeObjectEditor.cs" />
+    <Compile Include="Assets\Scripts\RoguelikeObject\Unit2.cs" />
+    <Compile Include="Assets\Scripts\RoguelikeObject\Wall2.cs" />
+    <Compile Include="Assets\Scripts\RoguelikeObject\WorldObject.cs" />
     <Compile Include="Assets\Scripts\SortingLayerExposer.cs" />
     <Compile Include="Assets\Scripts\moveup.cs" />
     <Compile Include="Assets\_ideas.cs" />
