@@ -433,7 +433,7 @@ public class Entry : GUIComponent
         float w = 0;
         foreach(TextContainer tc in childContainers)
         {
-            w += tc.GetWidth() * transform.lossyScale.x;
+            w += tc.GetWidth() * transform.localScale.x;
         }
         return w;
     }

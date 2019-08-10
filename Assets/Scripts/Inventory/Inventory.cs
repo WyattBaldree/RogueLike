@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class Inventory : MonoBehaviour
 {
-    public Item[] itemList = new Item[80];
+    public RoguelikeObject[] itemList = new RoguelikeObject[80];
 
     /// <summary>
     /// Total inventory capacity
@@ -35,9 +35,9 @@ public class Inventory : MonoBehaviour
     /// <summary>
     /// A list of strings that difines what types of items are allowed.
     /// </summary>
-    public List<string> acceptableTypes = new List<string>()
+    public List<RoguelikeObject.TagEnum> acceptableTypes = new List<RoguelikeObject.TagEnum>()
     {
-        "item"
+        RoguelikeObject.TagEnum.item
     };
 
     /// <summary>
@@ -53,9 +53,9 @@ public class Inventory : MonoBehaviour
     /// </summary>
     /// <param name="newItem"></param>
     /// <returns></returns>
-    public bool AddItem(Item newItem)
+    public bool AddItem(RoguelikeObject newItem)
     {
-        int i = GetAvailableStack(newItem, newItem.uniqueId);
+        int i = GetAvailableStack(newItem, newItem.UniqueID);
         if (i >= 0)
         {
             //add this new item to the existing stack
@@ -71,12 +71,12 @@ public class Inventory : MonoBehaviour
     /// <param name="newItem"></param>
     /// <param name="index"></param>
     /// <returns></returns>
-    public bool AddItem(Item newItem, int index)
+    public bool AddItem(RoguelikeObject newItem, int index)
     {
         bool acceptable = false;
-        foreach (string s in newItem.typeList)
+        foreach (RoguelikeObject.TagEnum tag in newItem.tags)
         {
-            if (acceptableTypes.Contains(s))
+            if (acceptableTypes.Contains(tag))
             {
                 acceptable = true;
                 break;
@@ -91,21 +91,21 @@ public class Inventory : MonoBehaviour
         //if there is already a stack here...
         if (itemList[index] != null)
         {
-            Item existingStack = itemList[index];
-            if (newItem.uniqueId == existingStack.uniqueId)
+            RoguelikeObject existingStack = itemList[index];
+            if (newItem.UniqueID == existingStack.UniqueID)
             {
                 //if we're droppping onto an existing stack of the same kind
-                int availableSpace = existingStack.maxStackSize - existingStack.stackSize;
+                int availableSpace = existingStack.StackSizeMax - existingStack.StackSize;
                 if (availableSpace <= 0)
                 {
                     //if the stack is already full, return false
                     return false;
                 }
 
-                if(newItem.stackSize <= availableSpace)
+                if(newItem.StackSize <= availableSpace)
                 {
                     //if there is enough space for our stack, add it to the existing stack
-                    existingStack.SetStackSize(existingStack.stackSize + newItem.stackSize);
+                    existingStack.StackSize = existingStack.StackSize + newItem.StackSize;
                     Destroy(newItem.gameObject);
                     UpdateInventoryGUI(index);
                     itemChangedEvent.Invoke();
@@ -115,8 +115,8 @@ public class Inventory : MonoBehaviour
                 {
                     //if the stack's available space is too small to hold all of our stack, 
                     //fill the existing stack and add the remainder to the next available stack.
-                    existingStack.SetStackSize(existingStack.maxStackSize);
-                    newItem.SetStackSize(newItem.stackSize - availableSpace);
+                    existingStack.StackSize = existingStack.StackSizeMax;
+                    newItem.StackSize = newItem.StackSize - availableSpace;
                     itemChangedEvent.Invoke();
                     return AddItem(newItem);
                 }
@@ -132,15 +132,18 @@ public class Inventory : MonoBehaviour
         if (external)
         {
             //if this is an external inv, the item is dropped meaning, among other things, it will be visible in the world and located at the external inv's location.
-            newItem.Dropped();
-            newItem.transform.position = transform.position;
+            newItem.Exposed = true;
         }
         else
         {
             //else the item is obtains and will not show up in the world.
-            newItem.Obtained();
+            newItem.Exposed = false;
         }
-        newItem.myInventory = this;
+
+        newItem.transform.position = transform.position;
+        newItem.transform.SetParent(gameObject.transform);
+
+        newItem.MyInventory = this;
         UpdateInventoryGUI(index);
         itemChangedEvent.Invoke();
         return true;
@@ -150,13 +153,13 @@ public class Inventory : MonoBehaviour
     /// Returns the index of the first available non-full stack with some optional filters
     /// </summary>
     /// <param name="ignoreItem">optionally specify a specify an item stack to ignore</param>
-    /// <param name="uid">optionally set a string uid filter on the search</param>
+    /// <param name="uid">optionally set a string UniqueID filter on the search</param>
     /// <returns></returns>
-    public int GetAvailableStack(Item ignoreItem = null, string uid = "")
+    public int GetAvailableStack(RoguelikeObject ignoreItem = null, string uid = "")
     {
         for( int i = 0; i < itemList.Length; i++ )
         {
-            if(itemList[i] && itemList[i] != ignoreItem && (uid == "" || itemList[i].uniqueId == uid) && itemList[i].stackSize < itemList[i].maxStackSize)
+            if(itemList[i] && itemList[i] != ignoreItem && (uid == "" || itemList[i].UniqueID == uid) && itemList[i].StackSize < itemList[i].StackSizeMax)
             {
                 return i;
             }
@@ -170,7 +173,7 @@ public class Inventory : MonoBehaviour
     /// </summary>
     /// <param name="item">The item to remove.</param>
     /// <returns></returns>
-    public bool RemoveItem(Item item)
+    public bool RemoveItem(RoguelikeObject item)
     {
         int index = GetItemIndex(item);
         if (index >= 0)
@@ -192,7 +195,7 @@ public class Inventory : MonoBehaviour
             return false;
         }
 
-        Item item = itemList[index];
+        RoguelikeObject item = itemList[index];
         itemList[index] = null;
         UpdateInventoryGUI(index);
         itemChangedEvent.Invoke();
@@ -208,8 +211,8 @@ public class Inventory : MonoBehaviour
     /// <returns></returns>
     public bool MoveItem(int index, Inventory inv, int amount)
     {
-        Item item = itemList[index];
-        if(amount < 1 || amount >= item.stackSize)
+        RoguelikeObject item = itemList[index];
+        if(amount < 1 || amount >= item.StackSize)
         {
             RemoveItem(index);
             if (!inv.AddItem(item))
@@ -221,10 +224,10 @@ public class Inventory : MonoBehaviour
         }
         else
         {
-            Item newItem = ItemController.MakeItem(item, amount, inv);
+            RoguelikeObject newItem = ItemController.MakeItem(item, amount, inv);
             if (newItem)
             {
-                item.SetStackSize(item.stackSize - amount);
+                item.StackSize = item.StackSize - amount;
                 return true;
             }
             return false;
@@ -238,7 +241,7 @@ public class Inventory : MonoBehaviour
     /// <param name="inv">The inventory to move to.</param>
     /// <param name="amount">The amount to move. -1 for the whole stack.</param>
     /// <returns></returns>
-    public bool MoveItem(Item item, Inventory inv, int amount = -1)
+    public bool MoveItem(RoguelikeObject item, Inventory inv, int amount = -1)
     {
         int index = GetItemIndex(item);
         if (index >= 0) return MoveItem(index, inv, amount);
@@ -255,8 +258,8 @@ public class Inventory : MonoBehaviour
     /// <returns></returns>
     public bool MoveItem(int index1, Inventory inv, int index2, int amount = -1)
     {
-        Item item = itemList[index1];
-        if (amount < 1 || amount >= item.stackSize)
+        RoguelikeObject item = itemList[index1];
+        if (amount < 1 || amount >= item.StackSize)
         {
             if (!RemoveItem(index1)) return false;
             if (!inv.AddItem(item, index2))
@@ -268,10 +271,10 @@ public class Inventory : MonoBehaviour
         }
         else
         {
-            Item newItem = ItemController.MakeItem(item, amount, inv, index2);
+            RoguelikeObject newItem = ItemController.MakeItem(item, amount, inv, index2);
             if (newItem)
             {
-                item.SetStackSize(item.stackSize - amount);
+                item.StackSize = item.StackSize - amount;
                 return true;
             }
             return false;
@@ -286,7 +289,7 @@ public class Inventory : MonoBehaviour
     /// <param name="index2">The index to move to.</param>
     /// <param name="amount">The amount to move. -1 for the whole stack.</param>
     /// <returns></returns>
-    public bool MoveItem(Item item, Inventory inv, int index2, int amount)
+    public bool MoveItem(RoguelikeObject item, Inventory inv, int index2, int amount)
     {
         int index = GetItemIndex(item);
         if (index >= 0) return MoveItem(index, inv, index2, amount);
@@ -298,7 +301,7 @@ public class Inventory : MonoBehaviour
     /// </summary>
     /// <param name="index"></param>
     /// <returns></returns>
-    public Item GetItem(int index)
+    public RoguelikeObject GetItem(int index)
     {
         return itemList[index];
     }
@@ -308,7 +311,7 @@ public class Inventory : MonoBehaviour
     /// </summary>
     /// <param name="item">The item to search for.</param>
     /// <returns>Returns the index or -1 if it is not found.</returns>
-    public int GetItemIndex(Item item)
+    public int GetItemIndex(RoguelikeObject item)
     {
         for(int i = 0; i < inventoryCapacity; i++)
         {

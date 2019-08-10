@@ -59,7 +59,7 @@ public class Item : Object
         if(newStackSize <= 0)
         {
             Debug.Log("WE NEED TO DESTROY THE ITEMS WHEN THEIR STACK SIZE BECOMES 0!!!!");
-            myInventory.RemoveItem(this);
+            //myInventory.RemoveItem(this);
             Destroy(gameObject);
             return;
         }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ItemController : MonoBehaviour
 {
-    public Item[] itemArray;
+    public RoguelikeObject[] itemArray;
 
     [System.NonSerialized]
 
@@ -49,11 +49,11 @@ public class ItemController : MonoBehaviour
         }
 
 
-        MakeItem(itemArray[1], 50, inventoryArray[7, 12]);
-        MakeItem(itemArray[2], 50, inventoryArray[7, 12]);
+        //MakeItem(itemArray[1], 50, inventoryArray[7, 12]);
+        //MakeItem(itemArray[2], 50, inventoryArray[7, 12]);
 
 
-        MakeItem(ironCapSource, 50, inventoryArray[7, 13]);
+        /*MakeItem(ironCapSource, 50, inventoryArray[7, 13]);
         MakeItem(ringmailSource, 50, inventoryArray[7, 13]);
         MakeItem(leatherGlovesSource, 50, inventoryArray[7, 13]);
         MakeItem(bootsSource, 50, inventoryArray[7, 13]);
@@ -61,7 +61,7 @@ public class ItemController : MonoBehaviour
         MakeItem(bootsSource, 1, ((Chest)(GameController.mapC.wallMapArray[3,2])).inventory);
         MakeItem(ironCapSource, 1, ((Chest)(GameController.mapC.wallMapArray[3, 2])).inventory);
         MakeItem(leatherGlovesSource, 1, ((Chest)(GameController.mapC.wallMapArray[3, 2])).inventory);
-        MakeItem(ringmailSource, 1, ((Chest)(GameController.mapC.wallMapArray[3, 2])).inventory);
+        MakeItem(ringmailSource, 1, ((Chest)(GameController.mapC.wallMapArray[3, 2])).inventory);*/
     }
 
     /// <summary>
@@ -72,23 +72,12 @@ public class ItemController : MonoBehaviour
     /// <param name="destination">The inventory the item is going to begin in.</param>
     /// <param name="index">The inventory index to put the new item in. -1 for the first available spot.</param>
     /// <returns></returns>
-    public static Item MakeItem(Item source, int amount, Inventory destination, int index = -1)
+    public static RoguelikeObject MakeItem(RoguelikeObject source, int amount, Inventory destination, int index = -1)
     {
-        Item newItem = Instantiate<Item>(source, destination.transform.position, Quaternion.identity, destination.transform);
+        RoguelikeObject newItem = Instantiate<RoguelikeObject>(source, destination.transform.position, Quaternion.identity, destination.transform);
         newItem.Initialize();
 
-        if(amount < 0)
-        {
-            newItem.SetStackSize(1);
-        }
-        else if (amount <= newItem.maxStackSize)
-        {
-            newItem.SetStackSize(amount);
-        }
-        else
-        {
-            newItem.SetStackSize(newItem.maxStackSize);
-        }
+        newItem.StackSize = amount;
 
         bool wasAdded;
         if(index > -1)

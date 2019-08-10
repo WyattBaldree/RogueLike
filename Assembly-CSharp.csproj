@@ -103,6 +103,7 @@
     <Compile Include="Assets\Scripts\Objects\Wall.cs" />
     <Compile Include="Assets\Scripts\Objects\Weapon.cs" />
     <Compile Include="Assets\Scripts\Pathfinding.cs" />
+    <Compile Include="Assets\Scripts\RoguelikeObject\BasicItem.cs" />
     <Compile Include="Assets\Scripts\RoguelikeObject\ConnectedWall.cs" />
     <Compile Include="Assets\Scripts\RoguelikeObject\Floor2.cs" />
     <Compile Include="Assets\Scripts\RoguelikeObject\ItemSpriteRenderer.cs" />

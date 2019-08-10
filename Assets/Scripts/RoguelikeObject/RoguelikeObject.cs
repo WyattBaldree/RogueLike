@@ -10,11 +10,21 @@ public abstract class RoguelikeObject : MonoBehaviour
      * Since all interactable objects will be children of this object, this object also contains information that all objects
      * share like: a name, a description, weight, ect.
      */
-    public enum TagEnum { none }
+    public enum TagEnum { item }
 
     [Header("Roguelike Object")]
 
-    public List<string> tags;
+    public List<TagEnum> tags = new List<TagEnum>(){TagEnum.item};
+
+    [SerializeField]
+    private string uniqueID;
+    /// <summary>
+    /// READ ONLY. The objectName uniqueID. This ID is used for differentiiating between object that may have the same name. Used for stacking items.
+    /// </summary>
+    public string UniqueID
+    {
+        get => uniqueID;
+    }
 
     [SerializeField]
     private string objectName;
@@ -36,9 +46,19 @@ public abstract class RoguelikeObject : MonoBehaviour
     {
         get => description;
     }
+    
+    private Inventory myInventory;
+    /// <summary>
+    /// READ ONLY. The description property is a... description of the object. For example, an arrow might have the description:
+    /// "A sharp piece of metal, a wooden shaft, and feathers expertly fletched together. Can be fired out of a bow."
+    /// </summary>
+    public Inventory MyInventory
+    {
+        get => myInventory;
+        set => myInventory = value;
+    }
 
-    [SerializeField]
-    private int stackSize;
+    private int stackSize = 0;
     /// <summary>
     /// This value represents the current stack size of the object. That is, when this object is in an inventory,
     /// how many copies of it are in a single inventory space. The best example is a stack of arrows.
@@ -48,18 +68,21 @@ public abstract class RoguelikeObject : MonoBehaviour
         get => stackSize;
         set
         {
-            Assert.IsTrue(value <= StackSizeMax, "There was an attemp to set the stack size of a RoguelikeObject to a value greater than its stackSizeMax!");
-            Assert.IsTrue(value >= 0,            "There was an attemp to set the stack size of a RoguelikeObject to a value less than 0!");
+            Assert.IsTrue(value <= StackSizeMax, "There was an attempt to set the stack size of a RoguelikeObject to a value greater than its stackSizeMax!");
+            Assert.IsTrue(value >= 0,            "There was an attempt to set the stack size of a RoguelikeObject to a value less than 0!");
 
             //[NEEDS WORK]
-            //if (value = 0) Destroy THIS OBJECT;
-
+            if (value == 0)
+            {
+                DestroyObject();
+                return;
+            }
             stackSize = Mathf.Clamp(value, 0, StackSizeMax);
         }
     }
 
     [SerializeField]
-    private int stackSizeMax;
+    private int stackSizeMax = 1;
     /// <summary>
     /// READ ONLY. The maximum stack size for this object.
     /// </summary>
@@ -69,7 +92,7 @@ public abstract class RoguelikeObject : MonoBehaviour
     }
 
     [SerializeField]
-    private int goldValue;
+    private int goldValue = 1;
     /// <summary>
     /// READ ONLY. This represents the base sell/buy price of the object. The final buy/sell price will, of course, be effect by things like charisma.
     /// </summary>
@@ -79,7 +102,7 @@ public abstract class RoguelikeObject : MonoBehaviour
     }
 
     [SerializeField]
-    public static int weight;
+    public static int weight = 1;
     /// <summary>
     /// READ ONLY. This represents the base sell/buy price of the object. The final buy/sell price will, of course, be effect by things like charisma.
     /// </summary>
@@ -89,7 +112,7 @@ public abstract class RoguelikeObject : MonoBehaviour
     }
 
     [SerializeField]
-    private bool flammable;
+    private bool flammable = false;
     /// <summary>
     /// Can this object catch on fire?
     /// </summary>
@@ -120,7 +143,7 @@ public abstract class RoguelikeObject : MonoBehaviour
     }
 
     [SerializeField]
-    private bool explosive;
+    private bool explosive = false;
     /// <summary>
     /// When this object catches on fire does it explode?
     /// </summary>
@@ -165,10 +188,11 @@ public abstract class RoguelikeObject : MonoBehaviour
     /// PRIVATE. The sprite renderer that this object uses in the world as an ITEM. This sprite renderer is only used for showing an item lying on the ground in the world.
     /// </summary>
     [SerializeField]
-    private ItemSpriteRenderer myItemSpriteRenderer
+    private ItemSpriteRenderer myItemSpriteRenderer;
+
+    public void Initialize()
     {
-        get => myItemSpriteRenderer;
-        set => myItemSpriteRenderer = value;
+        ItemSprite = itemSprite;
     }
 
     /// <summary>
@@ -186,8 +210,13 @@ public abstract class RoguelikeObject : MonoBehaviour
         return ObjectName;
     }
 
+    /// <summary>
+    /// Cleanly Destroy the item by removing it from all lists, updating all graphics, then destroying it.
+    /// </summary>
     public virtual void DestroyObject()
     {
-
+        Debug.Log("WE NEED TO DESTROY THE ITEMS WHEN THEIR STACK SIZE BECOMES 0!!!!");
+        MyInventory.RemoveItem(this);
+        Destroy(this.gameObject);
     }
 }

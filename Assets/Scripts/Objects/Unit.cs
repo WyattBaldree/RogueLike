@@ -50,6 +50,8 @@ public class Unit : Object
 
         inventory.Initialize();
 
+        
+        /*[Remove?]
         slotWeapon = newInventory(equipmentSlotSource, "Weapon", new List<string> { "weapon" }, UpdateWeapon);
 
         slotHelmet = newInventory(equipmentSlotSource, "Head", new List<string> { "helmet" }, UpdateHelmet);
@@ -65,6 +67,7 @@ public class Unit : Object
         slotRing2 = newInventory(equipmentSlotSource, "Index Finger", new List<string> { "ring" }, null);
 
         slotAmulet = newInventory(equipmentSlotSource, "Neck", new List<string> { "amulet" }, null);
+        */
     }
 
     /// <summary>
@@ -76,7 +79,7 @@ public class Unit : Object
     /// <param name="_acceptableTypes">A list of strings which define what items can be placed into the inventory</param>
     /// <param name="updateListenerFunction">The function that is called when the inventory contents change</param>
     /// <returns></returns>
-    Inventory newInventory(Inventory source, string name, List<string> _acceptableTypes, UnityAction updateListenerFunction = null)
+    Inventory newInventory(Inventory source, string name, List<RoguelikeObject.TagEnum> _acceptableTypes, UnityAction updateListenerFunction = null)
     {
         Inventory inv = Instantiate<Inventory>(source, transform);
         inv.inventoryName = name;
@@ -85,6 +88,7 @@ public class Unit : Object
         return inv;
     }
 
+    /*[remove?]
     ///This function is called when the unit equips a weapon
     private void UpdateWeapon()
     {
@@ -218,7 +222,7 @@ public class Unit : Object
         {
             GameController.logC.NewEntry(instanceName + "'s<d> Ring is removed.");
         }
-    }
+    }*/
 
     /// <summary>
     /// Remove the Unit from the game.
@@ -236,14 +240,14 @@ public class Unit : Object
     {
         //Drop all items, drop a corpse, experience
 
-
+        /*[remove?]
         if (slotHelmet.itemList[0]) Drop(slotHelmet, slotHelmet.itemList[0], 0, 0);
         if (slotGloves.itemList[0]) Drop(slotGloves, slotGloves.itemList[0], 0, 0);
         if (slotChest.itemList[0]) Drop(slotChest, slotChest.itemList[0], 0, 0);
         if (slotBoots.itemList[0]) Drop(slotBoots, slotBoots.itemList[0], 0, 0);
-        if (slotWeapon.itemList[0]) Drop(slotWeapon, slotWeapon.itemList[0], 0, 0);
+        if (slotWeapon.itemList[0]) Drop(slotWeapon, slotWeapon.itemList[0], 0, 0);*/
 
-        foreach (Item i in inventory.itemList)
+        foreach (RoguelikeObject i in inventory.itemList)
         {
             if (i) Drop(inventory, i, 0, 0);
         }
@@ -655,8 +659,8 @@ public class Unit : Object
         
         if(sourceInventory.MoveItem(itemIndex, this.inventory, -1))
         {
-            Item pickupItem = sourceInventory.GetItem(sourceInventory.GetAvailableStack());
-            GameController.logC.NewEntry(name + "<d> obtained " + pickupItem.instanceName + "<d>.");
+            RoguelikeObject pickupItem = sourceInventory.GetItem(sourceInventory.GetAvailableStack());
+            GameController.logC.NewEntry(name + "<d> obtained " + pickupItem.GetFullName() + "<d>.");
         }
     }
 
@@ -668,7 +672,7 @@ public class Unit : Object
     /// <param name="xOffset">x offset from unit</param>
     /// <param name="yOffset">y offset from unit</param>
     /// <returns>returns true if the drop was successful</returns>
-    public bool Drop(Inventory inv, Item item, int xOffset = 0, int yOffset = 0)
+    public bool Drop(Inventory inv, RoguelikeObject item, int xOffset = 0, int yOffset = 0)
     {
         int groundX = (int)(transform.position.x) + xOffset;
         int groundY = (int)(transform.position.y) + yOffset;

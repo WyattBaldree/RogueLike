@@ -13,7 +13,7 @@ public class PickupDrop : Object
     public static List<PickupDrop> pickupDropList = new List<PickupDrop>();
     public InventoryGUI myInventoryGUI;
     public SpriteRenderer backgroundSpriteRenderer;
-    public SpriteRenderer itemSpriteRenderer;
+    public ItemSpriteRenderer itemSpriteRenderer;
     public SpriteRenderer disabledSpriteRenderer;
     
     public Sprite spriteButton;
@@ -34,7 +34,7 @@ public class PickupDrop : Object
     {
         pickupDropList.Add(this);
         home = itemSpriteRenderer.transform.position;
-        defaultItemSortingOrder = itemSpriteRenderer.sortingOrder;
+        defaultItemSortingOrder = itemSpriteRenderer.SortingOrder;
     }
 
     private void Update()
@@ -85,7 +85,7 @@ public class PickupDrop : Object
         if (disabled || hidden) return;
         held = true;
         home = itemSpriteRenderer.gameObject.transform.position;
-        itemSpriteRenderer.sortingOrder++;
+        itemSpriteRenderer.SortingOrder++;
     }
 
     /// <summary>
@@ -108,7 +108,7 @@ public class PickupDrop : Object
                 {
                     return;
                 }
-                Item heldItem = inv.itemList[myIndex];
+                RoguelikeObject heldItem = inv.itemList[myIndex];
 
                 inv.MoveItem(myIndex, pd.myInventoryGUI.targetInventory, pd.myIndex, amount);
 
@@ -116,6 +116,7 @@ public class PickupDrop : Object
             }
         }
     }
+
 
     /// <summary>
     /// Called when the user lets go of us
@@ -126,7 +127,7 @@ public class PickupDrop : Object
 
         itemSpriteRenderer.gameObject.transform.position = backgroundSpriteRenderer.transform.position;//home;
 
-        itemSpriteRenderer.sortingOrder = defaultItemSortingOrder;
+        itemSpriteRenderer.SortingOrder = defaultItemSortingOrder;
 
         if (!disabled && !hidden) DropItem();
     }
@@ -175,20 +176,23 @@ public class PickupDrop : Object
             {
                 if (myIndex >= myInventoryGUI.targetInventory.inventoryCapacity || myInventoryGUI.targetInventory.GetItem(myIndex) == null)
                 {
-                    itemSpriteRenderer.sprite = null;
+                    itemSpriteRenderer.ItemSprite = null;
+                    itemSpriteRenderer.StackSize = 0;
                     return;
                 }
 
-                Sprite sprite = myInventoryGUI.targetInventory.GetItem(myIndex).itemSprite;
+                RoguelikeObject item = myInventoryGUI.targetInventory.GetItem(myIndex);
 
-                if (sprite)
+                if (item)
                 {
-                    itemSpriteRenderer.sprite = sprite;
+                    itemSpriteRenderer.ItemSprite = item.ItemSprite;
+                    itemSpriteRenderer.StackSize = item.StackSize;
                 }
             }
             else
             {
-                itemSpriteRenderer.sprite = null;
+                itemSpriteRenderer.ItemSprite = null;
+                itemSpriteRenderer.StackSize = 0;
             }
 
         }
@@ -251,14 +255,15 @@ public class PickupDrop : Object
         }
     }
 
-    /// <summary>
+    //[Remove?]
+    /*/// <summary>
     /// Set the item sprite
     /// </summary>
     /// <param name="s"></param>
     public void SetSprite(Sprite s)
     {
         itemSpriteRenderer.sprite = s;
-    }
+    }*/
 
     private void OnValidate()
     {
