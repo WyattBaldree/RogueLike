@@ -53,7 +53,7 @@ public class InteractiveGUI : MonoBehaviour
         }
         Vector2 mousePos = GameController.GetMousePosition();
         transform.position = new Vector3(mousePos.x, mousePos.y, transform.position.z);
-        interactiveNameEntry.EntryInitialize(targetInteractive.gameObject.GetComponent<Object>().instanceName);
+        interactiveNameEntry.SetText(targetInteractive.gameObject.GetComponent<Object>().instanceName);
         UpdateGUIDimensions();
 
         //load new the buttons from sourceInteractive

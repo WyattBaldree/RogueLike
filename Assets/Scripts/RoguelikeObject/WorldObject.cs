@@ -4,4 +4,6 @@ using UnityEngine;
 
 public class WorldObject : RoguelikeObject
 {
+    //[Header("World Object")]
+
 }

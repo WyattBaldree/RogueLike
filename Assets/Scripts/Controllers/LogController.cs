@@ -49,7 +49,7 @@ public class LogController : MonoBehaviour
         newEntry = Instantiate(entryClass, this.transform);
         newEntry.transform.localScale = new Vector3(entryScale, entryScale, newEntry.transform.localScale.z);
         newEntry.maxSize.y = 10;
-        newEntry.EntryInitialize(str, logWidth, font);
+        newEntry.SetText(str, logWidth, font);
         entryList.Insert(0, newEntry);
         logHeight += newEntry.GetHeight();
 

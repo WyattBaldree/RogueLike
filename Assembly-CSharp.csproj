@@ -105,6 +105,7 @@
     <Compile Include="Assets\Scripts\Pathfinding.cs" />
     <Compile Include="Assets\Scripts\RoguelikeObject\ConnectedWall.cs" />
     <Compile Include="Assets\Scripts\RoguelikeObject\Floor2.cs" />
+    <Compile Include="Assets\Scripts\RoguelikeObject\ItemSpriteRenderer.cs" />
     <Compile Include="Assets\Scripts\RoguelikeObject\RoguelikeObject.cs" />
     <Compile Include="Assets\Scripts\RoguelikeObject\RoguelikeObjectEditor.cs" />
     <Compile Include="Assets\Scripts\RoguelikeObject\Unit2.cs" />

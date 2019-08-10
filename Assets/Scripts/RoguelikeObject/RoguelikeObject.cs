@@ -10,8 +10,11 @@ public abstract class RoguelikeObject : MonoBehaviour
      * Since all interactable objects will be children of this object, this object also contains information that all objects
      * share like: a name, a description, weight, ect.
      */
+    public enum TagEnum { none }
 
     [Header("Roguelike Object")]
+
+    public List<string> tags;
 
     [SerializeField]
     private string objectName;
@@ -47,6 +50,10 @@ public abstract class RoguelikeObject : MonoBehaviour
         {
             Assert.IsTrue(value <= StackSizeMax, "There was an attemp to set the stack size of a RoguelikeObject to a value greater than its stackSizeMax!");
             Assert.IsTrue(value >= 0,            "There was an attemp to set the stack size of a RoguelikeObject to a value less than 0!");
+
+            //[NEEDS WORK]
+            //if (value = 0) Destroy THIS OBJECT;
+
             stackSize = Mathf.Clamp(value, 0, StackSizeMax);
         }
     }
@@ -82,22 +89,46 @@ public abstract class RoguelikeObject : MonoBehaviour
     }
 
     [SerializeField]
-    private Sprite itemSprite;
+    private bool flammable;
     /// <summary>
-    /// The current sprite we are displaying IN INVENTORIES (this is not the same as the world sprite for wall/floor/units)
+    /// Can this object catch on fire?
     /// </summary>
-    public Sprite ItemSprite
+    public bool Flammable
     {
-        get => itemSprite;
-        set => itemSprite = value;
+        get => flammable;
     }
 
     /// <summary>
-    /// PRIVATE. The sprite renderer that this object uses in the world as an ITEM. This sprite renderer is only used for showing an item lying on the ground in the world.
+    /// The max amount of "on fire" possible
     /// </summary>
-    [SerializeField]
-    private SpriteRenderer mySpriteRenderer;
+    private static int fireAmountMax = 3;
+    private int fireAmount = 0;
+    /// <summary>
+    /// How "on fire" is this thing? from
+    /// 0 - not on fire
+    /// 1 - catching on fire
+    /// 2 - on fire
+    /// 3 - engulfed in flames
+    /// </summary>
+    public int FireAmount
+    {
+        get => fireAmount;
+        set
+        {
+            fireAmount = (int)Mathf.Clamp(value, 0, fireAmountMax);
+        }
+    }
 
+    [SerializeField]
+    private bool explosive;
+    /// <summary>
+    /// When this object catches on fire does it explode?
+    /// </summary>
+    public bool Explosive
+    {
+        get => explosive;
+        set => explosive = value;
+    }
     
     private bool exposed = false;
     /// <summary>
@@ -111,7 +142,52 @@ public abstract class RoguelikeObject : MonoBehaviour
         set
         {
             exposed = value;
-            mySpriteRenderer.gameObject.SetActive(exposed);
+            myItemSpriteRenderer.gameObject.SetActive(exposed);
         }
+    }
+
+    [SerializeField]
+    private Sprite itemSprite;
+    /// <summary>
+    /// The current sprite we are displaying IN INVENTORIES (this is not the same as the world sprite for wall/floor/units)
+    /// </summary>
+    public Sprite ItemSprite
+    {
+        get => itemSprite;
+        set
+        {
+            itemSprite = value;
+            myItemSpriteRenderer.ItemSprite = itemSprite;
+        }
+    }
+
+    /// <summary>
+    /// PRIVATE. The sprite renderer that this object uses in the world as an ITEM. This sprite renderer is only used for showing an item lying on the ground in the world.
+    /// </summary>
+    [SerializeField]
+    private ItemSpriteRenderer myItemSpriteRenderer
+    {
+        get => myItemSpriteRenderer;
+        set => myItemSpriteRenderer = value;
+    }
+
+    /// <summary>
+    /// This function is used to get the name of an object as it appears in game. This will be generated differently depending on the child object.
+    /// For Example, a weapon may return its objectName appended with +<echantmentLevel> to indicate that it is enchanted. "Iron Sword +2"
+    /// </summary>
+    /// <returns>The name of the RoguelikeObject as it appears in game.</returns>
+    public virtual string GetFullName()
+    {
+        //return the plural version if applicable.
+        if(stackSize > 1)
+        {
+            return (StackSize) + " " + ObjectName + "s";
+        }
+        return ObjectName;
+    }
+
+    public virtual void DestroyObject()
+    {
+
     }
 }

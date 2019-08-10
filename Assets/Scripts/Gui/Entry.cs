@@ -31,7 +31,7 @@ public class Entry : GUIComponent
 
     float defaultFontSize;
 
-    public void EntryInitialize(string str, float tbw = -1, Font entryFont = null)
+    public void SetText(string str, float tbw = -1, Font entryFont = null)
     {
         //Set it's text
         text = str;
@@ -520,7 +520,7 @@ public class Entry : GUIComponent
 
     public override void UpdateGUI()
     {
-        EntryInitialize(text);
+        SetText(text);
         if (!Application.isPlaying) EditorUtility.SetDirty(this);
     }
 }
