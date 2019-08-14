@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
     public static InventoryController inventoryC = null;
     public static ItemController itemC = null;
     public static PopupController popupC = null;
+    public static WallController wallC = null;
 
     /// <summary>
     /// The InteractiveGUI class we use for context menues;
@@ -20,6 +21,7 @@ public class GameController : MonoBehaviour
     public UnitController unitControllerInstance;
     public LogController logControllerInstance;
     public ItemController itemControllerInstance;
+    public WallController wallControllerInstance;
 
     public InventoryController inventoryControllerInstance;
     public PopupController popupControllerInstance;
@@ -27,7 +29,7 @@ public class GameController : MonoBehaviour
     public bool debug = false;
 
     //How many blocks wide and tall the play field is.
-    public Vector2 ScreenResInUnits = new Vector2(20, 20);
+    public Vector2Int ScreenResInUnits = new Vector2Int(20, 20);
     [System.NonSerialized]
     public Vector2 ScreenResInPixels;
 
@@ -45,6 +47,7 @@ public class GameController : MonoBehaviour
 
         gameC = this;
         mapC = mapControllerInstance;
+        wallC = wallControllerInstance;
         itemC = itemControllerInstance;
         unitC = unitControllerInstance;
         logC = logControllerInstance;
@@ -54,6 +57,7 @@ public class GameController : MonoBehaviour
 
         logC.Initialize();
         mapC.Initialize(Camera.main);
+        wallC.Initialize();
         inventoryC.Initialize();
         itemC.Initialize();
         unitC.Initialize();

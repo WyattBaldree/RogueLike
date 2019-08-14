@@ -23,16 +23,6 @@ public class Inventory : MonoBehaviour
     public bool external = false;
 
     /// <summary>
-    /// Can this inventory be opened?
-    /// </summary>
-    public bool openable = false;
-
-    /// <summary>
-    /// An event that is emited when one of the items in the inventory is changed.
-    /// </summary>
-    public UnityEvent itemChangedEvent;
-
-    /// <summary>
     /// A list of strings that difines what types of items are allowed.
     /// </summary>
     public List<RoguelikeObject.TagEnum> acceptableTypes = new List<RoguelikeObject.TagEnum>()
@@ -108,7 +98,6 @@ public class Inventory : MonoBehaviour
                     existingStack.StackSize = existingStack.StackSize + newItem.StackSize;
                     Destroy(newItem.gameObject);
                     UpdateInventoryGUI(index);
-                    itemChangedEvent.Invoke();
                     return true;
                 }
                 else
@@ -117,7 +106,7 @@ public class Inventory : MonoBehaviour
                     //fill the existing stack and add the remainder to the next available stack.
                     existingStack.StackSize = existingStack.StackSizeMax;
                     newItem.StackSize = newItem.StackSize - availableSpace;
-                    itemChangedEvent.Invoke();
+                    UpdateInventoryGUI(index);
                     return AddItem(newItem);
                 }
             }
@@ -145,7 +134,6 @@ public class Inventory : MonoBehaviour
 
         newItem.MyInventory = this;
         UpdateInventoryGUI(index);
-        itemChangedEvent.Invoke();
         return true;
     }
 
@@ -164,7 +152,6 @@ public class Inventory : MonoBehaviour
                 return i;
             }
         }
-
         return -1;
     }
 
@@ -186,7 +173,7 @@ public class Inventory : MonoBehaviour
     /// <summary>
     /// Remove an item from the inventory.
     /// </summary>
-    /// <param name="item">The item to remove.</param>
+    /// <param name="item">The item index to remove from.</param>
     /// <returns></returns>
     public bool RemoveItem(int index)
     {
@@ -198,7 +185,6 @@ public class Inventory : MonoBehaviour
         RoguelikeObject item = itemList[index];
         itemList[index] = null;
         UpdateInventoryGUI(index);
-        itemChangedEvent.Invoke();
         return true;
     }
 
@@ -224,10 +210,11 @@ public class Inventory : MonoBehaviour
         }
         else
         {
-            RoguelikeObject newItem = ItemController.MakeItem(item, amount, inv);
+            RoguelikeObject newItem = RoguelikeObject.MakeItem(item, amount, inv);
             if (newItem)
             {
                 item.StackSize = item.StackSize - amount;
+                UpdateInventoryGUI(index);
                 return true;
             }
             return false;
@@ -271,10 +258,11 @@ public class Inventory : MonoBehaviour
         }
         else
         {
-            RoguelikeObject newItem = ItemController.MakeItem(item, amount, inv, index2);
+            RoguelikeObject newItem = RoguelikeObject.MakeItem(item, amount, inv, index2);
             if (newItem)
             {
                 item.StackSize = item.StackSize - amount;
+                UpdateInventoryGUI(index1);
                 return true;
             }
             return false;

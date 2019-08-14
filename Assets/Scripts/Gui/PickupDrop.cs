@@ -13,7 +13,7 @@ public class PickupDrop : Object
     public static List<PickupDrop> pickupDropList = new List<PickupDrop>();
     public InventoryGUI myInventoryGUI;
     public SpriteRenderer backgroundSpriteRenderer;
-    public ItemSpriteRenderer itemSpriteRenderer;
+    public RogueSpriteRenderer itemSpriteRenderer;
     public SpriteRenderer disabledSpriteRenderer;
     
     public Sprite spriteButton;
@@ -176,7 +176,7 @@ public class PickupDrop : Object
             {
                 if (myIndex >= myInventoryGUI.targetInventory.inventoryCapacity || myInventoryGUI.targetInventory.GetItem(myIndex) == null)
                 {
-                    itemSpriteRenderer.ItemSprite = null;
+                    itemSpriteRenderer.MySprite = null;
                     itemSpriteRenderer.StackSize = 0;
                     return;
                 }
@@ -185,13 +185,13 @@ public class PickupDrop : Object
 
                 if (item)
                 {
-                    itemSpriteRenderer.ItemSprite = item.ItemSprite;
+                    itemSpriteRenderer.MySprite = item.ItemSprite;
                     itemSpriteRenderer.StackSize = item.StackSize;
                 }
             }
             else
             {
-                itemSpriteRenderer.ItemSprite = null;
+                itemSpriteRenderer.MySprite = null;
                 itemSpriteRenderer.StackSize = 0;
             }
 

@@ -165,8 +165,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6589104631232393846}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.05, y: 0.05, z: 1}
+  m_LocalPosition: {x: 0, y: 0.27, z: 0}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_Children: []
   m_Father: {fileID: 604094319089975507}
   m_RootOrder: 1
@@ -187,7 +187,7 @@ MonoBehaviour:
   verticalAlignment: 2
   maxSize: {x: 1, y: 0}
   minSize: {x: 0, y: 0}
-  textContainerClass: {fileID: 256325411732351838, guid: 43290fbbff9b2e44abb9f1bd65f482c7,
+  CharacterContainerClass: {fileID: 8592844062525845830, guid: e1fbdb8f72cef3c488fbf8fee7daab44,
     type: 3}
   text: 0
   lines:
@@ -195,11 +195,11 @@ MonoBehaviour:
   emptyGameObjectSource: {fileID: 7665764550451049837, guid: 89ee7fe9a381eef489f6381a46e802ee,
     type: 3}
   color: {r: 1, g: 1, b: 1, a: 1}
-  fontSize: 0.5
+  fontSize: 10
   bold: 0
   italic: 0
   anim: 0
-  heightAdjust: 0.01
+  heightAdjust: 123
   textBoxWidth: 0
   waveDuration: 0.1
   waveCharacterSpacing: 0.6

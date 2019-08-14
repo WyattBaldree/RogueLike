@@ -37,17 +37,18 @@ public class ItemController : MonoBehaviour
                 inventoryArray[i, j].Initialize();
             }
         }
-
+        WorldObject yo;
         for (int i = 0; i < 1; i++)
         {
-            MakeItem(itemArray[0], 50, inventoryArray[5 + i, 6]);
-            MakeItem(itemArray[0], 50, inventoryArray[5 + i, 6]);
-            MakeItem(itemArray[0], 50, inventoryArray[5 + i, 6]);
-            MakeItem(itemArray[0], 50, inventoryArray[5 + i, 6]);
-            MakeItem(itemArray[0], 50, inventoryArray[5 + i, 6]);
-            MakeItem(itemArray[0], 50, inventoryArray[5 + i, 6]);
+            RoguelikeObject.MakeItem(itemArray[1], 1, inventoryArray[5 + i, 6]);
+            RoguelikeObject.MakeItem(itemArray[1], 1, inventoryArray[5 + i, 6]);
+            RoguelikeObject.MakeItem(itemArray[1], 1, inventoryArray[5 + i, 6]);
+            RoguelikeObject.MakeItem(itemArray[1], 1, inventoryArray[5 + i, 6]);
+            RoguelikeObject.MakeItem(itemArray[1], 1, inventoryArray[5 + i, 6]);
         }
-
+        yo = (WorldObject)RoguelikeObject.MakeItem(itemArray[1], 1, inventoryArray[5, 6]);
+        yo.Place(new Vector2Int(6, 7));
+        yo.Take(inventoryArray[7, 7]);
 
         //MakeItem(itemArray[1], 50, inventoryArray[7, 12]);
         //MakeItem(itemArray[2], 50, inventoryArray[7, 12]);
@@ -62,41 +63,5 @@ public class ItemController : MonoBehaviour
         MakeItem(ironCapSource, 1, ((Chest)(GameController.mapC.wallMapArray[3, 2])).inventory);
         MakeItem(leatherGlovesSource, 1, ((Chest)(GameController.mapC.wallMapArray[3, 2])).inventory);
         MakeItem(ringmailSource, 1, ((Chest)(GameController.mapC.wallMapArray[3, 2])).inventory);*/
-    }
-
-    /// <summary>
-    /// A function that is used to create a new item.
-    /// </summary>
-    /// <param name="source">The source of the item being made.</param>
-    /// <param name="amount">The stack size of the new item.</param>
-    /// <param name="destination">The inventory the item is going to begin in.</param>
-    /// <param name="index">The inventory index to put the new item in. -1 for the first available spot.</param>
-    /// <returns></returns>
-    public static RoguelikeObject MakeItem(RoguelikeObject source, int amount, Inventory destination, int index = -1)
-    {
-        RoguelikeObject newItem = Instantiate<RoguelikeObject>(source, destination.transform.position, Quaternion.identity, destination.transform);
-        newItem.Initialize();
-
-        newItem.StackSize = amount;
-
-        bool wasAdded;
-        if(index > -1)
-        {
-            wasAdded = destination.AddItem(newItem, index);
-        }
-        else
-        {
-            wasAdded = destination.AddItem(newItem);
-        }
-
-        if (wasAdded)
-        {
-            return newItem;
-        }
-        else
-        {
-            Destroy(newItem.gameObject);
-            return null;
-        }
     }
 }

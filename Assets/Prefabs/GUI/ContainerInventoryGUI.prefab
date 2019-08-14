@@ -136,11 +136,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a370484a056f76447ac67c4e85af189a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  horizontalAlignment: 0
+  verticalAlignment: 2
+  maxSize: {x: 0, y: 0}
+  minSize: {x: 0, y: 0}
   targetInventory: {fileID: 0}
   separation: {x: 0.09, y: 0.09}
   scale: 1.41375
-  columns: 5
   numFrames: 20
+  totalHeight: 0
+  scrollAmount: 0
   pickupDropSource: {fileID: 4930997810015011465, guid: ce2f3d1c82f420f48861c4354dea1747,
     type: 3}
 --- !u!1001 &5826766135445406324
@@ -223,12 +228,22 @@ PrefabInstance:
     - target: {fileID: 1666350211335365621, guid: b643c41d795b58447a71eeeefd1de676,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.025
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 1666350211335365621, guid: b643c41d795b58447a71eeeefd1de676,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.025
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 7717251681452991484, guid: b643c41d795b58447a71eeeefd1de676,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 606414670010283179, guid: b643c41d795b58447a71eeeefd1de676,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b643c41d795b58447a71eeeefd1de676, type: 3}

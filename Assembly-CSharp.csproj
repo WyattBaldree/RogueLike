@@ -67,8 +67,10 @@
     <Compile Include="Assets\Scripts\Controllers\MapController.cs" />
     <Compile Include="Assets\Scripts\Controllers\PopupController.cs" />
     <Compile Include="Assets\Scripts\Controllers\UnitController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\WallController.cs" />
     <Compile Include="Assets\Scripts\Darkness.cs" />
     <Compile Include="Assets\Scripts\Gui\Button.cs" />
+    <Compile Include="Assets\Scripts\Gui\CharacterContainer.cs" />
     <Compile Include="Assets\Scripts\Gui\ContainerGUI.cs" />
     <Compile Include="Assets\Scripts\Gui\Entry.cs" />
     <Compile Include="Assets\Scripts\Gui\GUIButton.cs" />
@@ -83,7 +85,6 @@
     <Compile Include="Assets\Scripts\Gui\Tab.cs" />
     <Compile Include="Assets\Scripts\Gui\TabGroup.cs" />
     <Compile Include="Assets\Scripts\Gui\TestGUI.cs" />
-    <Compile Include="Assets\Scripts\Gui\TextContainer.cs" />
     <Compile Include="Assets\Scripts\Gui\Window.cs" />
     <Compile Include="Assets\Scripts\Gui\triggerOnEnableInventoryTab.cs" />
     <Compile Include="Assets\Scripts\Healthbar.cs" />
@@ -104,9 +105,10 @@
     <Compile Include="Assets\Scripts\Objects\Weapon.cs" />
     <Compile Include="Assets\Scripts\Pathfinding.cs" />
     <Compile Include="Assets\Scripts\RoguelikeObject\BasicItem.cs" />
+    <Compile Include="Assets\Scripts\RoguelikeObject\BasicWall.cs" />
     <Compile Include="Assets\Scripts\RoguelikeObject\ConnectedWall.cs" />
     <Compile Include="Assets\Scripts\RoguelikeObject\Floor2.cs" />
-    <Compile Include="Assets\Scripts\RoguelikeObject\ItemSpriteRenderer.cs" />
+    <Compile Include="Assets\Scripts\RoguelikeObject\RogueSpriteRenderer.cs" />
     <Compile Include="Assets\Scripts\RoguelikeObject\RoguelikeObject.cs" />
     <Compile Include="Assets\Scripts\RoguelikeObject\RoguelikeObjectEditor.cs" />
     <Compile Include="Assets\Scripts\RoguelikeObject\Unit2.cs" />
@@ -115,6 +117,24 @@
     <Compile Include="Assets\Scripts\SortingLayerExposer.cs" />
     <Compile Include="Assets\Scripts\moveup.cs" />
     <Compile Include="Assets\_ideas.cs" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
+    <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
+    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>W:/UnityProjects/RogueLike/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

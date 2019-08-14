@@ -55,7 +55,7 @@ MonoBehaviour:
   explosive: 0
   itemSprite: {fileID: -4364592516061554033, guid: 1ca6d9acc840d8746acc05b62eaa869d,
     type: 3}
-  myItemSpriteRenderer: {fileID: 3514171295888430196}
+  myRogueSpriteRenderer: {fileID: 3514171295888430196}
 --- !u!1001 &3399184591477781240
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -3,14 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using TMPro;
 
     [System.Serializable]
 public class Entry : GUIComponent
 {
-    public TextContainer textContainerClass = null;
+    public CharacterContainer CharacterContainerClass = null;
 
     public string text;
-    List<TextContainer> containers;
+    List<CharacterContainer> containers;
     Font font;
     
     [SerializeField]
@@ -22,7 +23,7 @@ public class Entry : GUIComponent
     public float fontSize = 0.5f;
     public bool bold = false;
     public bool italic = false;
-    public TextContainer.AnimationStateEnum anim = TextContainer.AnimationStateEnum.none;
+    public CharacterContainer.AnimationStateEnum anim = CharacterContainer.AnimationStateEnum.none;
 
     //public float widthAdjust = .001f;
     public float heightAdjust = .01f;
@@ -79,18 +80,18 @@ public class Entry : GUIComponent
     /// <summary>
     /// Make all of our child character containers
     /// </summary>
-    /// <param name="textContainerClass"></param>
+    /// <param name="CharacterContainerClass"></param>
     /// <returns></returns>
     void MakeContainers()
     {
         DestroyContainers();
 
 
-        containers = new List<TextContainer>();
+        containers = new List<CharacterContainer>();
 
         char[] cArray = text.ToCharArray();
 
-        List<TextContainer> newList = new List<TextContainer>();
+        List<CharacterContainer> newList = new List<CharacterContainer>();
 
         for (int i = 0; i < cArray.Length; i++)
         {
@@ -107,7 +108,7 @@ public class Entry : GUIComponent
                     fontSize = defaultFontSize;
                     italic = false;
                     bold = false;
-                    anim = TextContainer.AnimationStateEnum.none;
+                    anim = CharacterContainer.AnimationStateEnum.none;
                 }
                 //<color.[colorname]> example: <color.blue>
                 //Change the font color
@@ -235,19 +236,19 @@ public class Entry : GUIComponent
                     {
                         case "none":
                             if (GameController.gameC && GameController.gameC.debug) Debug.Log("none");
-                            anim = TextContainer.AnimationStateEnum.none;
+                            anim = CharacterContainer.AnimationStateEnum.none;
                             break;
                         case "wave":
                             if (GameController.gameC && GameController.gameC.debug) Debug.Log("wave");
-                            anim = TextContainer.AnimationStateEnum.wave;
+                            anim = CharacterContainer.AnimationStateEnum.wave;
                             break;
                         case "bounce":
                             if (GameController.gameC && GameController.gameC.debug) Debug.Log("bounce");
-                            anim = TextContainer.AnimationStateEnum.bounce;
+                            anim = CharacterContainer.AnimationStateEnum.bounce;
                             break;
                         case "rainbow":
                             if (GameController.gameC && GameController.gameC.debug) Debug.Log("rainbow");
-                            anim = TextContainer.AnimationStateEnum.rainbow;
+                            anim = CharacterContainer.AnimationStateEnum.rainbow;
                             break;
                     }
                 }
@@ -256,68 +257,69 @@ public class Entry : GUIComponent
 
 
 
-            TextContainer newChar = Instantiate<TextContainer>(textContainerClass);
-            TextMesh tm = (TextMesh)newChar.GetComponentInChildren<TextMesh>();
+            CharacterContainer newChar = Instantiate<CharacterContainer>(CharacterContainerClass);
+            TextMeshPro tm = newChar.GetComponentInChildren<TextMeshPro>();
             tm.text = "" + cArray[i];
             tm.color = color;
-            tm.characterSize = fontSize;
+            tm.fontSize = fontSize;
             
 
-            if (anim == TextContainer.AnimationStateEnum.none)
+            if (anim == CharacterContainer.AnimationStateEnum.none)
             {
                 newChar.EndAnimation();
-                newChar.StartAnimation(TextContainer.AnimationStateEnum.none, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+                newChar.StartAnimation(CharacterContainer.AnimationStateEnum.none, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f);
             }
-            else if (anim == TextContainer.AnimationStateEnum.wave)
+            else if (anim == CharacterContainer.AnimationStateEnum.wave)
             {
-                newChar.StartAnimation(TextContainer.AnimationStateEnum.wave, (waveCharacterSpacing - 1 - (i % waveCharacterSpacing)) / (waveCharacterSpacing), 0.0f, waveCharacterSpacing / waveDuration, 0.0f, 3f, 1.0f);
+                newChar.StartAnimation(CharacterContainer.AnimationStateEnum.wave, (waveCharacterSpacing - 1 - (i % waveCharacterSpacing)) / (waveCharacterSpacing), 0.0f, waveCharacterSpacing / waveDuration, 0.0f, 3f, 1.0f);
             }
-            else if (anim == TextContainer.AnimationStateEnum.bounce)
+            else if (anim == CharacterContainer.AnimationStateEnum.bounce)
             {
-                newChar.StartAnimation(TextContainer.AnimationStateEnum.bounce, 0.0f, bounceWaitTime, 1.6f, 0.0f, .09f, 1.0f);
+                newChar.StartAnimation(CharacterContainer.AnimationStateEnum.bounce, 0.0f, bounceWaitTime, 1.6f, 0.0f, .09f, 1.0f);
             }
-            else if (anim == TextContainer.AnimationStateEnum.rainbow)
+            else if (anim == CharacterContainer.AnimationStateEnum.rainbow)
             {
-                newChar.StartAnimation(TextContainer.AnimationStateEnum.rainbow, (rainbowCharacterSpacing - 1 - (i % rainbowCharacterSpacing)) / (rainbowCharacterSpacing), 0.0f, rainbowCharacterSpacing / rainbowDuration, 1.0f, 0.8f, 0.8f);
+                newChar.StartAnimation(CharacterContainer.AnimationStateEnum.rainbow, (rainbowCharacterSpacing - 1 - (i % rainbowCharacterSpacing)) / (rainbowCharacterSpacing), 0.0f, rainbowCharacterSpacing / rainbowDuration, 1.0f, 0.8f, 0.8f);
             }
 
             if (bold)
             {
                 if (italic)
                 {
-                    tm.fontStyle = FontStyle.BoldAndItalic;
+                    tm.fontStyle = FontStyles.Bold | FontStyles.Italic;
                 }
                 else
                 {
-                    tm.fontStyle = FontStyle.Bold;
+                    tm.fontStyle = FontStyles.Bold;
                 }
 
             }
             else if (italic)
             {
-                tm.fontStyle = FontStyle.Italic;
+                tm.fontStyle = FontStyles.Italic;
             }
             else
             {
-                tm.fontStyle = FontStyle.Normal;
+                tm.fontStyle = FontStyles.Normal;
             }
 
             newChar.anim = anim;
 
             newList.Add(newChar);
+            tm.ForceMeshUpdate();
         }
 
         containers = newList;
-        AddTextContainersToLines();
+        AddCharacterContainersToLines();
     }
 
     /// <summary>
     /// This function loops through all of the text containers created by the MakeContainers function positions them. Each text container is parented to an empty game object.
     /// When the text containers overflow the maxSize.x, a new empty game object (a line) is made below and the text wraps to the new game object. 
     /// </summary>
-    void AddTextContainersToLines()
+    void AddCharacterContainersToLines()
     {
-        //Destroy all of the current lines which contain textContainers
+        //Destroy all of the current lines which contain CharacterContainers
         DestroyLines();
         //Create an empty list of lines.
         lines = new List<GameObject>();
@@ -343,9 +345,9 @@ public class Entry : GUIComponent
         for (int i = 0; i < containers.Count; i++)
         {
             // The container at our current i index
-            TextContainer currentContainer = containers[i];
+            CharacterContainer currentContainer = containers[i];
             // The child text mesh of our current character.
-            TextMesh tm = (TextMesh)currentContainer.GetComponentInChildren<TextMesh>();
+            TextMeshPro tm = (TextMeshPro)currentContainer.GetComponentInChildren<TextMeshPro>();
 
             // Parent our currentContainer to our currentLine
             currentContainer.transform.SetParent(currentLine.transform, true);
@@ -356,8 +358,8 @@ public class Entry : GUIComponent
             // just to the right of the Entry transform (as opposed to in the center of it.
             if(width == 0)
             {
-                width += currentContainer.GetWidth() * transform.localScale.x / 2;
-                wordWidth += currentContainer.GetWidth() * transform.localScale.x / 2;
+                //width += currentContainer.GetWidth() * transform.lossyScale.x / 2;
+                //wordWidth += currentContainer.GetWidth() * transform.lossyScale.x / 2;
             }
 
             // Set the position of our currentCharacter "width distance" to the right of the currentline's position
@@ -378,18 +380,18 @@ public class Entry : GUIComponent
             else
             {
                 // Otherwise continue to add to our current wordWidth
-                wordWidth += charWidth * transform.localScale.x;
+                wordWidth += charWidth * transform.lossyScale.x;
             }
 
             // If a single character is ever larger than our text box width, something is horribly wrong.
-            if (charWidth * transform.localScale.x > maxSize.x)
+            if (charWidth * transform.lossyScale.x > maxSize.x)
             {
                 Debug.Log("Text box is smaller than a single character!!!!!!!");
                 break;
             }
 
             // Increase our width by the size of our character
-            width += charWidth * transform.localScale.x;
+            width += charWidth * transform.lossyScale.x;
 
             // When our width becomes larger than our maxSize.x, we need to line break
             if (width > maxSize.x)
@@ -429,11 +431,11 @@ public class Entry : GUIComponent
     /// <returns></returns>
     float GetLineWidth(GameObject line)
     {
-        TextContainer[] childContainers = line.GetComponentsInChildren<TextContainer>();
+        CharacterContainer[] childContainers = line.GetComponentsInChildren<CharacterContainer>();
         float w = 0;
-        foreach(TextContainer tc in childContainers)
+        foreach(CharacterContainer tc in childContainers)
         {
-            w += tc.GetWidth() * transform.localScale.x;
+            w += tc.GetWidth() * transform.lossyScale.x;
         }
         return w;
     }
@@ -475,7 +477,7 @@ public class Entry : GUIComponent
                 xAlign = Mathf.Max(minSize.x, maxSize.x) - (GetLineWidth(lines[i]));
             }
 
-            lines[i].transform.position = transform.position + new Vector3(xAlign, ((i+1) * heightAdjust * transform.localScale.y * -1) - yAlign, lines[i].transform.localPosition.z);
+            lines[i].transform.position = transform.position + new Vector3(xAlign, ((i+1) * heightAdjust * transform.lossyScale.y * -1) - yAlign, lines[i].transform.localPosition.z);
         }
     }
 
@@ -492,7 +494,7 @@ public class Entry : GUIComponent
     void DestroyContainers()
     {
         if (containers == null) return;
-        foreach (TextContainer tc in containers)
+        foreach (CharacterContainer tc in containers)
         {
             if(tc) DestroyImmediate(tc.gameObject);
         }
@@ -510,12 +512,12 @@ public class Entry : GUIComponent
     public float GetPixelHeight()
     {
         if (lines == null) return 0;
-        return lines.Count * heightAdjust * transform.localScale.y;
+        return lines.Count * heightAdjust * transform.lossyScale.y;
     }
 
     public override Vector2 GetDimensions()
     {
-        return new Vector2(Mathf.Max(minSize.x, maxSize.x), Mathf.Max(minSize.x, heightAdjust * transform.localScale.y, GetPixelHeight()));
+        return new Vector2(Mathf.Max(minSize.x, maxSize.x), Mathf.Max(minSize.y, heightAdjust * transform.lossyScale.y, GetPixelHeight()));
     }
 
     public override void UpdateGUI()

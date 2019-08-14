@@ -165,7 +165,7 @@ public abstract class RoguelikeObject : MonoBehaviour
         set
         {
             exposed = value;
-            myItemSpriteRenderer.gameObject.SetActive(exposed);
+            UpdateRogueSpriteRenderer();
         }
     }
 
@@ -180,7 +180,7 @@ public abstract class RoguelikeObject : MonoBehaviour
         set
         {
             itemSprite = value;
-            myItemSpriteRenderer.ItemSprite = itemSprite;
+            UpdateRogueSpriteRenderer();
         }
     }
 
@@ -188,7 +188,7 @@ public abstract class RoguelikeObject : MonoBehaviour
     /// PRIVATE. The sprite renderer that this object uses in the world as an ITEM. This sprite renderer is only used for showing an item lying on the ground in the world.
     /// </summary>
     [SerializeField]
-    private ItemSpriteRenderer myItemSpriteRenderer;
+    protected RogueSpriteRenderer myRogueSpriteRenderer;
 
     public void Initialize()
     {
@@ -210,13 +210,61 @@ public abstract class RoguelikeObject : MonoBehaviour
         return ObjectName;
     }
 
+    protected void UpdateRogueSpriteRenderer()
+    {
+        myRogueSpriteRenderer.gameObject.SetActive(Exposed);
+        myRogueSpriteRenderer.MySprite = GetCurrentSprite();
+        myRogueSpriteRenderer.StackSize = StackSize;
+    }
+
+    public virtual Sprite GetCurrentSprite()
+    {
+        return ItemSprite;
+    }
+
     /// <summary>
     /// Cleanly Destroy the item by removing it from all lists, updating all graphics, then destroying it.
     /// </summary>
     public virtual void DestroyObject()
     {
-        Debug.Log("WE NEED TO DESTROY THE ITEMS WHEN THEIR STACK SIZE BECOMES 0!!!!");
-        MyInventory.RemoveItem(this);
+        //If we ever try to delete a roguelikeObject and it is not in "MyInventory" something is terribly wrong.
+        Assert.IsTrue(MyInventory.RemoveItem(this), "The roguelikeObject is not in it's own MyInventory upon attempting to delete itself.");
         Destroy(this.gameObject);
+    }
+
+    /// <summary>
+    /// A function that is used to create a new item.
+    /// </summary>
+    /// <param name="source">The source of the item being made.</param>
+    /// <param name="amount">The stack size of the new item.</param>
+    /// <param name="destination">The inventory the item is going to begin in.</param>
+    /// <param name="index">The inventory index to put the new item in. -1 for the first available spot.</param>
+    /// <returns></returns>
+    public static RoguelikeObject MakeItem(RoguelikeObject source, int amount, Inventory destination, int index = -1)
+    {
+        RoguelikeObject newItem = Instantiate<RoguelikeObject>(source, destination.transform.position, Quaternion.identity, destination.transform);
+        newItem.Initialize();
+
+        newItem.StackSize = amount;
+
+        bool wasAdded;
+        if (index > -1)
+        {
+            wasAdded = destination.AddItem(newItem, index);
+        }
+        else
+        {
+            wasAdded = destination.AddItem(newItem);
+        }
+
+        if (wasAdded)
+        {
+            return newItem;
+        }
+        else
+        {
+            Destroy(newItem.gameObject);
+            return null;
+        }
     }
 }

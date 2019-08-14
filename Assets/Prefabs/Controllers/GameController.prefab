@@ -43,15 +43,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ce4ad5be20f3c641bebbd1c5d1da19c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapControllerClass: {fileID: 5844936140952996336, guid: 206cf91fb4876ed4483ce0ff42efdd08,
-    type: 3}
-  unitControllerClass: {fileID: 680904718778905729, guid: 0cfa0eb72a90d1e47a052eee9a1ceefe,
-    type: 3}
-  logControllerClass: {fileID: 732432140380332999, guid: affb9605af22fb841bd1ee4d63fdc7d4,
-    type: 3}
-  itemControllerClass: {fileID: 2012730466417042781, guid: bb8469946e499874cbcf8054e009b90c,
-    type: 3}
+  mapControllerInstance: {fileID: 0}
+  unitControllerInstance: {fileID: 0}
+  logControllerInstance: {fileID: 0}
+  itemControllerInstance: {fileID: 0}
+  wallControllerInstance: {fileID: 0}
   inventoryControllerInstance: {fileID: 0}
-  interactiveGUIInstance: {fileID: 0}
+  popupControllerInstance: {fileID: 0}
   debug: 0
-  ScreenResInUnits: {x: 24, y: 24}
+  ScreenResInUnits: {x: 20, y: 20}

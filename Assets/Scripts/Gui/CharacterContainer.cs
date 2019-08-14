@@ -2,13 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 [System.Serializable]
-public class TextContainer : MonoBehaviour
+public class CharacterContainer : MonoBehaviour
 {
     public enum AnimationStateEnum { none, wave, move, bounce, rainbow };
 
-    public TextMesh textMesh;
+    public TextMeshPro textMesh;
 
     bool animate = false;
 
@@ -63,7 +64,7 @@ public class TextContainer : MonoBehaviour
             }
             else if (animationStateCurrent == AnimationStateEnum.rainbow)
             {
-                textMesh.transform.GetComponentInChildren<TextMesh>().color = Color.HSVToRGB(animationTime*animationParam1, animationParam2, animationParam3); ;
+                textMesh.transform.GetComponentInChildren<TextMeshPro>().color = Color.HSVToRGB(animationTime*animationParam1, animationParam2, animationParam3); ;
             }
 
 
@@ -112,14 +113,16 @@ public class TextContainer : MonoBehaviour
     public float GetWidth()
     {
         float width = 0;
-        foreach (char symbol in textMesh.text)
+        /*foreach (char symbol in textMesh.text)
         {
             CharacterInfo info;
             if (textMesh.font.GetCharacterInfo(symbol, out info, textMesh.fontSize, textMesh.fontStyle))
             {
                 width += info.advance;
             }
-        }
-        return width * textMesh.characterSize * 0.1f;// * transform.lossyScale.x;
+        }*/
+        width += textMesh.textInfo.characterInfo[0].xAdvance;
+
+        return width;// * textMesh.characterSize * 0.1f;// * transform.lossyScale.x;
     }
 }

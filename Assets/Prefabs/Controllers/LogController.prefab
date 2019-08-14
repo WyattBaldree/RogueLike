@@ -49,5 +49,5 @@ MonoBehaviour:
   textWidth: 1
   logWidth: 22
   messageMargin: 0
-  entryScale: 0.017
+  entryScale: 0.57
   font: {fileID: 12800000, guid: b46184bf1a086e94087f849d4db058dd, type: 3}

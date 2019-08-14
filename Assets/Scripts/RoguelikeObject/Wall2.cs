@@ -2,17 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Wall2 : MonoBehaviour
+public abstract class Wall2 : WorldObject
 {
-    // Start is called before the first frame update
-    void Start()
+    public override Inventory GetWorldObjectInventory(Vector2Int pos)
     {
-        
+        return GameController.wallC.GetWallInventory(pos);
     }
 
-    // Update is called once per frame
-    void Update()
+    public override bool IsSpaceFree(Vector2Int pos)
     {
-        
+        return GetWorldObjectInventory(pos).GetFirstAvailableSlot() != -1;
     }
 }

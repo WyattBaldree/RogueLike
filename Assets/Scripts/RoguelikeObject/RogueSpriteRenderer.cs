@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class ItemSpriteRenderer : MonoBehaviour
+public class RogueSpriteRenderer : MonoBehaviour
 {
     [SerializeField]
     private SpriteRenderer mySpriteRenderer;
@@ -18,7 +18,7 @@ public class ItemSpriteRenderer : MonoBehaviour
     {
         set
         {
-            stackNumberEntry.maxSize.x = mySpriteRenderer.bounds.size.x;
+            stackNumberEntry.maxSize.x = mySpriteRenderer.bounds.size.x *.9f;
             if(value <= 1)
             {
                 stackNumberEntry.gameObject.SetActive(false);
@@ -28,10 +28,11 @@ public class ItemSpriteRenderer : MonoBehaviour
                 stackNumberEntry.gameObject.SetActive(true);
                 stackNumberEntry.SetText(value.ToString());
             }
+            stackNumberEntry.gameObject.transform.position = this.transform.position + new Vector3(0, stackNumberEntry.GetDimensions().y + mySpriteRenderer.bounds.size.y * .1f, 0);
         }
     }
 
-    public Sprite ItemSprite
+    public Sprite MySprite
     {
         set
         {

@@ -84,7 +84,6 @@ public class Unit : Object
         Inventory inv = Instantiate<Inventory>(source, transform);
         inv.inventoryName = name;
         inv.acceptableTypes = _acceptableTypes;
-        if(updateListenerFunction != null) inv.itemChangedEvent.AddListener(updateListenerFunction);
         return inv;
     }
 
