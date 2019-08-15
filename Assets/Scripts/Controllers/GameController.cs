@@ -17,6 +17,7 @@ public class GameController : MonoBehaviour
     /// </summary>
     public static InteractiveGUI interactiveGUI;
 
+    [Header("Controllers")]
     public MapController mapControllerInstance;
     public UnitController unitControllerInstance;
     public LogController logControllerInstance;
@@ -26,6 +27,7 @@ public class GameController : MonoBehaviour
     public InventoryController inventoryControllerInstance;
     public PopupController popupControllerInstance;
 
+    [Header("Misc")]
     public bool debug = false;
 
     //How many blocks wide and tall the play field is.
@@ -33,6 +35,10 @@ public class GameController : MonoBehaviour
     [System.NonSerialized]
     public Vector2 ScreenResInPixels;
 
+    /// <summary>
+    /// An instance of an inventory that objects can be instantiated into before being placed into the world. When something is put in here, it should immediately be removed.
+    /// </summary>
+    public Inventory temporaryInventory;
 
     public static void UpdateGUId()
     {
@@ -46,7 +52,7 @@ public class GameController : MonoBehaviour
         ScreenResInPixels = new Vector2(ScreenResInUnits.x, ScreenResInUnits.y);
 
         gameC = this;
-        mapC = mapControllerInstance;
+        //mapC = mapControllerInstance;
         wallC = wallControllerInstance;
         itemC = itemControllerInstance;
         unitC = unitControllerInstance;
@@ -56,8 +62,8 @@ public class GameController : MonoBehaviour
         popupC = popupControllerInstance;
 
         logC.Initialize();
-        mapC.Initialize(Camera.main);
         wallC.Initialize();
+        //mapC.Initialize(Camera.main);
         inventoryC.Initialize();
         itemC.Initialize();
         unitC.Initialize();

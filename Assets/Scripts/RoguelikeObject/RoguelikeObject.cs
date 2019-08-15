@@ -10,9 +10,32 @@ public abstract class RoguelikeObject : MonoBehaviour
      * Since all interactable objects will be children of this object, this object also contains information that all objects
      * share like: a name, a description, weight, ect.
      */
-    public enum TagEnum { item }
 
     [Header("Roguelike Object")]
+
+    [SerializeField]
+    private Sprite itemSprite;
+    /// <summary>
+    /// The current sprite we are displaying IN INVENTORIES (this is not the same as the world sprite for wall/floor/units)
+    /// </summary>
+    public Sprite ItemSprite
+    {
+        get => itemSprite;
+        set
+        {
+            itemSprite = value;
+            UpdateRogueSpriteRenderer();
+        }
+    }
+
+    /// <summary>
+    /// PRIVATE. The sprite renderer that this object uses in the world. This sprite renderer is used for showing an item lying on the ground, a wall placed in the world, or a floor placed on the ground, ect.
+    /// </summary>
+    [SerializeField]
+    protected RogueSpriteRenderer myRogueSpriteRenderer;
+
+
+    public enum TagEnum { item }
 
     public List<TagEnum> tags = new List<TagEnum>(){TagEnum.item};
 
@@ -58,6 +81,16 @@ public abstract class RoguelikeObject : MonoBehaviour
         set => myInventory = value;
     }
 
+    [SerializeField]
+    private int stackSizeMax = 1;
+    /// <summary>
+    /// READ ONLY. The maximum stack size for this object.
+    /// </summary>
+    public int StackSizeMax
+    {
+        get => stackSizeMax;
+    }
+
     private int stackSize = 0;
     /// <summary>
     /// This value represents the current stack size of the object. That is, when this object is in an inventory,
@@ -82,16 +115,6 @@ public abstract class RoguelikeObject : MonoBehaviour
     }
 
     [SerializeField]
-    private int stackSizeMax = 1;
-    /// <summary>
-    /// READ ONLY. The maximum stack size for this object.
-    /// </summary>
-    public int StackSizeMax
-    {
-        get => stackSizeMax;
-    }
-
-    [SerializeField]
     private int goldValue = 1;
     /// <summary>
     /// READ ONLY. This represents the base sell/buy price of the object. The final buy/sell price will, of course, be effect by things like charisma.
@@ -99,6 +122,34 @@ public abstract class RoguelikeObject : MonoBehaviour
     public int GoldValue
     {
         get => goldValue;
+    }
+
+    [SerializeField]
+    private int healthMax = 10;
+    /// <summary>
+    /// READ ONLY. The maximum health of this object.
+    /// </summary>
+    public int HealthMax
+    {
+        get => healthMax;
+    }
+
+    private int health;
+    /// <summary>
+    /// The current healt of this object. When this value reaches 0 decrement the stackSize by 1 (health only represents the hitpoints of the item on top of the stack).
+    /// </summary>
+    public int Health
+    {
+        get => health;
+        set
+        {
+            health = value;
+            if(health <= 0)
+            {
+                health = HealthMax;
+                StackSize--;
+            }
+        }
     }
 
     [SerializeField]
@@ -169,30 +220,13 @@ public abstract class RoguelikeObject : MonoBehaviour
         }
     }
 
-    [SerializeField]
-    private Sprite itemSprite;
     /// <summary>
-    /// The current sprite we are displaying IN INVENTORIES (this is not the same as the world sprite for wall/floor/units)
+    /// Called when the item is first created.
     /// </summary>
-    public Sprite ItemSprite
-    {
-        get => itemSprite;
-        set
-        {
-            itemSprite = value;
-            UpdateRogueSpriteRenderer();
-        }
-    }
-
-    /// <summary>
-    /// PRIVATE. The sprite renderer that this object uses in the world as an ITEM. This sprite renderer is only used for showing an item lying on the ground in the world.
-    /// </summary>
-    [SerializeField]
-    protected RogueSpriteRenderer myRogueSpriteRenderer;
-
-    public void Initialize()
+    public virtual void Initialize()
     {
         ItemSprite = itemSprite;
+        Health = HealthMax;
     }
 
     /// <summary>
@@ -210,13 +244,20 @@ public abstract class RoguelikeObject : MonoBehaviour
         return ObjectName;
     }
 
-    protected void UpdateRogueSpriteRenderer()
+    /// <summary>
+    /// when this function is called, MyRogueSpriteRenderer is updated based on the objects current values (GetCurrentSprite(), Exposed, ect.)
+    /// </summary>
+    public void UpdateRogueSpriteRenderer()
     {
         myRogueSpriteRenderer.gameObject.SetActive(Exposed);
         myRogueSpriteRenderer.MySprite = GetCurrentSprite();
         myRogueSpriteRenderer.StackSize = StackSize;
     }
 
+    /// <summary>
+    /// Returns the current sprite that should be shown by this object based on the values.
+    /// </summary>
+    /// <returns>The Sprite that should be renderered.</returns>
     public virtual Sprite GetCurrentSprite()
     {
         return ItemSprite;
@@ -233,20 +274,21 @@ public abstract class RoguelikeObject : MonoBehaviour
     }
 
     /// <summary>
-    /// A function that is used to create a new item.
+    /// A function that is used to create a new RoguelikeObject.
     /// </summary>
-    /// <param name="source">The source of the item being made.</param>
+    /// <param name="source">The source of the RoguelikeObject being made.</param>
     /// <param name="amount">The stack size of the new item.</param>
     /// <param name="destination">The inventory the item is going to begin in.</param>
     /// <param name="index">The inventory index to put the new item in. -1 for the first available spot.</param>
-    /// <returns></returns>
-    public static RoguelikeObject MakeItem(RoguelikeObject source, int amount, Inventory destination, int index = -1)
+    /// <returns>Returns a reference to the newly created RoguelikeObject</returns>
+    public static RoguelikeObject MakeRoguelikeObject(RoguelikeObject source, int amount, Inventory destination, int index = -1)
     {
         RoguelikeObject newItem = Instantiate<RoguelikeObject>(source, destination.transform.position, Quaternion.identity, destination.transform);
         newItem.Initialize();
 
         newItem.StackSize = amount;
 
+        //Attempt to add the new RoguelikeObject to the destination inventory
         bool wasAdded;
         if (index > -1)
         {
@@ -257,6 +299,7 @@ public abstract class RoguelikeObject : MonoBehaviour
             wasAdded = destination.AddItem(newItem);
         }
 
+        //If we were able to add the item to the destination inventory, return it. Otherwise, destroy it and return null.
         if (wasAdded)
         {
             return newItem;

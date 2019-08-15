@@ -14,6 +14,12 @@ public class RogueSpriteRenderer : MonoBehaviour
     [SerializeField]
     private SortingGroup sortingGroup;
 
+    [SerializeField]
+    /// <summary>
+    /// This sprite is used by RoguelikeSpriteRenderers when no other sprite is available
+    /// </summary>
+    private Sprite debugSprite;
+
     public int StackSize
     {
         set
@@ -36,7 +42,14 @@ public class RogueSpriteRenderer : MonoBehaviour
     {
         set
         {
-            mySpriteRenderer.sprite = value;
+            if(value != null)
+            {
+                mySpriteRenderer.sprite = value;
+            }
+            else
+            {
+                mySpriteRenderer.sprite = debugSprite;
+            }
         }
     }
 

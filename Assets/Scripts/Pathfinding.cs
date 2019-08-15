@@ -502,19 +502,16 @@ public static class Pathfinding
         {
             for (int j = 0; j < GameController.gameC.ScreenResInUnits.y; j++)
             {
+                Wall2 thisWall = GameController.wallC.GetWall(new Vector2Int(i, j));
+                //We pathfind differently depending on what costmaptype we are using (i.e. flying creatures ignore floors)
                 switch (costMapType)
                 {
+
                     case CostMapType.walking:
-                        //if there is a pit set the node cost to 4
-                        if (mapController.pitMapArray[i, j] != null)
+                        //if there is a wall set the node cost its cost
+                        if (thisWall != null)
                         {
-                            costArray[i, j] = 15;
-                            //costArray[i, j] = int.MaxValue;
-                        }
-                        //if there is a wall set the node cost to max value
-                        else if (mapController.IsEmpty(i, j) == false)
-                        {
-                            costArray[i, j] = mapController.wallMapArray[i, j].cost;
+                            costArray[i, j] = thisWall.GetPathfindingCost();
                         }
                         //otherwise no cost
                         else
@@ -524,9 +521,9 @@ public static class Pathfinding
                         break;
                     case CostMapType.distance:
                         //if there is a wall set the node cost to max value
-                        if (mapController.wallMapArray[i, j] != null)
+                        if (thisWall != null)
                         {
-                            if(mapController.wallMapArray[i, j].cost != float.MaxValue)
+                            if(thisWall.GetPathfindingCost() != float.MaxValue)
                             {
                                 costArray[i, j] = 0;
                             }

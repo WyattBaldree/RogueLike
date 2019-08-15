@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class Floor2 : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    private bool canSupportWall;
+    /// <summary>
+    /// Can a wall be built on top of this floor?
+    /// </summary>
+    public bool CanSupportWall
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        get => canSupportWall;
     }
 }

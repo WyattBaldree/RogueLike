@@ -15,7 +15,6 @@ public class Chest : Wall
         base.Initialize();
         Refresh();
         Assert.IsNotNull(inventory);
-        inventory.Initialize();
     }
 
     public void Open()

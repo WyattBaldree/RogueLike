@@ -20,6 +20,12 @@ public abstract class WorldObject : RoguelikeObject
         }
     }
 
+    [SerializeField]
+    /// <summary>
+    /// The cost that this object has for pathfinding.
+    /// </summary>
+    private float pathfindingCost = float.MaxValue;
+
     private bool placed = false;
     /// <summary>
     /// This value is true while the world object is placed in the world. So if a unit is in the world, a wall is built, or a floor is built this will
@@ -35,16 +41,29 @@ public abstract class WorldObject : RoguelikeObject
         }
     }
 
+    /// <summary>
+    /// Returns the current sprite that should be shown by this object based on the values.
+    /// </summary>
+    /// <returns>The Sprite that should be renderered.</returns>
     public override Sprite GetCurrentSprite()
     {
         if (Placed)
         {
-            return WorldSprite;
+            return GetWorldSprite();
         }
         else
         {
             return ItemSprite;
         }
+    }
+
+    /// <summary>
+    /// Get the sprite for this object in the world. Can be overriden to change how the world sprite is chosen (like with connected walls/floors for example)
+    /// </summary>
+    /// <returns>Returns the world sprite.</returns>
+    public virtual Sprite GetWorldSprite()
+    {
+        return WorldSprite;
     }
 
     /// <summary>
@@ -66,7 +85,7 @@ public abstract class WorldObject : RoguelikeObject
     /// </summary>
     /// <param name="pos"></param>
     /// <returns></returns>
-    public virtual bool Place(Vector2Int pos)
+    public bool Place(Vector2Int pos)
     {
         //If the space we are trying to place at is free (as determined by the implemtation).
         if (IsSpaceFree(pos))
@@ -91,7 +110,7 @@ public abstract class WorldObject : RoguelikeObject
     /// <param name="targetInventory">The inventory to move to.</param>
     /// <param name="index">Optionally specify the inventory index to move to.</param>
     /// <returns></returns>
-    public virtual bool Take(Inventory targetInventory, int index = -1)
+    public bool Take(Inventory targetInventory, int index = -1)
     {
         //Were we able to add to the inventory?
         bool wasAddedToInventory = false;
@@ -109,5 +128,36 @@ public abstract class WorldObject : RoguelikeObject
         //Update placed
         Placed = !wasAddedToInventory;
         return wasAddedToInventory;
+    }
+
+    /// <summary>
+    /// Returns the Pathfinding cost of moving to this Object.
+    /// </summary>
+    /// <returns></returns>
+    public virtual float GetPathfindingCost()
+    {
+        return pathfindingCost;
+    }
+
+    public static WorldObject MakeWorldObject(WorldObject source, int amount, Inventory destination, int index = -1)
+    {
+        return (WorldObject)RoguelikeObject.MakeRoguelikeObject(source, amount, destination, index);
+    }
+
+    public static WorldObject MakeAndPlaceWorldObject(WorldObject source, Vector2Int pos)
+    {
+        WorldObject newWorldObject = MakeWorldObject(source, 1, GameController.gameC.temporaryInventory);
+        if (newWorldObject)
+        {
+            if (newWorldObject.Place(pos))
+            {
+                return newWorldObject;
+            }
+            else
+            {
+                newWorldObject.DestroyObject();
+            }
+        }
+        return null;
     }
 }

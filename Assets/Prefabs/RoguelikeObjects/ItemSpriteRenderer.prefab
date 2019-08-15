@@ -129,6 +129,7 @@ MonoBehaviour:
   mySpriteRenderer: {fileID: 4139259195127942453}
   stackNumberEntry: {fileID: 5994488888622318768}
   sortingGroup: {fileID: 8633956103430330725}
+  debugSprite: {fileID: 21300040, guid: 69c9982adf2b9be428067b80a19408e0, type: 3}
 --- !u!210 &8633956103430330725
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -199,7 +200,7 @@ MonoBehaviour:
   bold: 0
   italic: 0
   anim: 0
-  heightAdjust: 123
+  heightAdjust: 1.23
   textBoxWidth: 0
   waveDuration: 0.1
   waveCharacterSpacing: 0.6

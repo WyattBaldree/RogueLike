@@ -44,18 +44,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b933f02d97024a499ce26e6338c59f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemSprite: {fileID: -4364592516061554033, guid: 1ca6d9acc840d8746acc05b62eaa869d,
+    type: 3}
+  myRogueSpriteRenderer: {fileID: 3514171295888430196}
   tags: 00000000
   uniqueID: TestItem
   objectName: test item
   description: This item is really only for testing. If you are seeing this... good
     job, you broke the game!
-  stackSizeMax: 99
+  stackSizeMax: 64
   goldValue: 1
+  healthMax: 10
   flammable: 0
   explosive: 0
-  itemSprite: {fileID: -4364592516061554033, guid: 1ca6d9acc840d8746acc05b62eaa869d,
-    type: 3}
-  myRogueSpriteRenderer: {fileID: 3514171295888430196}
 --- !u!1001 &3399184591477781240
 PrefabInstance:
   m_ObjectHideFlags: 0

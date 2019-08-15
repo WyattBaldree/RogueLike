@@ -31,14 +31,6 @@ public class Inventory : MonoBehaviour
     };
 
     /// <summary>
-    /// Called upon being created.
-    /// </summary>
-    public void Initialize()
-    {
-
-    }
-
-    /// <summary>
     /// Add an item to the inventory at the first available spot.
     /// </summary>
     /// <param name="newItem"></param>
@@ -210,7 +202,7 @@ public class Inventory : MonoBehaviour
         }
         else
         {
-            RoguelikeObject newItem = RoguelikeObject.MakeItem(item, amount, inv);
+            RoguelikeObject newItem = RoguelikeObject.MakeRoguelikeObject(item, amount, inv);
             if (newItem)
             {
                 item.StackSize = item.StackSize - amount;
@@ -258,7 +250,7 @@ public class Inventory : MonoBehaviour
         }
         else
         {
-            RoguelikeObject newItem = RoguelikeObject.MakeItem(item, amount, inv, index2);
+            RoguelikeObject newItem = RoguelikeObject.MakeRoguelikeObject(item, amount, inv, index2);
             if (newItem)
             {
                 item.StackSize = item.StackSize - amount;

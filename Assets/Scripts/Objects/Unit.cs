@@ -47,9 +47,6 @@ public class Unit : Object
     {
         SetHealth(GetMaxHealth());
 
-
-        inventory.Initialize();
-
         
         /*[Remove?]
         slotWeapon = newInventory(equipmentSlotSource, "Weapon", new List<string> { "weapon" }, UpdateWeapon);
@@ -545,7 +542,7 @@ public class Unit : Object
         int newX = Helper.GetX(this.gameObject) + deltaX;
         int newY = Helper.GetY(this.gameObject) + deltaY;
 
-        bool areaClear = mapController.IsEmpty(newX, newY);
+        bool areaClear = GameController.wallC.GetWall(new Vector2Int(newX, newY)) == null;
 
         areaClear = (areaClear &&
                     newX >= 0 &&
@@ -591,21 +588,13 @@ public class Unit : Object
         }
 
 
-        bool areaClear = mapController.IsEmpty(newX, newY);
-                    
+        bool areaClear = GameController.wallC.GetWall(new Vector2Int(newX, newY)) == null;
+
 
         if (areaClear)
         {
             MoveToLocationLocal(deltaX, deltaY);
             return true;
-        }
-        else
-        {
-            Vector3 movePosition = transform.position + new Vector3(deltaX, deltaY);
-            if (mapController.wallMapArray[(int)movePosition.x, (int)movePosition.y] != null)
-            {
-                mapController.wallMapArray[(int)movePosition.x, (int)movePosition.y].OnInteract();
-            }
         }
 
         return false;

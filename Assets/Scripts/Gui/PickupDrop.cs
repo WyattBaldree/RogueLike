@@ -177,6 +177,7 @@ public class PickupDrop : Object
                 if (myIndex >= myInventoryGUI.targetInventory.inventoryCapacity || myInventoryGUI.targetInventory.GetItem(myIndex) == null)
                 {
                     itemSpriteRenderer.MySprite = null;
+                    itemSpriteRenderer.gameObject.SetActive(false);
                     itemSpriteRenderer.StackSize = 0;
                     return;
                 }
@@ -192,6 +193,7 @@ public class PickupDrop : Object
             else
             {
                 itemSpriteRenderer.MySprite = null;
+                itemSpriteRenderer.gameObject.SetActive(false);
                 itemSpriteRenderer.StackSize = 0;
             }
 

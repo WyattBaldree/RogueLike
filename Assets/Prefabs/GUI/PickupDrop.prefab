@@ -260,10 +260,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: ItemSpriteRenderer
       objectReference: {fileID: 0}
+    - target: {fileID: 6358093057218553475, guid: 65dc067cca55f79429d3ade813e55f9e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5994488888622318768, guid: 65dc067cca55f79429d3ade813e55f9e,
         type: 3}
       propertyPath: maxSize.x
-      value: 0
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 8633956103430330725, guid: 65dc067cca55f79429d3ade813e55f9e,
         type: 3}
@@ -274,11 +279,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 21300040, guid: 69c9982adf2b9be428067b80a19408e0,
+        type: 3}
     - target: {fileID: 4139259195127942453, guid: 65dc067cca55f79429d3ade813e55f9e,
         type: 3}
       propertyPath: m_WasSpriteAssigned
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6589104631232393846, guid: 65dc067cca55f79429d3ade813e55f9e,
         type: 3}
@@ -343,7 +349,7 @@ PrefabInstance:
     - target: {fileID: 5866703076836867872, guid: 65dc067cca55f79429d3ade813e55f9e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 30.75
+      value: 0.4075
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 65dc067cca55f79429d3ade813e55f9e, type: 3}

@@ -8,6 +8,9 @@ public class WallController : MonoBehaviour
     [SerializeField]
     private Inventory wallInventoryClass;
 
+    [SerializeField]
+    private Wall2 wallClass;
+
     private Inventory[,] wallInventoryArray;
 
     /// <summary>
@@ -25,7 +28,103 @@ public class WallController : MonoBehaviour
             for (int j = 0; j < GameController.gameC.ScreenResInUnits.y; j++)
             {
                 wallInventoryArray[i, j] = (Inventory)Instantiate(wallInventoryClass, new Vector3(i, j), Quaternion.identity, transform);
-                wallInventoryArray[i, j].Initialize();
+            }
+        }
+
+        //create all walls
+        for (int i = 0; i < GameController.gameC.ScreenResInUnits.x; i++)
+        {
+            for (int j = 0; j < GameController.gameC.ScreenResInUnits.y; j++)
+            {
+                Vector2Int position = new Vector2Int(i, j);
+                WorldObject.MakeAndPlaceWorldObject(wallClass, position);
+            }
+        }
+
+        Wall2 thisWall;
+        //cut out rooms temporary
+        for (int i = 2; i < 6; i++)
+        {
+            for (int j = 2; j < 4; j++)
+            {
+                Vector2Int position = new Vector2Int(i, j);
+                thisWall = GetWall(position);
+                if (thisWall)
+                {
+                    thisWall.DestroyObject();
+                }
+            }
+        }
+
+        for (int i = 5; i < 12; i++)
+        {
+            for (int j = 5; j < 9; j++)
+            {
+                Vector2Int position = new Vector2Int(i, j);
+                thisWall = GetWall(position);
+                if (thisWall)
+                {
+                    thisWall.DestroyObject();
+                }
+            }
+        }
+
+        for (int i = 3; i < 10; i++)
+        {
+            for (int j = 14; j < 17; j++)
+            {
+                Vector2Int position = new Vector2Int(i, j);
+                thisWall = GetWall(position);
+                if (thisWall)
+                {
+                    thisWall.DestroyObject();
+                }
+            }
+        }
+
+        for (int i = 7; i < 8; i++)
+        {
+            for (int j = 7; j < 15; j++)
+            {
+                Vector2Int position = new Vector2Int(i, j);
+                thisWall = GetWall(position);
+                if (thisWall)
+                {
+                    thisWall.DestroyObject();
+                }
+            }
+        }
+
+        for (int i = 6; i < 14; i++)
+        {
+            for (int j = 6; j < 14; j++)
+            {
+                Vector2Int position = new Vector2Int(i, j);
+                thisWall = GetWall(position);
+                if (thisWall)
+                {
+                    thisWall.DestroyObject();
+                }
+            }
+        }
+
+        thisWall = GetWall(new Vector2Int(5, 4));
+        if (thisWall)
+        {
+            thisWall.DestroyObject();
+        }
+
+        //create all walls
+        for (int i = 0; i < GameController.gameC.ScreenResInUnits.x; i++)
+        {
+            for (int j = 0; j < GameController.gameC.ScreenResInUnits.y; j++)
+            {
+                Vector2Int position = new Vector2Int(i, j);
+                Wall2 newWall = GetWall(position);
+                if (newWall)
+                {
+                    newWall.UpdateRogueSpriteRenderer();
+                }
             }
         }
     }
@@ -33,5 +132,10 @@ public class WallController : MonoBehaviour
     public Inventory GetWallInventory(Vector2Int pos)
     {
         return wallInventoryArray[pos.x, pos.y];
+    }
+
+    public Wall2 GetWall(Vector2Int pos)
+    {
+        return (Wall2)GetWallInventory(pos).GetItem(0);
     }
 }

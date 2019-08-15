@@ -45,3 +45,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wallInventoryClass: {fileID: 5475488527503361341, guid: 00c57c95e0905e046bc5a2b08ff28ac3,
     type: 3}
+  wallClass: {fileID: 1125221141421439734, guid: b524344b0afe0d443a0660f017bd131f,
+    type: 3}

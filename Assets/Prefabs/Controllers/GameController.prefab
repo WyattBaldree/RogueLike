@@ -51,4 +51,6 @@ MonoBehaviour:
   inventoryControllerInstance: {fileID: 0}
   popupControllerInstance: {fileID: 0}
   debug: 0
-  ScreenResInUnits: {x: 20, y: 20}
+  ScreenResInUnits: {x: 24, y: 24}
+  temporaryInventory: {fileID: 5475488527503361341, guid: 28b31da868a5a9b41a21db0c925e5555,
+    type: 3}
