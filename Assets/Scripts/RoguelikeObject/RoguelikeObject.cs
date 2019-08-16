@@ -11,22 +11,54 @@ public abstract class RoguelikeObject : MonoBehaviour
      * share like: a name, a description, weight, ect.
      */
 
+    public static List<RoguelikeObject> roguelikeObjectList = new List<RoguelikeObject>();
+
     [Header("Roguelike Object")]
 
     [SerializeField]
-    private Sprite itemSprite;
+    private Sprite itemSprite1;
     /// <summary>
-    /// The current sprite we are displaying IN INVENTORIES (this is not the same as the world sprite for wall/floor/units)
+    /// The sprite we display IN INVENTORIES when SpriteToggle is false (this is not the same as the world sprite for wall/floor/units)
     /// </summary>
-    public Sprite ItemSprite
+    public Sprite ItemSprite1
     {
-        get => itemSprite;
+        get => itemSprite1;
         set
         {
-            itemSprite = value;
+            itemSprite1 = value;
             UpdateRogueSpriteRenderer();
         }
     }
+
+    [SerializeField]
+    private Sprite itemSprite2;
+    /// <summary>
+    /// The sprite we display IN INVENTORIES when SpriteToggle is true (this is not the same as the world sprite for wall/floor/units)
+    /// </summary>
+    public Sprite ItemSprite2
+    {
+        get => itemSprite2;
+        set
+        {
+            itemSprite2 = value;
+            UpdateRogueSpriteRenderer();
+        }
+    }
+
+    private bool spriteToggle = false;
+    /// <summary>
+    /// When this value is toggled, it swaps the objectect from sprite 1 to sprite 2 or visa-versa
+    /// </summary>
+    public bool SpriteToggle
+    {
+        get => spriteToggle;
+        set
+        {
+            spriteToggle = value;
+            UpdateRogueSpriteRenderer();
+        }
+    }
+
 
     /// <summary>
     /// PRIVATE. The sprite renderer that this object uses in the world. This sprite renderer is used for showing an item lying on the ground, a wall placed in the world, or a floor placed on the ground, ect.
@@ -225,7 +257,7 @@ public abstract class RoguelikeObject : MonoBehaviour
     /// </summary>
     public virtual void Initialize()
     {
-        ItemSprite = itemSprite;
+        ItemSprite1 = itemSprite1;
         Health = HealthMax;
     }
 
@@ -252,6 +284,7 @@ public abstract class RoguelikeObject : MonoBehaviour
         myRogueSpriteRenderer.gameObject.SetActive(Exposed);
         myRogueSpriteRenderer.MySprite = GetCurrentSprite();
         myRogueSpriteRenderer.StackSize = StackSize;
+        if(MyInventory) MyInventory.UpdateInventoryGUI(MyInventory.GetItemIndex(this));
     }
 
     /// <summary>
@@ -260,17 +293,14 @@ public abstract class RoguelikeObject : MonoBehaviour
     /// <returns>The Sprite that should be renderered.</returns>
     public virtual Sprite GetCurrentSprite()
     {
-        return ItemSprite;
-    }
-
-    /// <summary>
-    /// Cleanly Destroy the item by removing it from all lists, updating all graphics, then destroying it.
-    /// </summary>
-    public virtual void DestroyObject()
-    {
-        //If we ever try to delete a roguelikeObject and it is not in "MyInventory" something is terribly wrong.
-        Assert.IsTrue(MyInventory.RemoveItem(this), "The roguelikeObject is not in it's own MyInventory upon attempting to delete itself.");
-        Destroy(this.gameObject);
+        if (SpriteToggle && ItemSprite2)
+        {
+            return ItemSprite2;
+        }
+        else
+        {
+            return ItemSprite1;
+        }
     }
 
     /// <summary>
@@ -289,25 +319,45 @@ public abstract class RoguelikeObject : MonoBehaviour
         newItem.StackSize = amount;
 
         //Attempt to add the new RoguelikeObject to the destination inventory
-        bool wasAdded;
+        //This variable contains the newItem if a new stack was created or the existing stack if the new item was incorporated into an existing stack.
+        RoguelikeObject stackThatWasAdded;
         if (index > -1)
         {
-            wasAdded = destination.AddItem(newItem, index);
+            stackThatWasAdded = destination.AddItem(newItem, index);
         }
         else
         {
-            wasAdded = destination.AddItem(newItem);
+            stackThatWasAdded = destination.AddItem(newItem);
         }
 
         //If we were able to add the item to the destination inventory, return it. Otherwise, destroy it and return null.
-        if (wasAdded)
+        if (stackThatWasAdded == newItem)
         {
+            newItem.OnCreate();
             return newItem;
         }
         else
         {
-            Destroy(newItem.gameObject);
             return null;
         }
+    }
+
+    /// <summary>
+    /// Called when this RoguelikeObject is created.
+    /// </summary>
+    public virtual void OnCreate()
+    {
+        roguelikeObjectList.Add(this);
+    }
+
+    /// <summary>
+    /// Cleanly Destroy the item by removing it from all lists then destroying it.
+    /// </summary>
+    public virtual void DestroyObject()
+    {
+        //If we ever try to delete a roguelikeObject and it is not in "MyInventory" something is terribly wrong.
+        Assert.IsTrue(MyInventory.RemoveItem(this), "The roguelikeObject is not in it's own MyInventory upon attempting to delete itself.");
+        Assert.IsTrue(roguelikeObjectList.Remove(this), "The roguelikeObject being destroyed was not in the RoguelikeObjectList upon being destroyed. Something is terribly wrong.");
+        Destroy(this.gameObject);
     }
 }

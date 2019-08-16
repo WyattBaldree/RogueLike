@@ -1,21 +1,39 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public abstract class WorldObject : RoguelikeObject
 {
+    public static List<WorldObject> worldObjectList = new List<WorldObject>();
+
     [Header("World Object")]
     [SerializeField]
-    private Sprite worldSprite;
+    private Sprite worldSprite1;
     /// <summary>
-    /// The current sprite we are displaying IN THE WORLD (this is not the same as the item sprite)
+    /// The sprite we display IN THE WORLD when SpriteToggle is false
     /// </summary>
-    public Sprite WorldSprite
+    public Sprite WorldSprite1
     {
-        get => worldSprite;
+        get => worldSprite1;
         set
         {
-            worldSprite = value;
+            worldSprite1 = value;
+            UpdateRogueSpriteRenderer();
+        }
+    }
+
+    [SerializeField]
+    private Sprite worldSprite2;
+    /// <summary>
+    /// The sprite we display IN THE WORLD when SpriteToggle is true
+    /// </summary>
+    public Sprite WorldSprite2
+    {
+        get => worldSprite2;
+        set
+        {
+            worldSprite2 = value;
             UpdateRogueSpriteRenderer();
         }
     }
@@ -53,7 +71,7 @@ public abstract class WorldObject : RoguelikeObject
         }
         else
         {
-            return ItemSprite;
+            return base.GetCurrentSprite();
         }
     }
 
@@ -63,7 +81,14 @@ public abstract class WorldObject : RoguelikeObject
     /// <returns>Returns the world sprite.</returns>
     public virtual Sprite GetWorldSprite()
     {
-        return WorldSprite;
+        if (SpriteToggle && WorldSprite2)
+        {
+            return WorldSprite2;
+        }
+        else
+        {
+            return WorldSprite1;
+        }
     }
 
     /// <summary>
@@ -159,5 +184,24 @@ public abstract class WorldObject : RoguelikeObject
             }
         }
         return null;
+    }
+
+    /// <summary>
+    /// Called when this WorldObject is created.
+    /// </summary>
+    public override void OnCreate()
+    {
+        base.OnCreate();
+        worldObjectList.Add(this);
+    }
+
+    /// <summary>
+    /// Cleanly Destroy the item by removing it from all lists then destroying it.
+    /// </summary>
+    public override void DestroyObject()
+    {
+        //If we ever try to delete a roguelikeObject and it is not in "MyInventory" something is terribly wrong.
+        Assert.IsTrue(worldObjectList.Remove(this), "The roguelikeObject being destroyed was not in the RoguelikeObjectList upon being destroyed. Something is terribly wrong.");
+        base.DestroyObject();
     }
 }

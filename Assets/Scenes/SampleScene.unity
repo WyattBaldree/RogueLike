@@ -2490,13 +2490,19 @@ PrefabInstance:
     - target: {fileID: 2012730466417042781, guid: bb8469946e499874cbcf8054e009b90c,
         type: 3}
       propertyPath: itemArray.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2012730466417042781, guid: bb8469946e499874cbcf8054e009b90c,
         type: 3}
       propertyPath: itemArray.Array.data[1]
       value: 
       objectReference: {fileID: 7879772171382203725, guid: ee76c031d8a1ec446b6b01687f30b4ea,
+        type: 3}
+    - target: {fileID: 2012730466417042781, guid: bb8469946e499874cbcf8054e009b90c,
+        type: 3}
+      propertyPath: itemArray.Array.data[2]
+      value: 
+      objectReference: {fileID: 4477964898045694034, guid: fcc861a84b5ce54449fe85a87208357c,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb8469946e499874cbcf8054e009b90c, type: 3}
@@ -3608,6 +3614,11 @@ PrefabInstance:
       propertyPath: temporaryInventory
       value: 
       objectReference: {fileID: 1053264420}
+    - target: {fileID: 4067177045250584200, guid: 7c096360b4640af43bd1f02af61bfac5,
+        type: 3}
+      propertyPath: spriteToggleTime
+      value: 0.7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c096360b4640af43bd1f02af61bfac5, type: 3}
 --- !u!1001 &5256962182821704356

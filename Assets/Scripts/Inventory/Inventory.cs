@@ -35,7 +35,7 @@ public class Inventory : MonoBehaviour
     /// </summary>
     /// <param name="newItem"></param>
     /// <returns></returns>
-    public bool AddItem(RoguelikeObject newItem)
+    public RoguelikeObject AddItem(RoguelikeObject newItem)
     {
         int i = GetAvailableStack(newItem, newItem.UniqueID);
         if (i >= 0)
@@ -53,7 +53,7 @@ public class Inventory : MonoBehaviour
     /// <param name="newItem"></param>
     /// <param name="index"></param>
     /// <returns></returns>
-    public bool AddItem(RoguelikeObject newItem, int index)
+    public RoguelikeObject AddItem(RoguelikeObject newItem, int index)
     {
         bool acceptable = false;
         foreach (RoguelikeObject.TagEnum tag in newItem.tags)
@@ -64,11 +64,11 @@ public class Inventory : MonoBehaviour
                 break;
             }
         }
-        if (!acceptable) return false;
+        if (!acceptable) return null;
 
-        if (index >= inventoryCapacity) return false;
+        if (index >= inventoryCapacity) return null;
 
-        if (!newItem) return false;
+        if (!newItem) return null;
 
         //if there is already a stack here...
         if (itemList[index] != null)
@@ -81,7 +81,7 @@ public class Inventory : MonoBehaviour
                 if (availableSpace <= 0)
                 {
                     //if the stack is already full, return false
-                    return false;
+                    return null;
                 }
 
                 if(newItem.StackSize <= availableSpace)
@@ -90,7 +90,7 @@ public class Inventory : MonoBehaviour
                     existingStack.StackSize = existingStack.StackSize + newItem.StackSize;
                     Destroy(newItem.gameObject);
                     UpdateInventoryGUI(index);
-                    return true;
+                    return existingStack;
                 }
                 else
                 {
@@ -104,7 +104,7 @@ public class Inventory : MonoBehaviour
             }
             else
             {
-                return false;
+                return null;
             }
         }
         //else add the item to the inv index
@@ -126,7 +126,7 @@ public class Inventory : MonoBehaviour
 
         newItem.MyInventory = this;
         UpdateInventoryGUI(index);
-        return true;
+        return newItem;
     }
 
     /// <summary>
@@ -318,7 +318,7 @@ public class Inventory : MonoBehaviour
     /// <summary>
     /// Update our inventoryGUI.
     /// </summary>
-    private void UpdateInventoryGUI(int index = -1)
+    public void UpdateInventoryGUI(int index = -1)
     {
         if (myInventoryGUI)
         {

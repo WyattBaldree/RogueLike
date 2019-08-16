@@ -42,11 +42,11 @@ public class ItemController : MonoBehaviour
             RoguelikeObject.MakeRoguelikeObject(itemArray[1], 1, inventoryArray[5 + i, 6]);
             RoguelikeObject.MakeRoguelikeObject(itemArray[1], 1, inventoryArray[5 + i, 6]);
             RoguelikeObject.MakeRoguelikeObject(itemArray[1], 1, inventoryArray[5 + i, 6]);
-            RoguelikeObject.MakeRoguelikeObject(itemArray[1], 1, inventoryArray[5 + i, 6]);
-            RoguelikeObject.MakeRoguelikeObject(itemArray[1], 1, inventoryArray[5 + i, 6]);
             RoguelikeObject.MakeRoguelikeObject(itemArray[0], 32, inventoryArray[5 + i, 6]);
             RoguelikeObject.MakeRoguelikeObject(itemArray[0], 32, inventoryArray[5 + i, 6]);
             RoguelikeObject.MakeRoguelikeObject(itemArray[0], 32, inventoryArray[5 + i, 6]);
+            RoguelikeObject.MakeRoguelikeObject(itemArray[2], 1, inventoryArray[5 + i, 6]);
+            RoguelikeObject.MakeRoguelikeObject(itemArray[2], 1, inventoryArray[5 + i, 6]);
         }
         /*yo = (WorldObject)RoguelikeObject.MakeItem(itemArray[1], 1, inventoryArray[5, 6]);
         yo.Place(new Vector2Int(6, 7));

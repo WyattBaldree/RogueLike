@@ -44,8 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b933f02d97024a499ce26e6338c59f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemSprite: {fileID: -4364592516061554033, guid: 1ca6d9acc840d8746acc05b62eaa869d,
+  itemSprite1: {fileID: 3921441551649640537, guid: 1ca6d9acc840d8746acc05b62eaa869d,
     type: 3}
+  itemSprite2: {fileID: 0}
   myRogueSpriteRenderer: {fileID: 3514171295888430196}
   tags: 00000000
   uniqueID: TestItem

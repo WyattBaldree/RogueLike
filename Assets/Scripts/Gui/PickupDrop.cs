@@ -186,7 +186,7 @@ public class PickupDrop : Object
 
                 if (item)
                 {
-                    itemSpriteRenderer.MySprite = item.ItemSprite;
+                    itemSpriteRenderer.MySprite = item.GetCurrentSprite();
                     itemSpriteRenderer.StackSize = item.StackSize;
                 }
             }

@@ -35,6 +35,9 @@ public class GameController : MonoBehaviour
     [System.NonSerialized]
     public Vector2 ScreenResInPixels;
 
+    [SerializeField]
+    private float spriteToggleTime = .1f;
+
     /// <summary>
     /// An instance of an inventory that objects can be instantiated into before being placed into the world. When something is put in here, it should immediately be removed.
     /// </summary>
@@ -70,11 +73,22 @@ public class GameController : MonoBehaviour
 
         inventoryC.InitializePickupDrops();
 
-
-
         Pathfinding.GenerateToPlayerMap();
         Pathfinding.GenerateToGoldMap();
         Pathfinding.GenerateFleePlayerMap();
+        StartCoroutine("ToggleRogulikeObjectSprites");
+    }
+
+    IEnumerator ToggleRogulikeObjectSprites()
+    {
+        while (true)
+        {
+            foreach (RoguelikeObject rlObject in RoguelikeObject.roguelikeObjectList)
+            {
+                rlObject.SpriteToggle = !rlObject.SpriteToggle;
+            }
+            yield return new WaitForSeconds(spriteToggleTime);
+        }
     }
 
     /// <summary>
@@ -99,7 +113,7 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 
 }

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7484440356495332387
+--- !u!1 &2728826509384965616
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,65 +8,63 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2694823676343355313}
-  - component: {fileID: 1125221141421439734}
+  - component: {fileID: 2728826509384965617}
+  - component: {fileID: 4477964898045694034}
   m_Layer: 0
-  m_Name: TestWall
+  m_Name: TestItem2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2694823676343355313
+--- !u!4 &2728826509384965617
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7484440356495332387}
+  m_GameObject: {fileID: 2728826509384965616}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 3.626322, y: 9.620927, z: -128.20312}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 3080499682164303603}
+  - {fileID: 2832334211224121899}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1125221141421439734
+--- !u!114 &4477964898045694034
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7484440356495332387}
+  m_GameObject: {fileID: 2728826509384965616}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdb3c135333f1c04eb2e205d61c9def9, type: 3}
+  m_Script: {fileID: 11500000, guid: 5b933f02d97024a499ce26e6338c59f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemSprite1: {fileID: 21300066, guid: 69c9982adf2b9be428067b80a19408e0, type: 3}
-  itemSprite2: {fileID: 0}
-  myRogueSpriteRenderer: {fileID: 4416486395051606188}
+  itemSprite1: {fileID: -6844993358173855421, guid: e299d79331196e847baacafb569799d9,
+    type: 3}
+  itemSprite2: {fileID: -1304320375425282223, guid: e42dc9e2a0083e940a569e492ca971a2,
+    type: 3}
+  myRogueSpriteRenderer: {fileID: 3514171295888430196}
   tags: 00000000
-  uniqueID: TestWall
-  objectName: Test Wall
-  description: This is a test wall.
+  uniqueID: TestItem2
+  objectName: test item 2
+  description: This item is really only for testing. If you are seeing this... good
+    job, you broke the game!
   stackSizeMax: 1
   goldValue: 1
   healthMax: 10
   flammable: 0
   explosive: 0
-  worldSprite1: {fileID: 21300066, guid: 69c9982adf2b9be428067b80a19408e0, type: 3}
-  worldSprite2: {fileID: 0}
-  pathfindingCost: 3.4028235e+38
-  blockUnits: 1
-  influenceFloors: 1
---- !u!1001 &2495573322158040608
+--- !u!1001 &3399184591477781240
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 2694823676343355313}
+    m_TransformParent: {fileID: 2728826509384965617}
     m_Modifications:
     - target: {fileID: 6358093057218553475, guid: 65dc067cca55f79429d3ade813e55f9e,
         type: 3}
@@ -130,17 +128,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 65dc067cca55f79429d3ade813e55f9e, type: 3}
---- !u!4 &3080499682164303603 stripped
+--- !u!4 &2832334211224121899 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 604094319089975507, guid: 65dc067cca55f79429d3ade813e55f9e,
     type: 3}
-  m_PrefabInstance: {fileID: 2495573322158040608}
+  m_PrefabInstance: {fileID: 3399184591477781240}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4416486395051606188 stripped
+--- !u!114 &3514171295888430196 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2299241871816156812, guid: 65dc067cca55f79429d3ade813e55f9e,
     type: 3}
-  m_PrefabInstance: {fileID: 2495573322158040608}
+  m_PrefabInstance: {fileID: 3399184591477781240}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1

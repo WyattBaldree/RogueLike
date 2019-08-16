@@ -44,7 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d96913bc0824ca349809ca00f96ef7b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemSprite: {fileID: 21301268, guid: 69c9982adf2b9be428067b80a19408e0, type: 3}
+  itemSprite1: {fileID: 21301268, guid: 69c9982adf2b9be428067b80a19408e0, type: 3}
+  itemSprite2: {fileID: 0}
   myRogueSpriteRenderer: {fileID: 7389868763239700286}
   tags: 00000000
   uniqueID: TestWallConnected
@@ -55,7 +56,8 @@ MonoBehaviour:
   healthMax: 10
   flammable: 0
   explosive: 0
-  worldSprite: {fileID: 0}
+  worldSprite1: {fileID: 0}
+  worldSprite2: {fileID: 0}
   pathfindingCost: 3.4028235e+38
   blockUnits: 1
   influenceFloors: 1
