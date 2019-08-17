@@ -59,6 +59,14 @@ public abstract class RoguelikeObject : MonoBehaviour
         }
     }
 
+    [SerializeField]
+    private float animationSpeed = .7f;
+
+    public float AnimationSpeed
+    {
+        get => animationSpeed;
+        set => animationSpeed = value;
+    }
 
     /// <summary>
     /// PRIVATE. The sprite renderer that this object uses in the world. This sprite renderer is used for showing an item lying on the ground, a wall placed in the world, or a floor placed on the ground, ect.
@@ -348,6 +356,7 @@ public abstract class RoguelikeObject : MonoBehaviour
     public virtual void OnCreate()
     {
         roguelikeObjectList.Add(this);
+        StartCoroutine("ToggleRogulikeObjectSprites");
     }
 
     /// <summary>
@@ -359,5 +368,14 @@ public abstract class RoguelikeObject : MonoBehaviour
         Assert.IsTrue(MyInventory.RemoveItem(this), "The roguelikeObject is not in it's own MyInventory upon attempting to delete itself.");
         Assert.IsTrue(roguelikeObjectList.Remove(this), "The roguelikeObject being destroyed was not in the RoguelikeObjectList upon being destroyed. Something is terribly wrong.");
         Destroy(this.gameObject);
+    }
+
+    IEnumerator ToggleRogulikeObjectSprites()
+    {
+        while (true)
+        {
+            SpriteToggle = !SpriteToggle;
+            yield return new WaitForSeconds(AnimationSpeed);
+        }
     }
 }
