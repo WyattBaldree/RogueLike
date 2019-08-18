@@ -69,9 +69,6 @@ public class InventoryGUI : GUIComponent
             pd.myInventoryGUI = this;
             pickupDropList.Add(pd);
         }
-        UpdateFrameLocations();
-        UpdateFrameContent();
-        Debug.Log(name + " initialized");
     }
 
     public void ConnectToInventory(Inventory inv)
@@ -79,7 +76,8 @@ public class InventoryGUI : GUIComponent
         targetInventory = inv;
         numFrames = inv.inventoryCapacity;
         SetScrollAmount(0);
-        Initialize();
+        inv.myInventoryGUI = this;
+        UpdateGUI();
     }
 
     /// <summary>

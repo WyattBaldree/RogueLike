@@ -177,6 +177,11 @@ public abstract class WorldObject : RoguelikeObject
         return (WorldObject)RoguelikeObject.MakeRoguelikeObject(source, amount, destination, index);
     }
 
+    public static WorldObject MakeWorldObjectTemporary(WorldObject source, int amount)
+    {
+        return (WorldObject)RoguelikeObject.MakeRoguelikeObjectTemporary(source, amount);
+    }
+
     /// <summary>
     /// Make a new WorldObject and immediately call Place on it. Useful for creating objects into the world.
     /// </summary>
@@ -185,7 +190,12 @@ public abstract class WorldObject : RoguelikeObject
     /// <returns></returns>
     public static WorldObject MakeAndPlaceWorldObject(WorldObject source, Vector2Int pos)
     {
-        WorldObject newWorldObject = MakeWorldObject(source, 1, GameController.gameC.temporaryInventory);
+        WorldObject newWorldObject = MakeWorldObjectTemporary(source, 1);
+
+        Inventory tempInv = GameController.gameC.temporaryInventory;
+
+        tempInv.AddItem(newWorldObject);
+
         if (newWorldObject)
         {
             if (newWorldObject.Place(pos))

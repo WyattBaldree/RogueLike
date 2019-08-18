@@ -321,33 +321,43 @@ public abstract class RoguelikeObject : MonoBehaviour
     /// <returns>Returns a reference to the newly created RoguelikeObject</returns>
     public static RoguelikeObject MakeRoguelikeObject(RoguelikeObject source, int amount, Inventory destination, int index = -1)
     {
-        RoguelikeObject newItem = Instantiate<RoguelikeObject>(source, destination.transform.position, Quaternion.identity, destination.transform);
-        newItem.Initialize();
+        RoguelikeObject newItem = MakeRoguelikeObjectTemporary(source, amount);
 
-        newItem.StackSize = amount;
+        Inventory tempInv = GameController.gameC.temporaryInventory;
+
+        tempInv.AddItem(newItem);
 
         //Attempt to add the new RoguelikeObject to the destination inventory
         //This variable contains the newItem if a new stack was created or the existing stack if the new item was incorporated into an existing stack.
-        RoguelikeObject stackThatWasAdded;
+        RoguelikeObject finalStack;
         if (index > -1)
         {
-            stackThatWasAdded = destination.AddItem(newItem, index);
+            finalStack = tempInv.MoveItem(newItem, destination, index, newItem.StackSize);
         }
         else
         {
-            stackThatWasAdded = destination.AddItem(newItem);
+            finalStack = tempInv.MoveItem(newItem, destination);
         }
 
-        //If we were able to add the item to the destination inventory, return it. Otherwise, destroy it and return null.
-        if (stackThatWasAdded == newItem)
+        //If we were unable to add the entire stack to the game
+        if (finalStack == null)
         {
-            newItem.OnCreate();
-            return newItem;
+            newItem.StackSize = 0;
+            return null;
         }
         else
         {
-            return null;
+            return finalStack;
         }
+    }
+
+    public static RoguelikeObject MakeRoguelikeObjectTemporary(RoguelikeObject source, int amount)
+    {
+        RoguelikeObject newItem = Instantiate<RoguelikeObject>(source, GameController.gameC.temporaryInventory.transform.position, Quaternion.identity, GameController.gameC.temporaryInventory.transform);
+        newItem.Initialize();
+        newItem.StackSize = amount;
+        newItem.OnCreate();
+        return newItem;
     }
 
     /// <summary>

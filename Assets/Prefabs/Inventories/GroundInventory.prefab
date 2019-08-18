@@ -54,18 +54,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
   inventoryCapacity: 10
   myInventoryGUI: {fileID: 1356086442712527106, guid: d198f8d15348d0f4c96223c623d1057c,
     type: 3}
-  myInventoryGUIEnum: 3
   inventoryName: <color.tan><anim.rainbow>Ground
   external: 1
-  openable: 1
-  itemChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  acceptableTypes:
-  - item
+  acceptableTypes: 00000000

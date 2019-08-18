@@ -115,5 +115,6 @@ public class Player : Unit
     public override void Initialize()
     {
         base.Initialize();
+        GameController.inventoryC.inventoryGUIs[1].ConnectToInventory(inventory);
     }
 }

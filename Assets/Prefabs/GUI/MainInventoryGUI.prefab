@@ -10,13 +10,14 @@ GameObject:
   m_Component:
   - component: {fileID: 6193898851668122727}
   - component: {fileID: 1356086442712527106}
+  - component: {fileID: 8750353820824978038}
   m_Layer: 0
   m_Name: MainInventoryGUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6193898851668122727
 Transform:
   m_ObjectHideFlags: 0
@@ -26,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 6193898851668122724}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.0010771751, y: 0.0030183792, z: -10}
-  m_LocalScale: {x: 1.885, y: 1.885, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -43,10 +44,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a370484a056f76447ac67c4e85af189a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  horizontalAlignment: 1
+  verticalAlignment: 1
+  maxSize: {x: 8.1, y: 15.46}
+  minSize: {x: 0, y: 0}
   targetInventory: {fileID: 0}
-  offset: {x: 0, y: 0}
-  separation: {x: 0.81, y: 0.81}
-  columns: 5
+  separation: {x: 0.15, y: 0.15}
+  scale: 1.885
   numFrames: 40
+  totalHeight: 20.199999
+  scrollAmount: 0
   pickupDropSource: {fileID: 4930997810015011465, guid: ce2f3d1c82f420f48861c4354dea1747,
     type: 3}
+--- !u!210 &8750353820824978038
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6193898851668122724}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 10

@@ -129,7 +129,7 @@ public class Entry : GUIComponent
 
                     string str = text.Substring(i + 1, j - 1);
                     i += j;
-                    Debug.Log(str);
+                    if (GameController.gameC && GameController.gameC.debug) Debug.Log(str);
 
                     switch (str)
                     {
@@ -189,7 +189,7 @@ public class Entry : GUIComponent
 
                     string str = text.Substring(i + 1, j - 1);
                     i += j;
-                    Debug.Log(str);
+                    if (GameController.gameC && GameController.gameC.debug) Debug.Log(str);
 
                     fontSize = Convert.ToSingle(str);
                 }
@@ -230,7 +230,7 @@ public class Entry : GUIComponent
 
                     string str = text.Substring(i + 1, j - 1);
                     i += j;
-                    Debug.Log(str);
+                    if (GameController.gameC && GameController.gameC.debug) Debug.Log(str);
 
                     switch (str)
                     {

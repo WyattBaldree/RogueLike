@@ -39,32 +39,16 @@ public class ItemController : MonoBehaviour
         WorldObject yo;
         for (int i = 0; i < 1; i++)
         {
-            RoguelikeObject.MakeRoguelikeObject(itemArray[1], 1, inventoryArray[5 + i, 6]);
-            RoguelikeObject.MakeRoguelikeObject(itemArray[1], 1, inventoryArray[5 + i, 6]);
-            RoguelikeObject.MakeRoguelikeObject(itemArray[1], 1, inventoryArray[5 + i, 6]);
+            RoguelikeObject.MakeRoguelikeObject(itemArray[2], 1, inventoryArray[5 + i, 6]);
+            RoguelikeObject.MakeRoguelikeObject(itemArray[2], 1, inventoryArray[5 + i, 6]);
+            RoguelikeObject.MakeRoguelikeObject(itemArray[2], 1, inventoryArray[5 + i, 6]);
+            RoguelikeObject.MakeRoguelikeObject(itemArray[2], 1, inventoryArray[5 + i, 6]);
             RoguelikeObject.MakeRoguelikeObject(itemArray[0], 32, inventoryArray[5 + i, 6]);
             RoguelikeObject.MakeRoguelikeObject(itemArray[0], 32, inventoryArray[5 + i, 6]);
             RoguelikeObject.MakeRoguelikeObject(itemArray[0], 32, inventoryArray[5 + i, 6]);
             RoguelikeObject.MakeRoguelikeObject(itemArray[2], 1, inventoryArray[5 + i, 6]);
             RoguelikeObject.MakeRoguelikeObject(itemArray[2], 1, inventoryArray[5 + i, 6]);
         }
-        /*yo = (WorldObject)RoguelikeObject.MakeItem(itemArray[1], 1, inventoryArray[5, 6]);
-        yo.Place(new Vector2Int(6, 7));
-        yo.Take(inventoryArray[7, 7]);
-        */
-        //MakeItem(itemArray[1], 50, inventoryArray[7, 12]);
-        //MakeItem(itemArray[2], 50, inventoryArray[7, 12]);
-
-
-        /*MakeItem(ironCapSource, 50, inventoryArray[7, 13]);
-        MakeItem(ringmailSource, 50, inventoryArray[7, 13]);
-        MakeItem(leatherGlovesSource, 50, inventoryArray[7, 13]);
-        MakeItem(bootsSource, 50, inventoryArray[7, 13]);
-
-        MakeItem(bootsSource, 1, ((Chest)(GameController.mapC.wallMapArray[3,2])).inventory);
-        MakeItem(ironCapSource, 1, ((Chest)(GameController.mapC.wallMapArray[3, 2])).inventory);
-        MakeItem(leatherGlovesSource, 1, ((Chest)(GameController.mapC.wallMapArray[3, 2])).inventory);
-        MakeItem(ringmailSource, 1, ((Chest)(GameController.mapC.wallMapArray[3, 2])).inventory);*/
     }
 
     public Inventory GetInventory(Vector2Int pos)

@@ -94,6 +94,11 @@ public class PickupDrop : Object
     /// <param name="amount">how many to drop. -1 to drop all</param>
     private void DropItem(int amount = -1)
     {
+        if (myInventoryGUI.targetInventory.GetItem(myIndex) == null)
+        {
+            return;
+        }
+
         foreach (PickupDrop pd in pickupDropList)
         {
             if (pd == this) continue;

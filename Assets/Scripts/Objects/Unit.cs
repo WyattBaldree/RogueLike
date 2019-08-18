@@ -645,11 +645,11 @@ public class Unit : Object
 
         int itemIndex = sourceInventory.GetAvailableStack();
         
-        if(sourceInventory.MoveItem(itemIndex, this.inventory, -1))
+        /*if(sourceInventory.MoveItem(itemIndex, this.inventory, -1))
         {
             RoguelikeObject pickupItem = sourceInventory.GetItem(sourceInventory.GetAvailableStack());
             GameController.logC.NewEntry(name + "<d> obtained " + pickupItem.GetFullName() + "<d>.");
-        }
+        }*/
     }
 
     /// <summary>
@@ -675,7 +675,7 @@ public class Unit : Object
 
         if (invBelow)
         {
-            bool itemAdded = invBelow.AddItem(item);
+            /*bool itemAdded = invBelow.AddItem(item, item.StackSize);
             if (itemAdded)
             {
                 inv.RemoveItem(item);
@@ -686,7 +686,7 @@ public class Unit : Object
                 //eventually, we will want to recursively iterate through the level grid until we find a free space.
                 //Drop item in other slot
                 return false;
-            }
+            }*/
         }
 
         return false;

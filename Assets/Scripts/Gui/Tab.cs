@@ -19,7 +19,7 @@ public class Tab : MonoBehaviour
 {
     public Sprite selectedSprite;
     public Sprite unselectedSprite;
-    private SpriteRenderer spriteRenderer;
+    public SpriteRenderer spriteRenderer;
 
     public bool selected = false;
 
@@ -35,7 +35,6 @@ public class Tab : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
         UpdateTabSprite();
     }
 
@@ -72,10 +71,6 @@ public class Tab : MonoBehaviour
 
     private void OnValidate()
     {
-        if(spriteRenderer == null)
-        {
-            spriteRenderer = GetComponent<SpriteRenderer>();
-        }
         UpdateTabSprite();
     }
 

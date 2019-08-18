@@ -29,8 +29,6 @@ public class TabGroup : MonoBehaviour
 
     public void TabSelect(int index)
     {
-        Debug.Log("Tab " + index + " was selected.");
-
         for (int i = 0; i < tabs.Length; i++)
         {
             if (i == index)
@@ -47,7 +45,6 @@ public class TabGroup : MonoBehaviour
 
     public void TabUnselect(int index)
     {
-        Debug.Log("Tab " + index + " was unselected.");
         tabs[index].SetSelected(false);
         pages[index].SetActive(false);
     }
