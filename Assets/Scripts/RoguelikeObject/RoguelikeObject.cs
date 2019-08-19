@@ -61,7 +61,9 @@ public abstract class RoguelikeObject : MonoBehaviour
 
     [SerializeField]
     private float animationSpeed = .7f;
-
+    /// <summary>
+    /// This float controlls how fast the object toggles between it's 2 sprites. The lower this value, the faster the toggling.
+    /// </summary>
     public float AnimationSpeed
     {
         get => animationSpeed;
@@ -312,7 +314,7 @@ public abstract class RoguelikeObject : MonoBehaviour
     }
 
     /// <summary>
-    /// A function that is used to create a new RoguelikeObject.
+    /// A function that is used to create a new RoguelikeObject and immediately place it into an inventory.
     /// </summary>
     /// <param name="source">The source of the RoguelikeObject being made.</param>
     /// <param name="amount">The stack size of the new item.</param>
@@ -321,14 +323,12 @@ public abstract class RoguelikeObject : MonoBehaviour
     /// <returns>Returns a reference to the newly created RoguelikeObject</returns>
     public static RoguelikeObject MakeRoguelikeObject(RoguelikeObject source, int amount, Inventory destination, int index = -1)
     {
+        //Create a new rogulikeObject and immdiately add it to the temporary inventory
         RoguelikeObject newItem = MakeRoguelikeObjectTemporary(source, amount);
-
         Inventory tempInv = GameController.gameC.temporaryInventory;
-
         tempInv.AddItem(newItem);
 
-        //Attempt to add the new RoguelikeObject to the destination inventory
-        //This variable contains the newItem if a new stack was created or the existing stack if the new item was incorporated into an existing stack.
+        //Attempt to move all of the item from the temporary inventory to the real inventory and get the final stack we end on.
         RoguelikeObject finalStack;
         if (index > -1)
         {
@@ -339,18 +339,26 @@ public abstract class RoguelikeObject : MonoBehaviour
             finalStack = tempInv.MoveItem(newItem, destination);
         }
 
-        //If we were unable to add the entire stack to the game
+        //If we were unable to add the entire stack to the game, remove the rest of the item from the temporary inventory.
         if (finalStack == null)
         {
             newItem.StackSize = 0;
+            Assert.IsNull(tempInv.GetItem(0), "The temporary inventory is not empty at the end of MakeRoguelikeObject. Something is VERY wrong!");
             return null;
         }
         else
         {
+            Assert.IsNull(tempInv.GetItem(0), "The temporary inventory is not empty at the end of MakeRoguelikeObject. Something is VERY wrong!");
             return finalStack;
         }
     }
 
+    /// <summary>
+    /// Thsi function creates and initializes a new item but does not add it to an inventory. This should only be used right before adding the item to an inventory.
+    /// </summary>
+    /// <param name="source"></param>
+    /// <param name="amount"></param>
+    /// <returns></returns>
     public static RoguelikeObject MakeRoguelikeObjectTemporary(RoguelikeObject source, int amount)
     {
         RoguelikeObject newItem = Instantiate<RoguelikeObject>(source, GameController.gameC.temporaryInventory.transform.position, Quaternion.identity, GameController.gameC.temporaryInventory.transform);
@@ -380,6 +388,10 @@ public abstract class RoguelikeObject : MonoBehaviour
         Destroy(this.gameObject);
     }
 
+    /// <summary>
+    /// A coroutine that toggles the between the object's srites.
+    /// </summary>
+    /// <returns></returns>
     IEnumerator ToggleRogulikeObjectSprites()
     {
         while (true)

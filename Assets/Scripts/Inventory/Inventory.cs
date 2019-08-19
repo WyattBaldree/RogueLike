@@ -52,9 +52,7 @@ public class Inventory : MonoBehaviour
     /// <summary>
     /// Add an item to a specific index in the inventory.
     /// </summary>
-    /// <param name="newItem"></param>
-    /// <param name="index"></param>
-    /// <returns>The amount that was added</returns>
+    /// <returns>The stack that our add ended on or null if we were unable to add all of our item.</returns>
     public RoguelikeObject AddItem(RoguelikeObject sourceItem, int amount, int index)
     {
         bool acceptable = false;

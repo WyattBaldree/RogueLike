@@ -165,24 +165,6 @@ public abstract class WorldObject : RoguelikeObject
     }
 
     /// <summary>
-    /// A function that is used to create a new WorldObject.
-    /// </summary>
-    /// <param name="source">The source of the WorldObject being made.</param>
-    /// <param name="amount">The stack size of the new item.</param>
-    /// <param name="destination">The inventory the item is going to begin in.</param>
-    /// <param name="index">The inventory index to put the new item in. -1 for the first available spot.</param>
-    /// <returns>Returns a reference to the newly created WorldObject</returns>
-    public static WorldObject MakeWorldObject(WorldObject source, int amount, Inventory destination, int index = -1)
-    {
-        return (WorldObject)RoguelikeObject.MakeRoguelikeObject(source, amount, destination, index);
-    }
-
-    public static WorldObject MakeWorldObjectTemporary(WorldObject source, int amount)
-    {
-        return (WorldObject)RoguelikeObject.MakeRoguelikeObjectTemporary(source, amount);
-    }
-
-    /// <summary>
     /// Make a new WorldObject and immediately call Place on it. Useful for creating objects into the world.
     /// </summary>
     /// <param name="source"></param>
@@ -190,7 +172,7 @@ public abstract class WorldObject : RoguelikeObject
     /// <returns></returns>
     public static WorldObject MakeAndPlaceWorldObject(WorldObject source, Vector2Int pos)
     {
-        WorldObject newWorldObject = MakeWorldObjectTemporary(source, 1);
+        WorldObject newWorldObject = (WorldObject)MakeRoguelikeObjectTemporary(source, 1);
 
         Inventory tempInv = GameController.gameC.temporaryInventory;
 
