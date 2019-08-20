@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
+using static GameController;
 
-public abstract class Wall2 : WorldObject
+public class Wall2 : WorldObject
 {
     [Header("Wall")]
     [SerializeField]
@@ -34,7 +36,7 @@ public abstract class Wall2 : WorldObject
     /// <returns></returns>
     public override Inventory GetWorldObjectInventory(Vector2Int pos)
     {
-        return GameController.wallC.GetWallInventory(pos);
+        return GetWallController().GetWallInventory(pos);
     }
 
     /// <summary>
@@ -44,7 +46,19 @@ public abstract class Wall2 : WorldObject
     /// <returns></returns>
     public override bool IsSpaceFree(Vector2Int pos)
     {
+        if (!base.IsSpaceFree(pos)) return false;
         return GetWorldObjectInventory(pos).GetFirstAvailableSlot() != -1;
     }
-    
+
+    public override void OnCreate()
+    {
+        base.OnCreate();
+        WallController.wallList.Add(this);
+    }
+
+    public override void DestroyObject()
+    {
+        Assert.IsTrue(WallController.wallList.Remove(this), "The roguelikeObject being destroyed was not in the RoguelikeObjectList upon being destroyed. Something is terribly wrong.");
+        base.DestroyObject();
+    }
 }

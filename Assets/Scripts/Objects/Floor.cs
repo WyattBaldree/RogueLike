@@ -37,7 +37,7 @@ public class Floor : Object
 
     private void Initalize()
     {
-        mapController = GameController.mapC;
+       // mapController = GameController.mapC;
         
         initialized = true;
     }

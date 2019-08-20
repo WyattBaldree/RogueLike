@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static GameController;
 
-public abstract class WallConnected : Wall2
+public class WallConnected : Wall2
 {
     [Header("Wall Connected")]
     public Sprite topLeft;
@@ -41,8 +42,8 @@ public abstract class WallConnected : Wall2
                 }
                 else if (checkPosX < 0 ||
                     checkPosY < 0 ||
-                    checkPosX >= GameController.gameC.ScreenResInUnits.x ||
-                    checkPosY >= GameController.gameC.ScreenResInUnits.y)
+                    checkPosX >= GetGameController().ScreenResInUnits.x ||
+                    checkPosY >= GetGameController().ScreenResInUnits.y)
 
                 {
                     if (nearbyList.Count == 1 || nearbyList.Count == 3 || nearbyList.Count == 5 || nearbyList.Count == 7)
@@ -55,7 +56,7 @@ public abstract class WallConnected : Wall2
                 }
                 else
                 {
-                    bool isPresent = GameController.wallC.GetWall(new Vector2Int(checkPosX, checkPosY)) != null;
+                    bool isPresent = GetWallController().GetWall(new Vector2Int(checkPosX, checkPosY)) != null;
                     if (isPresent)
                     {
                         if (nearbyList.Count == 1 || nearbyList.Count == 3 || nearbyList.Count == 5 || nearbyList.Count == 7)

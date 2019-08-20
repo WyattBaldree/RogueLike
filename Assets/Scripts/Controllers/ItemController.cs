@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static GameController;
 
 public class ItemController : MonoBehaviour
 {
@@ -25,12 +26,13 @@ public class ItemController : MonoBehaviour
     /// </summary>
     public void Initialize()
     {
+        Vector2Int screenRes = GetGameController().ScreenResInUnits;
         // create all item lists
-        inventoryArray = new Inventory[(int)GameController.gameC.ScreenResInUnits.x, (int)(GameController.gameC.ScreenResInUnits.y)];
+        inventoryArray = new Inventory[screenRes.x, screenRes.y];
 
-        for (int i = 0; i < GameController.gameC.ScreenResInUnits.x; i++)
+        for (int i = 0; i < screenRes.x; i++)
         {
-            for (int j = 0; j < GameController.gameC.ScreenResInUnits.y; j++)
+            for (int j = 0; j < screenRes.y; j++)
             {
                 //Item item = (Item)Instantiate(item, new Vector3(i, j), Quaternion.identity);
                 inventoryArray[i, j] = (Inventory)Instantiate(groundInventorySource, new Vector3(i, j), Quaternion.identity, transform);

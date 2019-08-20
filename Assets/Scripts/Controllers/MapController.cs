@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEngine.Assertions;
 using System;
+using static GameController;
 
 public class MapController : MonoBehaviour
 {
@@ -44,11 +45,11 @@ public class MapController : MonoBehaviour
 
     private Vector2 GetMapSize()
     {
-        return GameController.gameC.ScreenResInUnits;
+        return GetGameController().ScreenResInUnits;
     }
 
 
-    public void Initialize(Camera cam)
+    /*public void Initialize(Camera cam)
     {
         Vector2 size = GetMapSize();
         ClearWalls();
@@ -216,7 +217,7 @@ public class MapController : MonoBehaviour
                 pit.RefreshSprite();
             }
         }
-    }
+    }*/
 
     public Wall GetWall(int x, int y)
     {
@@ -370,7 +371,7 @@ public class MapController : MonoBehaviour
     }
     
     //////////////////////////////////////////GUI
-    private void OnGUI()
+    /*private void OnGUI()
     {
         if (!GameController.gameC.debug) return;
         for (int i = 0; i < GameController.gameC.ScreenResInUnits.x; i++)
@@ -404,7 +405,7 @@ public class MapController : MonoBehaviour
                 }
             }
         }
-    }
+    }*/
 
     private static Texture2D _staticRectTexture;
     private static GUIStyle _staticRectStyle;

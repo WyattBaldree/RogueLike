@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using TMPro;
+using static GameController;
 
     [System.Serializable]
 public class Entry : GUIComponent
@@ -100,7 +101,7 @@ public class Entry : GUIComponent
                 //<d> example <d> resets the formatting to default
                 if (text.Substring(i + 1, "d".Length) == "d")
                 {
-                    if (GameController.gameC && GameController.gameC.debug) Debug.Log("default");
+                    if (GetGameController() && GetGameController().debug) Debug.Log("default");
 
                     i += "d".Length + 1;
 
@@ -114,7 +115,7 @@ public class Entry : GUIComponent
                 //Change the font color
                 else if (text.Substring(i + 1, "color".Length) == "color")
                 {
-                    if (GameController.gameC && GameController.gameC.debug) Debug.Log("color");
+                    if (GetGameController() && GetGameController().debug) Debug.Log("color");
 
                     i += "color".Length + 1;
 
@@ -129,42 +130,42 @@ public class Entry : GUIComponent
 
                     string str = text.Substring(i + 1, j - 1);
                     i += j;
-                    if (GameController.gameC && GameController.gameC.debug) Debug.Log(str);
+                    if (GetGameController() && GetGameController().debug) Debug.Log(str);
 
                     switch (str)
                     {
                         case "white":
-                            if (GameController.gameC && GameController.gameC.debug) Debug.Log("white");
+                            if (GetGameController() && GetGameController().debug) Debug.Log("white");
 
                             color = Color.white;
                             break;
                         case "blue":
-                            if (GameController.gameC && GameController.gameC.debug) Debug.Log("blue");
+                            if (GetGameController() && GetGameController().debug) Debug.Log("blue");
 
                             color = Color.blue;
                             break;
                         case "red":
-                            if (GameController.gameC && GameController.gameC.debug) Debug.Log("red");
+                            if (GetGameController() && GetGameController().debug) Debug.Log("red");
 
                             color = Color.red;
                             break;
                         case "yellow":
-                            if (GameController.gameC && GameController.gameC.debug) Debug.Log("yellow");
+                            if (GetGameController() && GetGameController().debug) Debug.Log("yellow");
 
                             color = Color.yellow;
                             break;
                         case "green":
-                            if (GameController.gameC && GameController.gameC.debug) Debug.Log("green");
+                            if (GetGameController() && GetGameController().debug) Debug.Log("green");
 
                             color = Color.green;
                             break;
                         case "purple":
-                            if (GameController.gameC && GameController.gameC.debug) Debug.Log("purple");
+                            if (GetGameController() && GetGameController().debug) Debug.Log("purple");
 
                             color = Color.magenta;
                             break;
                         case "tan":
-                            if (GameController.gameC && GameController.gameC.debug) Debug.Log("tan");
+                            if (GetGameController() && GetGameController().debug) Debug.Log("tan");
 
                             color = new Color(212, 214, 185);
                             break;
@@ -174,7 +175,7 @@ public class Entry : GUIComponent
                 //changes font size.
                 else if (text.Substring(i + 1, "size".Length) == "size")
                 {
-                    if (GameController.gameC && GameController.gameC.debug) Debug.Log("size");
+                    if (GetGameController() && GetGameController().debug) Debug.Log("size");
 
                     i += "size".Length + 1;
 
@@ -189,7 +190,7 @@ public class Entry : GUIComponent
 
                     string str = text.Substring(i + 1, j - 1);
                     i += j;
-                    if (GameController.gameC && GameController.gameC.debug) Debug.Log(str);
+                    if (GetGameController() && GetGameController().debug) Debug.Log(str);
 
                     fontSize = Convert.ToSingle(str);
                 }
@@ -197,7 +198,7 @@ public class Entry : GUIComponent
                 //toggles bolding
                 else if (text.Substring(i + 1, "bold".Length) == "bold")
                 {
-                    if (GameController.gameC && GameController.gameC.debug) Debug.Log("bold");
+                    if (GetGameController() && GetGameController().debug) Debug.Log("bold");
 
                     i += "bold".Length + 1;
                     bold = !bold;
@@ -206,7 +207,7 @@ public class Entry : GUIComponent
                 //toggles italics
                 else if (text.Substring(i + 1, "italic".Length) == "italic")
                 {
-                    if (GameController.gameC && GameController.gameC.debug) Debug.Log("italic");
+                    if (GetGameController() && GetGameController().debug) Debug.Log("italic");
 
                     i += "italic".Length + 1;
                     italic = !italic;
@@ -215,7 +216,7 @@ public class Entry : GUIComponent
                 //set the current animation.
                 else if (text.Substring(i + 1, "anim".Length) == "anim")
                 {
-                    if (GameController.gameC && GameController.gameC.debug) Debug.Log("anim");
+                    if (GetGameController() && GetGameController().debug) Debug.Log("anim");
 
                     i += "anim".Length + 1;
 
@@ -230,24 +231,24 @@ public class Entry : GUIComponent
 
                     string str = text.Substring(i + 1, j - 1);
                     i += j;
-                    if (GameController.gameC && GameController.gameC.debug) Debug.Log(str);
+                    if (GetGameController() && GetGameController().debug) Debug.Log(str);
 
                     switch (str)
                     {
                         case "none":
-                            if (GameController.gameC && GameController.gameC.debug) Debug.Log("none");
+                            if (GetGameController() && GetGameController().debug) Debug.Log("none");
                             anim = CharacterContainer.AnimationStateEnum.none;
                             break;
                         case "wave":
-                            if (GameController.gameC && GameController.gameC.debug) Debug.Log("wave");
+                            if (GetGameController() && GetGameController().debug) Debug.Log("wave");
                             anim = CharacterContainer.AnimationStateEnum.wave;
                             break;
                         case "bounce":
-                            if (GameController.gameC && GameController.gameC.debug) Debug.Log("bounce");
+                            if (GetGameController() && GetGameController().debug) Debug.Log("bounce");
                             anim = CharacterContainer.AnimationStateEnum.bounce;
                             break;
                         case "rainbow":
-                            if (GameController.gameC && GameController.gameC.debug) Debug.Log("rainbow");
+                            if (GetGameController() && GetGameController().debug) Debug.Log("rainbow");
                             anim = CharacterContainer.AnimationStateEnum.rainbow;
                             break;
                     }

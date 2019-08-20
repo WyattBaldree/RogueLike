@@ -30,12 +30,12 @@ public class Interactive : MonoBehaviour
 
     public void ShowMenu()
     {
-        GameController.interactiveGUI.Show(this);
+        //GameController.interactiveGUI.Show(this);
     }
 
     public void HideMenu()
     {
-        GameController.interactiveGUI.Hide();
+        //GameController.interactiveGUI.Hide();
     }
 
 }

@@ -32,7 +32,7 @@ public class Pit : MonoBehaviour
 
     private void Initalize()
     {
-        mapController = GameController.mapC;
+        //mapController = GameController.mapC;
         initialized = true;
     }
 

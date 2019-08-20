@@ -34,7 +34,7 @@ public class Wall : Object
 
     public virtual void Initialize()
     {
-        mapController = GameController.mapC;
+        //mapController = GameController.mapC;
     }
 
     // Update is called once per frame

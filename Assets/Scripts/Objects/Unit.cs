@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using System;
+using static GameController;
 
 public class Unit : Object
 {
-    public SpriteRenderer mySpriteRenderer;
+    /*public SpriteRenderer mySpriteRenderer;
 
     public Inventory inventorySource;
     public Inventory inventory;
@@ -48,23 +49,6 @@ public class Unit : Object
         SetHealth(GetMaxHealth());
 
         
-        /*[Remove?]
-        slotWeapon = newInventory(equipmentSlotSource, "Weapon", new List<string> { "weapon" }, UpdateWeapon);
-
-        slotHelmet = newInventory(equipmentSlotSource, "Head", new List<string> { "helmet" }, UpdateHelmet);
-
-        slotChest = newInventory(equipmentSlotSource, "Chest", new List<string> { "chest" }, UpdateChest);
-
-        slotGloves = newInventory(equipmentSlotSource, "Hands", new List<string> { "gloves" }, UpdateGloves);
-        
-        slotBoots = newInventory(equipmentSlotSource, "Feet", new List<string> { "boots" }, UpdateBoots);
-
-        slotRing1 = newInventory(equipmentSlotSource, "Ring Finger", new List<string> { "ring" }, null);
-
-        slotRing2 = newInventory(equipmentSlotSource, "Index Finger", new List<string> { "ring" }, null);
-
-        slotAmulet = newInventory(equipmentSlotSource, "Neck", new List<string> { "amulet" }, null);
-        */
     }
 
     /// <summary>
@@ -84,148 +68,12 @@ public class Unit : Object
         return inv;
     }
 
-    /*[remove?]
-    ///This function is called when the unit equips a weapon
-    private void UpdateWeapon()
-    {
-        Weapon newWeapon = (Weapon)slotWeapon.itemList[0];
-
-        if (newWeapon)
-        {
-            weaponAttackBonus = newWeapon.damage;
-            GameController.logC.NewEntry("<d>The " + instanceName + "<d> wields the " + newWeapon.instanceName + "<d>.");
-        }
-        else
-        {
-            weaponAttackBonus = 0;
-            GameController.logC.NewEntry(instanceName + "<d> is disarmed.");
-        }
-        Debug.Log("Weapon Attack Bonus: " + weaponAttackBonus);
-    }
-
-    ///This function is called when the unit equips a helmet
-    private void UpdateHelmet()
-    {
-        Armor newHelmet = (Armor)slotHelmet.itemList[0];
-
-        if (newHelmet)
-        {
-            helmetArmorBonus = newHelmet.armor;
-            GameController.logC.NewEntry("<d>The " + instanceName + "<d> dons the " + newHelmet.instanceName + "<d>.");
-        }
-        else
-        {
-            helmetArmorBonus = 0;
-            GameController.logC.NewEntry(instanceName + "'s<d> helmet is removed.");
-        }
-        Debug.Log("helmet armor Bonus: " + helmetArmorBonus);
-    }
-
-    ///This function is called when the unit equips chest armor
-    private void UpdateChest()
-    {
-        Armor newChest = (Armor)slotChest.itemList[0];
-
-        if (newChest)
-        {
-            chestArmorBonus = newChest.armor;
-            GameController.logC.NewEntry("<d>The " + instanceName + "<d> dons the " + newChest.instanceName + "<d>.");
-        }
-        else
-        {
-            chestArmorBonus = 0;
-            GameController.logC.NewEntry(instanceName + "'s<d> chestpiece is removed.");
-        }
-        Debug.Log("chest armor Bonus: " + chestArmorBonus);
-    }
-
-    ///This function is called when the unit equips gloves
-    private void UpdateGloves()
-    {
-        Armor newGloves = (Armor)slotGloves.itemList[0];
-
-        if (newGloves)
-        {
-            glovesArmorBonus = newGloves.armor;
-            GameController.logC.NewEntry("<d>The " + instanceName + "<d> dons the " + newGloves.instanceName + "<d>.");
-        }
-        else
-        {
-            glovesArmorBonus = 0;
-            GameController.logC.NewEntry(instanceName + "'s<d> gloves are removed.");
-        }
-        Debug.Log("gloves armor Bonus: " + glovesArmorBonus);
-    }
-
-    ///This function is called when the unit equips boots
-    private void UpdateBoots()
-    {
-        Armor newBoots = (Armor)slotBoots.itemList[0];
-
-        if (newBoots)
-        {
-            bootsArmorBonus = newBoots.armor;
-            GameController.logC.NewEntry("<d>The " + instanceName + "<d> dons the " + newBoots.instanceName + "<d>.");
-        }
-        else
-        {
-            bootsArmorBonus = 0;
-            GameController.logC.NewEntry(instanceName + "'s<d> boots are removed.");
-        }
-        Debug.Log("boots armor Bonus: " + bootsArmorBonus);
-    }
-
-    ///This function is called when the unit equips an amulet
-    private void UpdateAmulet()
-    {
-        Armor newAmulet = (Armor)slotAmulet.itemList[0];
-
-        if (newAmulet)
-        {
-            GameController.logC.NewEntry("<d>The " + instanceName + "<d> dons the " + newAmulet.instanceName + "<d>.");
-        }
-        else
-        {
-            GameController.logC.NewEntry(instanceName + "'s<d> amulet is removed.");
-        }
-    }
-    
-    ///This function is called when the unit equips ring1
-    private void UpdateRing1()
-    {
-        Armor newRing1 = (Armor)slotRing1.itemList[0];
-
-        if (newRing1)
-        {
-            GameController.logC.NewEntry("<d>The " + instanceName + "<d> puts on the " + newRing1.instanceName + "<d>.");
-        }
-        else
-        {
-            GameController.logC.NewEntry(instanceName + "'s<d> Ring is removed.");
-        }
-    }
-
-    ///This function is called when the unit equips ring2
-    private void UpdateRing2()
-    {
-        Armor newRing2 = (Armor)slotRing2.itemList[0];
-
-        if (newRing2)
-        {
-            GameController.logC.NewEntry("<d>The " + instanceName + "<d> puts on the " + newRing2.instanceName + "<d>.");
-        }
-        else
-        {
-            GameController.logC.NewEntry(instanceName + "'s<d> Ring is removed.");
-        }
-    }*/
-
     /// <summary>
     /// Remove the Unit from the game.
     /// </summary>
     private void Remove()
     {
-        GameController.unitC.unitList.Remove(this);
+        //GetUnitController().unitList.Remove(this);
         Destroy(gameObject);
     }
 
@@ -234,14 +82,6 @@ public class Unit : Object
     /// </summary>
     public void Die()
     {
-        //Drop all items, drop a corpse, experience
-
-        /*[remove?]
-        if (slotHelmet.itemList[0]) Drop(slotHelmet, slotHelmet.itemList[0], 0, 0);
-        if (slotGloves.itemList[0]) Drop(slotGloves, slotGloves.itemList[0], 0, 0);
-        if (slotChest.itemList[0]) Drop(slotChest, slotChest.itemList[0], 0, 0);
-        if (slotBoots.itemList[0]) Drop(slotBoots, slotBoots.itemList[0], 0, 0);
-        if (slotWeapon.itemList[0]) Drop(slotWeapon, slotWeapon.itemList[0], 0, 0);*/
 
         foreach (RoguelikeObject i in inventory.itemList)
         {
@@ -538,17 +378,17 @@ public class Unit : Object
     //try moving to a position local to here.
     public bool TryMoveToLocationLocal(int deltaX, int deltaY)
     {
-        MapController mapController = GameController.mapC;
+        //MapController mapController = GameController.mapC;
         int newX = Helper.GetX(this.gameObject) + deltaX;
         int newY = Helper.GetY(this.gameObject) + deltaY;
 
-        bool areaClear = GameController.wallC.GetWall(new Vector2Int(newX, newY)) == null;
+        bool areaClear = GetWallController().GetWall(new Vector2Int(newX, newY)) == null;
 
         areaClear = (areaClear &&
                     newX >= 0 &&
-                    newX < GameController.gameC.ScreenResInUnits.x &&
+                    newX < GetGameController().ScreenResInUnits.x &&
                     newY >= 0 &&
-                    newY < GameController.gameC.ScreenResInUnits.y);
+                    newY < GetGameController().ScreenResInUnits.y);
 
         if (areaClear)
         {
@@ -562,17 +402,17 @@ public class Unit : Object
     ///try moving to or attacking a location.
     public virtual bool AttackMoveLocal(int deltaX, int deltaY)
     {
-        MapController mapController = GameController.mapC;
+        //MapController mapController = GameController.mapC;
         int newX = Helper.GetX(this.gameObject) + deltaX;
         int newY = Helper.GetY(this.gameObject) + deltaY;
 
 
         bool inMap = (newX >= 0 &&
-                    newX < GameController.gameC.ScreenResInUnits.x &&
+                    newX < GetGameController().ScreenResInUnits.x &&
                     newY >= 0 &&
-                    newY < GameController.gameC.ScreenResInUnits.y);
+                    newY < GetGameController().ScreenResInUnits.y);
 
-        UnitController unitController = GameController.unitC;
+        UnitController unitController = GetUnitController();
         foreach (Unit u in unitController.unitList)
         {
             if (u != this && u.transform.position == transform.position + new Vector3(deltaX, deltaY))
@@ -581,14 +421,14 @@ public class Unit : Object
                 u.SetHealth(u.health - damageOutput);
                 StartAnimation(AnimationStateEnum.BounceAnimation, 7, deltaX, deltaY, 1.2f);
                 u.StartAnimation(AnimationStateEnum.BounceAnimation, 5, deltaX, deltaY, 0.3f);
-                GameController.logC.NewEntry("<d>The " + instanceName + "<d> attacks " + u.instanceName + "<d> for <color.red>" + damageOutput + "<d> damage.");
+                GetLogController().NewEntry("<d>The " + instanceName + "<d> attacks " + u.instanceName + "<d> for <color.red>" + damageOutput + "<d> damage.");
 
                 return false;
             }
         }
 
 
-        bool areaClear = GameController.wallC.GetWall(new Vector2Int(newX, newY)) == null;
+        bool areaClear = GetWallController().GetWall(new Vector2Int(newX, newY)) == null;
 
 
         if (areaClear)
@@ -632,7 +472,7 @@ public class Unit : Object
     /// <returns></returns>
     public Inventory GetInventoryBelow()
     {
-        return GameController.itemC.inventoryArray[(int)(transform.position.x), (int)(transform.position.y)];
+        return GetItemController().inventoryArray[(int)(transform.position.x), (int)(transform.position.y)];
     }
 
     /// <summary>
@@ -645,11 +485,11 @@ public class Unit : Object
 
         int itemIndex = sourceInventory.GetAvailableStack();
         
-        /*if(sourceInventory.MoveItem(itemIndex, this.inventory, -1))
-        {
-            RoguelikeObject pickupItem = sourceInventory.GetItem(sourceInventory.GetAvailableStack());
-            GameController.logC.NewEntry(name + "<d> obtained " + pickupItem.GetFullName() + "<d>.");
-        }*/
+        //if(sourceInventory.MoveItem(itemIndex, this.inventory, -1))
+        //{
+        //    RoguelikeObject pickupItem = sourceInventory.GetItem(sourceInventory.GetAvailableStack());
+        //    GameController.logC.NewEntry(name + "<d> obtained " + pickupItem.GetFullName() + "<d>.");
+        //}
     }
 
     /// <summary>
@@ -665,30 +505,30 @@ public class Unit : Object
         int groundX = (int)(transform.position.x) + xOffset;
         int groundY = (int)(transform.position.y) + yOffset;
 
-        if (groundX < 0 || groundX >= GameController.gameC.ScreenResInUnits.x ||
-            groundY < 0 || groundY >= GameController.gameC.ScreenResInUnits.y)
+        if (groundX < 0 || groundX >= GetGameController().ScreenResInUnits.x ||
+            groundY < 0 || groundY >= GetGameController().ScreenResInUnits.y)
         {
             return false;
         }
 
-        Inventory invBelow = GameController.itemC.inventoryArray[groundX, groundY];
+        Inventory invBelow = GetItemController().inventoryArray[groundX, groundY];
 
         if (invBelow)
         {
-            /*bool itemAdded = invBelow.AddItem(item, item.StackSize);
-            if (itemAdded)
-            {
-                inv.RemoveItem(item);
-                return true;
-            }
-            else
-            {
-                //eventually, we will want to recursively iterate through the level grid until we find a free space.
-                //Drop item in other slot
-                return false;
-            }*/
+            //bool itemAdded = invBelow.AddItem(item, item.StackSize);
+            //if (itemAdded)
+            //{
+            //    inv.RemoveItem(item);
+            //    return true;
+            //}
+            //else
+            //{
+            //   //eventually, we will want to recursively iterate through the level grid until we find a free space.
+            //    //Drop item in other slot
+            //    return false;
+            //}
         }
 
         return false;
-    }
+    }*/
 }

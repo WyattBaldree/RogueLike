@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using static GameController;
 
 public class Chest : Wall
 {
@@ -21,14 +22,14 @@ public class Chest : Wall
     {
         opened = true;
         GetComponent<SpriteRenderer>().sprite = openedSprite;
-        if (GameController.logC) GameController.logC.NewEntry("The " + instanceName + " is opened.");
+        if (GetLogController()) GetLogController().NewEntry("The " + instanceName + " is opened.");
     }
 
     public void Close()
     {
         opened = false;
         GetComponent<SpriteRenderer>().sprite = closedSprite;
-        if(GameController.logC) GameController.logC.NewEntry("The " + instanceName + " is closed.");
+        if(GetLogController()) GetLogController().NewEntry("The " + instanceName + " is closed.");
     }
 
     public override void OnInteract()
@@ -40,7 +41,7 @@ public class Chest : Wall
         }
         else
         {
-            GameController.popupC.containerGUI.Popup(new Vector2(), inventory);
+            GetPopupController().containerGUI.Popup(new Vector2(), inventory);
         }
 
         GetComponent<Interactive>().ShowMenu();

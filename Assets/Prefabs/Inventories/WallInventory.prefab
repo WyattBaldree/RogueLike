@@ -48,6 +48,6 @@ MonoBehaviour:
   inventoryCapacity: 1
   myInventoryGUI: {fileID: 1356086442712527106, guid: d198f8d15348d0f4c96223c623d1057c,
     type: 3}
-  inventoryName: <color.tan><anim.rainbow>Ground
+  inventoryName: WALL INV
   external: 1
   acceptableTypes: 00000000

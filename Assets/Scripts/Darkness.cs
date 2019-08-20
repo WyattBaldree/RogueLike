@@ -19,7 +19,7 @@ public class Darkness : MonoBehaviour
 
     private void Initalize()
     {
-        mapController = GameController.mapC;
+        //mapController = GameController.mapC;
 
         initialized = true;
     }

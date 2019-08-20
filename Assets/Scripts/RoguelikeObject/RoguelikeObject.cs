@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using static GameController;
 
 public abstract class RoguelikeObject : MonoBehaviour
 {
@@ -74,7 +75,7 @@ public abstract class RoguelikeObject : MonoBehaviour
     /// PRIVATE. The sprite renderer that this object uses in the world. This sprite renderer is used for showing an item lying on the ground, a wall placed in the world, or a floor placed on the ground, ect.
     /// </summary>
     [SerializeField]
-    protected RogueSpriteRenderer myRogueSpriteRenderer;
+    public RogueSpriteRenderer myRogueSpriteRenderer;
 
 
     public enum TagEnum { item }
@@ -325,7 +326,7 @@ public abstract class RoguelikeObject : MonoBehaviour
     {
         //Create a new rogulikeObject and immdiately add it to the temporary inventory
         RoguelikeObject newItem = MakeRoguelikeObjectTemporary(source, amount);
-        Inventory tempInv = GameController.gameC.temporaryInventory;
+        Inventory tempInv = GetGameController().temporaryInventory;
         tempInv.AddItem(newItem);
 
         //Attempt to move all of the item from the temporary inventory to the real inventory and get the final stack we end on.
@@ -361,7 +362,7 @@ public abstract class RoguelikeObject : MonoBehaviour
     /// <returns></returns>
     public static RoguelikeObject MakeRoguelikeObjectTemporary(RoguelikeObject source, int amount)
     {
-        RoguelikeObject newItem = Instantiate<RoguelikeObject>(source, GameController.gameC.temporaryInventory.transform.position, Quaternion.identity, GameController.gameC.temporaryInventory.transform);
+        RoguelikeObject newItem = Instantiate<RoguelikeObject>(source, GetGameController().temporaryInventory.transform.position, Quaternion.identity, GetGameController().temporaryInventory.transform);
         newItem.Initialize();
         newItem.StackSize = amount;
         newItem.OnCreate();
@@ -399,5 +400,15 @@ public abstract class RoguelikeObject : MonoBehaviour
             SpriteToggle = !SpriteToggle;
             yield return new WaitForSeconds(AnimationSpeed);
         }
+    }
+
+    public Vector2Int GetPosition()
+    {
+        return new Vector2Int((int)transform.position.x, (int)transform.position.y);
+    }
+
+    public Vector2Int GetPositionOffset(Vector2Int offset)
+    {
+        return GetPosition() + offset;
     }
 }

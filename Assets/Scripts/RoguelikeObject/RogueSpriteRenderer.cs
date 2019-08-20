@@ -58,4 +58,90 @@ public class RogueSpriteRenderer : MonoBehaviour
         get => sortingGroup.sortingOrder;
         set => sortingGroup.sortingOrder = value;
     }
+
+    void Update()
+    {
+        PlayAnimations();
+    }
+    // ------------------------------------------------------ANIMATION STUFF--------------------------------------------------------//
+
+    public enum AnimationStateEnum { IdleAnimation, MoveAnimation, AttackAnimation, EatAnimation, HitAnimation, ShakeAnimation, BounceAnimation }
+
+    private float animationTime = 0.0f;
+    private float animationSpeed = 5f;
+    private bool isAnimating = false;
+    private AnimationStateEnum animationStateCurrent = AnimationStateEnum.IdleAnimation;
+
+    private float animationParam1 = 0;
+    private float animationParam2 = 0;
+    private float animationParam3 = 0;
+
+    //Start an animation with various parameters
+    public void StartAnimation(AnimationStateEnum animState, float speed = 5, float param1 = 1, float param2 = 0, float param3 = 1)
+    {
+        animationSpeed = speed;
+        animationParam1 = param1;
+        animationParam2 = param2;
+        animationParam3 = param3;
+
+        isAnimating = true;
+        animationTime = 0.0f;
+
+        animationStateCurrent = animState;
+
+        //This is where we would set the animation speed.
+        switch (animState)
+        {
+            case AnimationStateEnum.MoveAnimation:
+                break;
+            case AnimationStateEnum.AttackAnimation:
+                break;
+            case AnimationStateEnum.EatAnimation:
+                break;
+            case AnimationStateEnum.HitAnimation:
+                break;
+        }
+    }
+
+
+    //perform different sprite movements depending on the current animation
+    void PlayAnimations()
+    {
+        if (isAnimating)
+        {
+            animationTime += Time.deltaTime * animationSpeed;
+
+
+            if (animationStateCurrent == AnimationStateEnum.BounceAnimation)
+            {
+                if (animationTime < 0.5f)
+                {
+                    mySpriteRenderer.transform.localPosition = new Vector3(animationTime * animationParam1, animationTime * animationParam2, 0) * animationParam3;
+                }
+                else
+                {
+                    mySpriteRenderer.transform.localPosition = new Vector3((1 - animationTime) * animationParam1, (1 - animationTime) * animationParam2, 0) * animationParam3;
+                }
+            }
+            else if (animationStateCurrent == AnimationStateEnum.MoveAnimation)
+            {
+                mySpriteRenderer.transform.localPosition = new Vector3((1 - animationTime) * -animationParam1, (1 - animationTime) * -animationParam2, 0);
+            }
+            else if (animationStateCurrent == AnimationStateEnum.ShakeAnimation)
+            {
+                mySpriteRenderer.transform.localPosition = new Vector3((float)(Mathf.Sin(animationTime * animationParam3) * animationParam1), (float)(Mathf.Sin(animationTime * animationParam3) * animationParam2), 0);
+            }
+
+            if (animationTime >= 1.0f)
+            {
+                mySpriteRenderer.transform.localPosition = new Vector3(0, 0, 0);
+            }
+            if (animationTime >= 1.0f)
+            {
+                isAnimating = false;
+            }
+
+        }
+    }
+
 }

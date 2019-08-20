@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static GameController;
 
 public static class Pathfinding
 {
@@ -21,8 +22,8 @@ public static class Pathfinding
     // Make initial map
     static Node[,] GeneratInitialMap(List<Vector2> startList)
     {
-        MapController mapController = GameController.mapC;
-        Vector2 screenResInUnits = GameController.gameC.ScreenResInUnits;
+        //MapController mapController = GameController.mapC;
+        Vector2 screenResInUnits = GetGameController().ScreenResInUnits;
 
         unvisitedList = new List<Node>();
 
@@ -75,7 +76,7 @@ public static class Pathfinding
     /// </summary>
     static public void GenerateToPlayerMap()
     {
-        toPlayerMap = Dijkstra((int)GameController.unitC.myPlayer.transform.position.x, (int)GameController.unitC.myPlayer.transform.position.y);
+        toPlayerMap = Dijkstra((int)GetUnitController().player.transform.position.x, (int)GetUnitController().player.transform.position.y);
     }
 
     /// <summary>
@@ -99,14 +100,14 @@ public static class Pathfinding
     /// </summary>
     static public void GenerateFleePlayerMap()
     {
-        fleePlayerMap = GenerateFleeMap((int)GameController.unitC.myPlayer.transform.position.x, (int)GameController.unitC.myPlayer.transform.position.y);
+        fleePlayerMap = GenerateFleeMap((int)GetUnitController().player.transform.position.x, (int)GetUnitController().player.transform.position.y);
     }
 
     //Generate A flees map running from x,y
     public static Node[,] GenerateFleeMap(int x, int y)
     {
         //Make a vector and place it into a list so we can pass it to the overloaded function
-        Vector2 v = new Vector2(GameController.unitC.myPlayer.transform.position.x, GameController.unitC.myPlayer.transform.position.y);
+        Vector2 v = new Vector2(GetUnitController().player.transform.position.x, GetUnitController().player.transform.position.y);
         List<Vector2> vList = new List<Vector2>();
         vList.Add(v);
         //call the overloaded function
@@ -132,8 +133,8 @@ public static class Pathfinding
 
     static Node[,] SetUpMap(Node[,] initialNodeList)
     {
-        MapController mapController = GameController.mapC;
-        Vector2 screenResInUnits = GameController.gameC.ScreenResInUnits;
+        //MapController mapController = GameController.mapC;
+        Vector2 screenResInUnits = GetGameController().ScreenResInUnits;
 
         //Make an array of nodes for the map
         Node[,] nodeArray = MapCopy(initialNodeList);
@@ -165,7 +166,7 @@ public static class Pathfinding
     public static Node[,] Dijkstra(int x, int y, float[,] costMapParam = null, Node[,] initialMap = null)
     {
         //Make a vector and place it into a list so we can pass it to the overloaded function
-        Vector2 v = new Vector2(GameController.unitC.myPlayer.transform.position.x, GameController.unitC.myPlayer.transform.position.y);
+        Vector2 v = new Vector2(GetUnitController().player.transform.position.x, GetUnitController().player.transform.position.y);
         List<Vector2> vList = new List<Vector2>();
         vList.Add(v);
         //call the overloaded function
@@ -198,7 +199,7 @@ public static class Pathfinding
         //added to the unvisted list.
 
 
-        MapController mapController = GameController.mapC;
+        //MapController mapController = GameController.mapC;
         while (unvisitedList.Count > 0)
         {
             //Get the lowest distance node.
@@ -216,7 +217,7 @@ public static class Pathfinding
                 }
             }
             //RIGHT
-            if (node.pos.x < GameController.gameC.ScreenResInUnits.x -1)
+            if (node.pos.x < GetGameController().ScreenResInUnits.x -1)
             {
                 Node rightNode = nodeArray[(int)node.pos.x + 1, (int)node.pos.y];
                 if (rightNode.visited == false)
@@ -226,7 +227,7 @@ public static class Pathfinding
                 }
             }
             //UP
-            if (node.pos.y < GameController.gameC.ScreenResInUnits.y -1)
+            if (node.pos.y < GetGameController().ScreenResInUnits.y -1)
             {
                 Node upNode = nodeArray[(int)node.pos.x, (int)node.pos.y + 1];
                 if (upNode.visited == false)
@@ -247,7 +248,7 @@ public static class Pathfinding
             }
 
             //UP LEFT
-            if (node.pos.y < GameController.gameC.ScreenResInUnits.y - 1 && node.pos.x > 0)
+            if (node.pos.y < GetGameController().ScreenResInUnits.y - 1 && node.pos.x > 0)
             {
                 Node upLeftNode = nodeArray[(int)node.pos.x - 1, (int)node.pos.y + 1];
                 if (upLeftNode.visited == false)
@@ -257,7 +258,7 @@ public static class Pathfinding
                 }
             }
             //UP RIGHT
-            if (node.pos.y < GameController.gameC.ScreenResInUnits.y - 1 && node.pos.x < GameController.gameC.ScreenResInUnits.x - 1)
+            if (node.pos.y < GetGameController().ScreenResInUnits.y - 1 && node.pos.x < GetGameController().ScreenResInUnits.x - 1)
             {
                 Node upRightNode = nodeArray[(int)node.pos.x + 1, (int)node.pos.y + 1];
                 if (upRightNode.visited == false)
@@ -277,7 +278,7 @@ public static class Pathfinding
                 }
             }
             //DOWN RIGHT
-            if (node.pos.y > 0 && node.pos.x < GameController.gameC.ScreenResInUnits.x - 1)
+            if (node.pos.y > 0 && node.pos.x < GetGameController().ScreenResInUnits.x - 1)
             {
                 Node downRightNode = nodeArray[(int)node.pos.x + 1, (int)node.pos.y - 1];
                 if (downRightNode.visited == false)
@@ -293,12 +294,12 @@ public static class Pathfinding
         }
 
         //Print out the 2d node array distances
-        if (GameController.gameC && GameController.gameC.debug)
+        if (GetGameController() && GetGameController().debug)
         {
-            for (int i = 0; i < GameController.gameC.ScreenResInUnits.x; i++)
+            for (int i = 0; i < GetGameController().ScreenResInUnits.x; i++)
             {
                 String s = "";
-                for (int j = 0; j < GameController.gameC.ScreenResInUnits.y; j++)
+                for (int j = 0; j < GetGameController().ScreenResInUnits.y; j++)
                 {
                     s += nodeArray[i, j].distance.ToString() + "\t";
 
@@ -345,9 +346,9 @@ public static class Pathfinding
         //Map
         Node[,] newMap = MapCopy(map);
 
-        for (int i = 0; i < GameController.gameC.ScreenResInUnits.x; i++)
+        for (int i = 0; i < GetGameController().ScreenResInUnits.x; i++)
         {
-            for (int j = 0; j < GameController.gameC.ScreenResInUnits.y; j++)
+            for (int j = 0; j < GetGameController().ScreenResInUnits.y; j++)
             {
                 if(newMap[i, j].distance != float.MaxValue)
                 {
@@ -364,9 +365,9 @@ public static class Pathfinding
         //Map
         Node[,] newMap = MapCopy(map);
 
-        for (int i = 0; i < GameController.gameC.ScreenResInUnits.x; i++)
+        for (int i = 0; i < GetGameController().ScreenResInUnits.x; i++)
         {
-            for (int j = 0; j < GameController.gameC.ScreenResInUnits.y; j++)
+            for (int j = 0; j < GetGameController().ScreenResInUnits.y; j++)
             {
                 if (newMap[i, j].distance != float.MaxValue)
                 {
@@ -383,9 +384,9 @@ public static class Pathfinding
         //Map
         Node[,] newMap = MapCopy(map1);
 
-        for (int i = 0; i < GameController.gameC.ScreenResInUnits.x; i++)
+        for (int i = 0; i < GetGameController().ScreenResInUnits.x; i++)
         {
-            for (int j = 0; j < GameController.gameC.ScreenResInUnits.y; j++)
+            for (int j = 0; j < GetGameController().ScreenResInUnits.y; j++)
             {
                 if (newMap[i, j].distance != float.MaxValue && map2[i, j].distance != float.MaxValue)
                 {
@@ -410,9 +411,9 @@ public static class Pathfinding
 
         newMap = MapMultiply(newMap, coefficient);
 
-        for (int i = 0; i < GameController.gameC.ScreenResInUnits.x; i++)
+        for (int i = 0; i < GetGameController().ScreenResInUnits.x; i++)
         {
-            for (int j = 0; j < GameController.gameC.ScreenResInUnits.y; j++)
+            for (int j = 0; j < GetGameController().ScreenResInUnits.y; j++)
             {
                 if (newMap[i, j].distance != float.MaxValue)
                 {
@@ -431,9 +432,9 @@ public static class Pathfinding
         //Map
         Node[,] newMap = MapCopy(map);
 
-        for (int i = 0; i < GameController.gameC.ScreenResInUnits.x; i++)
+        for (int i = 0; i < GetGameController().ScreenResInUnits.x; i++)
         {
-            for (int j = 0; j < GameController.gameC.ScreenResInUnits.y; j++)
+            for (int j = 0; j < GetGameController().ScreenResInUnits.y; j++)
             {
                 if (newMap[i, j].distance != float.MaxValue)
                 {
@@ -451,9 +452,9 @@ public static class Pathfinding
         //Map
         Node[,] newMap = MapCopy(map);
 
-        for (int i = 0; i < GameController.gameC.ScreenResInUnits.x; i++)
+        for (int i = 0; i < GetGameController().ScreenResInUnits.x; i++)
         {
-            for (int j = 0; j < GameController.gameC.ScreenResInUnits.y; j++)
+            for (int j = 0; j < GetGameController().ScreenResInUnits.y; j++)
             {
                 if (newMap[i, j].distance != float.MaxValue)
                 {
@@ -470,9 +471,9 @@ public static class Pathfinding
 
         Node[,] newMap = new Node[map.GetLength(0), map.GetLength(1)];
 
-        for (int i = 0; i < GameController.gameC.ScreenResInUnits.x; i++)
+        for (int i = 0; i < GetGameController().ScreenResInUnits.x; i++)
         {
-            for (int j = 0; j < GameController.gameC.ScreenResInUnits.y; j++)
+            for (int j = 0; j < GetGameController().ScreenResInUnits.y; j++)
             {
                 newMap[i, j] = new Node((int)map[i, j].pos.x, (int)map[i, j].pos.y, map[i, j].distance, map[i, j].visited);
             }
@@ -493,16 +494,16 @@ public static class Pathfinding
     public enum CostMapType{ distance, flying, walking, burrowing };
     public static float[,] GenerateCostMap(CostMapType costMapType = CostMapType.walking)
     {
-        MapController mapController = GameController.mapC;
+        //MapController mapController = GameController.mapC;
 
-        float[,] costArray = new float[(int)GameController.gameC.ScreenResInUnits.x, (int)GameController.gameC.ScreenResInUnits.y];
+        float[,] costArray = new float[(int)GetGameController().ScreenResInUnits.x, (int)GetGameController().ScreenResInUnits.y];
 
         //Loop through all nodes
-        for (int i = 0; i < GameController.gameC.ScreenResInUnits.x; i++)
+        for (int i = 0; i < GetGameController().ScreenResInUnits.x; i++)
         {
-            for (int j = 0; j < GameController.gameC.ScreenResInUnits.y; j++)
+            for (int j = 0; j < GetGameController().ScreenResInUnits.y; j++)
             {
-                Wall2 thisWall = GameController.wallC.GetWall(new Vector2Int(i, j));
+                Wall2 thisWall = GetWallController().GetWall(new Vector2Int(i, j));
                 //We pathfind differently depending on what costmaptype we are using (i.e. flying creatures ignore floors)
                 switch (costMapType)
                 {

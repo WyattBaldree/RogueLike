@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static GameController;
 
 public class Player : Unit
 {
-    //on player step, subtract our speed and potentially start our turn.
+    /*//on player step, subtract our speed and potentially start our turn.
     public override void Step()
     {
         speedCounter--;
@@ -13,7 +14,7 @@ public class Player : Unit
             speedCounter += 20 - speed;
 
             //take turn
-            UnitController unitController = GameController.unitC;
+            UnitController unitController = GetUnitController();
             unitController.gameState = UnitController.GameStateEnum.playerTurn;
         }
     }
@@ -21,7 +22,7 @@ public class Player : Unit
     //on the player turn, decide what action to take.
     public void Turn()
     {
-        MapController mapController = GameController.mapC;
+        //MapController mapController = GameController.mapC;
 
         if (Input.GetKeyDown("up"))
         {
@@ -96,25 +97,25 @@ public class Player : Unit
 
     void EndTurn()
     {
-        GameController.unitC.FinishStep();
+        GetUnitController().FinishStep();
     }
 
     public override void PickUp()
     {
         //base.PickUp();
         //inventory.ShowInventoryGUI();
-        GameController.popupC.containerGUI.Popup(new Vector2(), GetInventoryBelow());
+        GetPopupController().containerGUI.Popup(new Vector2(), GetInventoryBelow());
     }
 
     public override bool AttackMoveLocal(int deltaX, int deltaY)
     {
-        GameController.popupC.containerGUI.Hide();
+        GetPopupController().containerGUI.Hide();
         return base.AttackMoveLocal(deltaX, deltaY);
     }
 
     public override void Initialize()
     {
         base.Initialize();
-        GameController.inventoryC.inventoryGUIs[1].ConnectToInventory(inventory);
-    }
+        GetGUIController().mainInventoryGUI.ConnectToInventory(inventory);
+    }*/
 }

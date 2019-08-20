@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using static GameController;
 
 public abstract class WorldObject : RoguelikeObject
 {
@@ -96,7 +97,17 @@ public abstract class WorldObject : RoguelikeObject
     /// there is an existing wall while for a unit, this function will check if there is an existing unit ect.
     /// </summary>
     /// <returns>Returns true if the space is available for this object to move to.</returns>
-    public abstract bool IsSpaceFree(Vector2Int pos);
+    public virtual bool IsSpaceFree(Vector2Int pos)
+    {
+        if (    pos.x < 0 ||
+                pos.x >= GetGameController().ScreenResInUnits.x ||
+                pos.y < 0 ||
+                pos.y >= GetGameController().ScreenResInUnits.y)
+        {
+            return false;
+        }
+        return true;
+    }
 
     /// <summary>
     /// Return the world inventory at the supplied position for this object type. For walls, this will check the wallController.GetWallInventory(pos);
@@ -174,7 +185,7 @@ public abstract class WorldObject : RoguelikeObject
     {
         WorldObject newWorldObject = (WorldObject)MakeRoguelikeObjectTemporary(source, 1);
 
-        Inventory tempInv = GameController.gameC.temporaryInventory;
+        Inventory tempInv = GetGameController().temporaryInventory;
 
         tempInv.AddItem(newWorldObject);
 
@@ -209,5 +220,41 @@ public abstract class WorldObject : RoguelikeObject
         //If we ever try to delete a roguelikeObject and it is not in "MyInventory" something is terribly wrong.
         Assert.IsTrue(worldObjectList.Remove(this), "The roguelikeObject being destroyed was not in the RoguelikeObjectList upon being destroyed. Something is terribly wrong.");
         base.DestroyObject();
+    }
+
+    /// <summary>
+    /// Attempt to move to a location.
+    /// </summary>
+    /// <param name="targetDestination"></param>
+    /// <returns></returns>
+    public bool MoveToLocation(Vector2Int targetDestination)
+    {
+        if (IsSpaceFree(targetDestination))
+        {
+            if (Placed)
+            {
+                Vector2Int positionDelta = targetDestination - GetPosition();
+                myRogueSpriteRenderer.StartAnimation(RogueSpriteRenderer.AnimationStateEnum.MoveAnimation, 7, positionDelta.x, positionDelta.y, 1f);
+                MyInventory.MoveItem(this, GetWorldObjectInventory(targetDestination));
+            }
+            else
+            {
+                Place(targetDestination);
+            }
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// Returns the inventory located beneath the worldObject
+    /// </summary>
+    /// <returns></returns>
+    public Inventory GetInventoryBelow()
+    {
+        return GetItemController().GetInventory(GetPosition());
     }
 }
