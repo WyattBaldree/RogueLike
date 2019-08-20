@@ -40,6 +40,9 @@ public class GameController : MonoBehaviour
     private Floor2 floorClass;
 
     [SerializeField]
+    private Floor2 pitClass;
+
+    [SerializeField]
     private Wall2 wallClass;
 
     [SerializeField]
@@ -159,6 +162,21 @@ public class GameController : MonoBehaviour
             {
                 Vector2Int position = new Vector2Int(i, j);
                 WorldObject.MakeAndPlaceWorldObject(floorClass, position);
+            }
+        }
+
+        for (int i = 8; i < 12; i++)
+        {
+            for (int j = 6; j < 18; j++)
+            {
+                Vector2Int position = new Vector2Int(i, j);
+                
+                Floor2 thisFloor = GetFloorController().GetFloor(position);
+                if (thisFloor)
+                {
+                    thisFloor.DestroyObject();
+                }
+                WorldObject.MakeAndPlaceWorldObject(pitClass, position);
             }
         }
 

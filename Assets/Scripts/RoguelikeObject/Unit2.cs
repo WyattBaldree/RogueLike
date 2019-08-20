@@ -209,7 +209,7 @@ public class Unit2 : WorldObject
 
     public override void DestroyObject()
     {
-        Assert.IsTrue(UnitController.unitList.Remove(this), "The roguelikeObject being destroyed was not in the RoguelikeObjectList upon being destroyed. Something is terribly wrong.");
+        Assert.IsTrue(UnitController.unitList.Remove(this), "The unit being destroyed was not in the UnitList upon being destroyed. Something is terribly wrong.");
         base.DestroyObject();
     }
 }

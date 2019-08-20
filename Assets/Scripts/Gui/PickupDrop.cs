@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Assertions;
 
-public class PickupDrop : Object
+public class PickupDrop : MonoBehaviour
 {
     //This class is used to make pickup and drop zones.
     //For example, the inventory is made from these and the equipment menu is made of these.

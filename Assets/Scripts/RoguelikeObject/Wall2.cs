@@ -47,7 +47,10 @@ public class Wall2 : WorldObject
     public override bool IsSpaceFree(Vector2Int pos)
     {
         if (!base.IsSpaceFree(pos)) return false;
-        return GetWorldObjectInventory(pos).GetFirstAvailableSlot() != -1;
+        Floor2 floor = GetFloorController().GetFloor(pos);
+        bool supportedByFloor = floor && floor.CanSupportWall;
+
+        return GetWorldObjectInventory(pos).GetFirstAvailableSlot() != -1 && supportedByFloor;
     }
 
     public override void OnCreate()

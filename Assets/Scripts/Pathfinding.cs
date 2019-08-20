@@ -87,7 +87,7 @@ public static class Pathfinding
         List<Vector2> goldPositions = new List<Vector2>();
         foreach (Gold g in Gold.goldList)
         {
-            if (g.dropped)
+            if (g.Exposed)
             {
                 goldPositions.Add(new Vector2(g.transform.position.x, g.transform.position.y));
             }

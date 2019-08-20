@@ -2419,17 +2419,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6178030622823207096, guid: ea8016eea020415468bdfa8fcf5d900f,
+        type: 3}
+      propertyPath: m_Name
+      value: FloorController
+      objectReference: {fileID: 0}
     - target: {fileID: -6181744389381500229, guid: ea8016eea020415468bdfa8fcf5d900f,
         type: 3}
       propertyPath: floorClass
       value: 
       objectReference: {fileID: 3381944702872697852, guid: c3845cd34b1631a489a4ec12329b76cd,
         type: 3}
-    - target: {fileID: 6178030622823207096, guid: ea8016eea020415468bdfa8fcf5d900f,
-        type: 3}
-      propertyPath: m_Name
-      value: FloorController
-      objectReference: {fileID: 0}
     - target: {fileID: 8182852784303418746, guid: ea8016eea020415468bdfa8fcf5d900f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3835,6 +3835,12 @@ PrefabInstance:
       propertyPath: playerClass
       value: 
       objectReference: {fileID: 4077608402965842875, guid: 4f717e6e02e96664b80e126eef22dd29,
+        type: 3}
+    - target: {fileID: 4067177045250584200, guid: 7c096360b4640af43bd1f02af61bfac5,
+        type: 3}
+      propertyPath: pitClass
+      value: 
+      objectReference: {fileID: 7214744439982186500, guid: af080e887e52c2f42a4979b96c3f1529,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c096360b4640af43bd1f02af61bfac5, type: 3}

@@ -47,8 +47,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e6d19d8124b92847a3e98a746d8d65a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  instanceName: Default instanceName
-  instanceDescription: This object's description is nonexistant. Please set instanceDescription.
   myInventoryGUI: {fileID: 0}
   backgroundSpriteRenderer: {fileID: 973972455388736648}
   itemSpriteRenderer: {fileID: 4756016141249224389}

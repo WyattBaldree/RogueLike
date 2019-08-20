@@ -14,12 +14,6 @@ public class ItemController : MonoBehaviour
     
     ///The ground Inventory source
     public Inventory groundInventorySource;
-
-    /// sources for several items that can be added to the game DEBUG
-    public Armor ironCapSource;
-    public Armor ringmailSource;
-    public Armor leatherGlovesSource;
-    public Armor bootsSource;
     
     /// <summary>
     /// On initialization, create all of our ground inventories and put in some debug items.
