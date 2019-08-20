@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicWall : Wall2
+public class BasicWall : Wall
 {
     
 }

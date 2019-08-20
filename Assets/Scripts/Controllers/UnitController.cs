@@ -6,12 +6,12 @@ using static GameController;
 
 public class UnitController : MonoBehaviour
 {
-    public static List<Unit2> unitList = new List<Unit2>();
+    public static List<Unit> unitList = new List<Unit>();
 
     public enum GameStateEnum { enemyTurn, playerTurn }
     public GameStateEnum gameState = GameStateEnum.playerTurn;
 
-    public Player2 player;
+    public Player player;
 
     [SerializeField]
     private Inventory unitInventoryClass;
@@ -44,9 +44,9 @@ public class UnitController : MonoBehaviour
         return unitInventoryArray[pos.x, pos.y];
     }
 
-    public Unit2 GetUnit(Vector2Int pos)
+    public Unit GetUnit(Vector2Int pos)
     {
-        return (Unit2)GetUnitInventory(pos).GetItem(0);
+        return (Unit)GetUnitInventory(pos).GetItem(0);
     }
 
     public void UpdateAllUnitSprites()
@@ -59,7 +59,7 @@ public class UnitController : MonoBehaviour
             for (int j = 0; j < screenRes.y; j++)
             {
                 Vector2Int position = new Vector2Int(i, j);
-                Unit2 newUnit = GetUnit(position);
+                Unit newUnit = GetUnit(position);
                 if (newUnit)
                 {
                     newUnit.UpdateRogueSpriteRenderer();
@@ -75,7 +75,7 @@ public class UnitController : MonoBehaviour
 
         //When it is the player's turn, the step loop is broken. At the end of 
         //the player's turn, FinishStep is called and the remaining list is processed.
-        foreach (Unit2 u in UnitController.unitList)
+        foreach (Unit u in UnitController.unitList)
         {
             u.Step();
         }
@@ -88,7 +88,7 @@ public class UnitController : MonoBehaviour
         gameState = GameStateEnum.enemyTurn;
 
         int playerIndex = unitList.IndexOf(player);
-        Unit2[] list = UnitController.unitList.ToArray();
+        Unit[] list = UnitController.unitList.ToArray();
 
         //Finish the step loop where we left off.
         for (int i = playerIndex + 1; i < list.Length; i++)
@@ -101,94 +101,3 @@ public class UnitController : MonoBehaviour
 
     }
 }
-
-/*public class UnitController : MonoBehaviour
-{
-    //list of all characters currently in the map
-    public List<Unit> unitList;
-
-
-    public Player myPlayer;
-
-    public enum GameStateEnum {enemyTurn, playerTurn}
-    public GameStateEnum gameState = GameStateEnum.playerTurn;
-
-    public Player playerSource;
-    public Unit demonSource;
-
-    public void Initialize()
-    {
-        // the unit list holds all characters currently in the game including the player
-        unitList = new List<Unit>();
-
-        //Create a player
-        Player player = (Player)Instantiate(playerSource, new Vector3(5, 3), Quaternion.identity, transform);
-        player.Initialize();
-        unitList.Add(player);
-        myPlayer = player;
-
-        //Create a unit
-        Unit demon = demonSource;// load the default unit
-        
-        Unit unit = (Unit)Instantiate(demon, new Vector3(5, 15), Quaternion.identity, transform);
-        unit.Initialize();
-        unitList.Add(unit);
-
-        unit = (Unit)Instantiate(demon, new Vector3(5, 14), Quaternion.identity, transform);
-        unit.Initialize();
-        unitList.Add(unit);
-    }
-
-    void Update()
-    {
-        //If it is the player's turn, call the player turn function otherwise, make the npcs tick.
-        if (gameState == GameStateEnum.playerTurn)
-        {
-            myPlayer.Turn();
-        }
-        else
-        {
-            Step();
-        }
-    }
-
-    public void Step()
-    {
-        //Every step: each unit will get to take it's turn which will involve:
-        //reducing their speed counter and potentially taking an action
-        
-        //When it is the player's turn, the step loop is broken. At the end of 
-        //the player's turn, FinishStep is called and the remaining list is processed.
-        foreach (Unit u in GetUnitController().unitList)
-        {
-            if(u is Player)
-            {
-                ((Player)u).Step();
-            }
-            else
-            {
-                u.Step();
-            }
-        }
-    }
-
-    //When it is the player's turn, the step loop is broken. At the end of 
-    //the player's turn, FinishStep is called and the remaining list is processed.
-    public void FinishStep()
-    {
-        gameState = GameStateEnum.enemyTurn;
-
-        int playerIndex = unitList.IndexOf(myPlayer);
-        Unit[] list = GetUnitController().unitList.ToArray();
-
-        //Finish the step loop where we left off.
-        for(int i = playerIndex + 1; i < list.Length; i++)
-        {
-            if (list[i])
-            {
-                list[i].Step();
-            }
-        }
-
-    }
-}*/

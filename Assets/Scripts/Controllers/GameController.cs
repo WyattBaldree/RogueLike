@@ -37,19 +37,19 @@ public class GameController : MonoBehaviour
     public Inventory temporaryInventory;
 
     [SerializeField]
-    private Floor2 floorClass;
+    private Floor floorClass;
 
     [SerializeField]
-    private Floor2 pitClass;
+    private Floor pitClass;
 
     [SerializeField]
-    private Wall2 wallClass;
+    private Wall wallClass;
 
     [SerializeField]
-    private Unit2 unitClass;
+    private Unit unitClass;
 
     [SerializeField]
-    private Player2 playerClass;
+    private Player playerClass;
 
     // Use this for initialization of the entire game
     void Start()
@@ -171,7 +171,7 @@ public class GameController : MonoBehaviour
             {
                 Vector2Int position = new Vector2Int(i, j);
                 
-                Floor2 thisFloor = GetFloorController().GetFloor(position);
+                Floor thisFloor = GetFloorController().GetFloor(position);
                 if (thisFloor)
                 {
                     thisFloor.DestroyObject();
@@ -190,7 +190,7 @@ public class GameController : MonoBehaviour
             }
         }
 
-        Wall2 thisWall;
+        Wall thisWall;
         //cut out rooms temporary
         for (int i = 2; i < 6; i++)
         {

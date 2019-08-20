@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using static GameController;
 
-public class PitConnected : Floor2
+public class PitConnected : Floor
 {
     [Header("Pit")]
     public Sprite topLeft;

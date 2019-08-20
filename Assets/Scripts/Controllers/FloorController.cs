@@ -6,7 +6,7 @@ using static GameController;
 
 public class FloorController : MonoBehaviour
 {
-    public static List<Floor2> floorList = new List<Floor2>();
+    public static List<Floor> floorList = new List<Floor>();
 
     [SerializeField]
     private Inventory floorInventoryClass;
@@ -39,9 +39,9 @@ public class FloorController : MonoBehaviour
         return floorInventoryArray[pos.x, pos.y];
     }
 
-    public Floor2 GetFloor(Vector2Int pos)
+    public Floor GetFloor(Vector2Int pos)
     {
-        return (Floor2)GetFloorInventory(pos).GetItem(0);
+        return (Floor)GetFloorInventory(pos).GetItem(0);
     }
 
     public void UpdateAllFloorSprites()
@@ -54,7 +54,7 @@ public class FloorController : MonoBehaviour
             for (int j = 0; j < screenRes.y; j++)
             {
                 Vector2Int position = new Vector2Int(i, j);
-                Floor2 newWall = GetFloor(position);
+                Floor newWall = GetFloor(position);
                 if (newWall)
                 {
                     newWall.UpdateRogueSpriteRenderer();

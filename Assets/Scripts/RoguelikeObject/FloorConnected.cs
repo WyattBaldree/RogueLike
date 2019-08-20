@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static GameController;
 
-public class FloorConnected : Floor2
+public class FloorConnected : Floor
 {
     [Header("Floor Connected")]
     public Sprite topLeft;

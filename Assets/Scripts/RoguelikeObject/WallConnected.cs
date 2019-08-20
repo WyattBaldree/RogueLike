@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static GameController;
 
-public class WallConnected : Wall2
+public class WallConnected : Wall
 {
     [Header("Wall Connected")]
     public Sprite topLeft;

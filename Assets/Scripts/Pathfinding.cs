@@ -503,7 +503,7 @@ public static class Pathfinding
         {
             for (int j = 0; j < GetGameController().ScreenResInUnits.y; j++)
             {
-                Wall2 thisWall = GetWallController().GetWall(new Vector2Int(i, j));
+                Wall thisWall = GetWallController().GetWall(new Vector2Int(i, j));
                 //We pathfind differently depending on what costmaptype we are using (i.e. flying creatures ignore floors)
                 switch (costMapType)
                 {

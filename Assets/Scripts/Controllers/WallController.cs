@@ -6,7 +6,7 @@ using static GameController;
 
 public class WallController : MonoBehaviour
 {
-    public static List<Wall2> wallList = new List<Wall2>();
+    public static List<Wall> wallList = new List<Wall>();
 
     [SerializeField]
     private Inventory wallInventoryClass;
@@ -39,9 +39,9 @@ public class WallController : MonoBehaviour
         return wallInventoryArray[pos.x, pos.y];
     }
 
-    public Wall2 GetWall(Vector2Int pos)
+    public Wall GetWall(Vector2Int pos)
     {
-        return (Wall2)GetWallInventory(pos).GetItem(0);
+        return (Wall)GetWallInventory(pos).GetItem(0);
     }
 
     public void UpdateAllWallSprites()
@@ -54,7 +54,7 @@ public class WallController : MonoBehaviour
             for (int j = 0; j < screenRes.y; j++)
             {
                 Vector2Int position = new Vector2Int(i, j);
-                Wall2 newWall = GetWall(position);
+                Wall newWall = GetWall(position);
                 if (newWall)
                 {
                     newWall.UpdateRogueSpriteRenderer();
