@@ -5,21 +5,11 @@ using static GameController;
 
 public class Player : Unit
 {
-    //on player step, subtract our speed and potentially start our turn.
-    public override void Step()
-    {
-        speedCounter--;
-        if (speedCounter < 0)
-        {
-            speedCounter += 20 - speed;
+    
 
-            //take turn
-            UnitController unitController = GetUnitController();
-            unitController.gameState = UnitController.GameStateEnum.playerTurn;
-        }
-    }
-
-    //on the player turn, decide what action to take.
+    /// <summary>
+    /// Take the player's turn. Called repeatedly in update on the player's turn.
+    /// </summary>
     public void Turn()
     {
         //MapController mapController = GameController.mapC;
@@ -95,28 +85,47 @@ public class Player : Unit
         }
     }
 
-    void EndTurn()
+    /// <summary>
+    /// End the player's turn and finish the rest of the units' steps.
+    /// </summary>
+    private void EndTurn()
     {
         GetUnitController().FinishStep();
     }
 
-    public void PickUp()
+    /// <summary>
+    /// Open the inventory below the player.
+    /// </summary>
+    private void PickUp()
     {
         //base.PickUp();
         //inventory.ShowInventoryGUI();
         GetPopupController().containerGUI.Popup(new Vector2(), GetInventoryBelow());
     }
 
-    public override bool AttackMove(Vector2Int targetDestination)
-    {
-        GetPopupController().containerGUI.Hide();
-        return base.AttackMove(targetDestination);
-    }
-
     public override void Initialize()
     {
         base.Initialize();
         GetUnitController().player = this;
-        GetGUIController().mainInventoryGUI.ConnectToInventory(inventory);
+        GetGUIController().mainInventoryGUI.ConnectToInventory(UnitInventory);
+    }
+
+    public override bool MoveToLocation(Vector2Int targetDestination)
+    {
+        GetPopupController().containerGUI.Hide();
+        if (base.MoveToLocation(targetDestination))
+        {
+            Pathfinding.GenerateToPlayerMap();
+            Pathfinding.GenerateFleePlayerMap();
+            return true;
+        }
+        return false;
+    }
+
+    protected override void TakeTurn()
+    {
+        //take turn
+        UnitController unitController = GetUnitController();
+        unitController.gameState = UnitController.GameStateEnum.playerTurn;
     }
 }

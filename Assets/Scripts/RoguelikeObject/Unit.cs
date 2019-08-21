@@ -6,52 +6,59 @@ using static GameController;
 
 public class Unit : WorldObject
 {
+    public static List<Unit> unitList = new List<Unit>();
+
     [Header("Unit")]
-    public Inventory inventory;
-
-    public float greed = 0.5f;
-    public float fear = 0.1f;
-    public float aggression = 0.8f;
-
-    public int level = 1;
-
-    public int strength = 5;
-    public int speed = 5;
-    public int intelligence = 5;
-    public int dexterity = 5;
-    public int endurance = 5;
-    public int wisdom = 5;
-
-    public bool burrower = false;
-
-    //our current speed counter. When this reaches 0, take an action.
-    protected int speedCounter = 0;
-
-
+    [SerializeField]
+    private Inventory unitTnventory;
     /// <summary>
-    /// Kill the unit
+    /// The inventory of this unit.
     /// </summary>
-    public void Die()
+    public Inventory UnitInventory { get => unitTnventory; }
+
+    [SerializeField]
+    private int speed = 5;
+    /// <summary>
+    /// How fast does this unit move? Factors into how often we take turns.
+    /// </summary>
+    public int Speed
     {
-        
+        get => speed;
+        set => speed = value;
     }
 
-    public virtual void Step()
+    [SerializeField]
+    private bool burrower = false;
+    /// <summary>
+    /// Can this unit move through walls?
+    /// </summary>
+    public bool Burrower
     {
-        speedCounter--;
-        if (speedCounter < 0)
+        get => burrower;
+        set => burrower = value;
+    }
+
+    [SerializeField]
+    private bool dead = false;
+    /// <summary>
+    /// Is this unit dead?
+    /// </summary>
+    public bool Dead
+    {
+        get => dead;
+        set
         {
-            //Readjust our speed after we take our action. !!!!placeholder. this should be dependant on the action taken.!!!!!
-            speedCounter += 20 - speed;
-
-            //figure out which direction we want to move
-            Vector2Int moveDirection = GetMoveDirection();
-
-            AttackMove(GetPositionOffset(moveDirection));
+            dead = value;
+            myRogueSpriteRenderer.Dead = dead;
         }
     }
-    
-    ///Returns the direction that we want to move in as a Vector2Int
+
+    //our current speed counter. When this reaches 0, take an action.
+    private int stepCounter = 0;
+
+    /// <summary>
+    /// Returns the direction that we want to move in as a Vector2Int
+    /// </summary>
     private Vector2Int GetMoveDirection()
     {
         float leastDistance = float.MaxValue;
@@ -60,10 +67,11 @@ public class Unit : WorldObject
         int unitx = (int)transform.position.x;
         int unity = (int)transform.position.y;
 
-        float currentDistance = GetMoveMap()[unitx, unity].distance;
+        Node[,] moveMap = GetMoveMap();
+
+        float currentDistance = moveMap[unitx, unity].distance;
 
         UnityEngine.Random rand = new UnityEngine.Random();
-
         int startingDirection = (int)Mathf.Floor(4 * UnityEngine.Random.value) * 2;
         for (int direction = 0; direction < 8; direction++)
 
@@ -71,73 +79,73 @@ public class Unit : WorldObject
             {
                 case 0:
                     //up
-                    float thisDistance = GetMoveMap()[unitx, unity + 1].distance;
+                    float thisDistance = moveMap[unitx, unity + 1].distance;
                     if (thisDistance < leastDistance && thisDistance < currentDistance)
                     {
-                        leastDistance = GetMoveMap()[unitx, unity + 1].distance;
+                        leastDistance = moveMap[unitx, unity + 1].distance;
                         moveDirection = new Vector2Int(0, 1);
                     }
                     break;
                 case 1:
                     //ur
-                    thisDistance = GetMoveMap()[unitx + 1, unity + 1].distance;
+                    thisDistance = moveMap[unitx + 1, unity + 1].distance;
                     if (thisDistance < leastDistance && thisDistance < currentDistance)
                     {
-                        leastDistance = GetMoveMap()[unitx + 1, unity + 1].distance;
+                        leastDistance = moveMap[unitx + 1, unity + 1].distance;
                         moveDirection = new Vector2Int(1, 1);
                     }
                     break;
                 case 2:
                     //right
-                    thisDistance = GetMoveMap()[unitx + 1, unity].distance;
+                    thisDistance = moveMap[unitx + 1, unity].distance;
                     if (thisDistance < leastDistance && thisDistance < currentDistance)
                     {
-                        leastDistance = GetMoveMap()[unitx + 1, unity].distance;
+                        leastDistance = moveMap[unitx + 1, unity].distance;
                         moveDirection = new Vector2Int(1, 0);
                     }
                     break;
                 case 3:
                     //dr
-                    thisDistance = GetMoveMap()[unitx + 1, unity - 1].distance;
+                    thisDistance = moveMap[unitx + 1, unity - 1].distance;
                     if (thisDistance < leastDistance && thisDistance < currentDistance)
                     {
-                        leastDistance = GetMoveMap()[unitx + 1, unity - 1].distance;
+                        leastDistance = moveMap[unitx + 1, unity - 1].distance;
                         moveDirection = new Vector2Int(1, -1);
                     }
                     break;
                 case 4:
                     //down
-                    thisDistance = GetMoveMap()[unitx, unity - 1].distance;
+                    thisDistance = moveMap[unitx, unity - 1].distance;
                     if (thisDistance < leastDistance && thisDistance < currentDistance)
                     {
-                        leastDistance = GetMoveMap()[unitx, unity - 1].distance;
+                        leastDistance = moveMap[unitx, unity - 1].distance;
                         moveDirection = new Vector2Int(0, -1);
                     }
                     break;
                 case 5:
                     //dl
-                    thisDistance = GetMoveMap()[unitx - 1, unity - 1].distance;
+                    thisDistance = moveMap[unitx - 1, unity - 1].distance;
                     if (thisDistance < leastDistance && thisDistance < currentDistance)
                     {
-                        leastDistance = GetMoveMap()[unitx - 1, unity - 1].distance;
+                        leastDistance = moveMap[unitx - 1, unity - 1].distance;
                         moveDirection = new Vector2Int(-1, -1);
                     }
                     break;
                 case 6:
                     //left
-                    thisDistance = GetMoveMap()[unitx - 1, unity].distance;
+                    thisDistance = moveMap[unitx - 1, unity].distance;
                     if (thisDistance < leastDistance && thisDistance < currentDistance)
                     {
-                        leastDistance = GetMoveMap()[unitx - 1, unity].distance;
+                        leastDistance = moveMap[unitx - 1, unity].distance;
                         moveDirection = new Vector2Int(-1, 0);
                     }
                     break;
                 case 7:
                     //ul
-                    thisDistance = GetMoveMap()[unitx - 1, unity + 1].distance;
+                    thisDistance = moveMap[unitx - 1, unity + 1].distance;
                     if (thisDistance < leastDistance && thisDistance < currentDistance)
                     {
-                        leastDistance = GetMoveMap()[unitx - 1, unity + 1].distance;
+                        leastDistance = moveMap[unitx - 1, unity + 1].distance;
                         moveDirection = new Vector2Int(-1, 1);
                     }
                     break;
@@ -145,18 +153,26 @@ public class Unit : WorldObject
         return moveDirection;
     }
 
+    /// <summary>
+    /// Combines the different pathfinding maps and returns the result.
+    /// </summary>
+    /// <returns></returns>
     private Node[,] GetMoveMap()
     {
-        //Combine the flee and toPlayer maps
+        /*//Combine the flee and toPlayer maps
         Node[,] newMap = Pathfinding.MapAdd(Pathfinding.MapMultiply(Pathfinding.fleePlayerMap, fear), Pathfinding.MapMultiply(Pathfinding.toPlayerMap, aggression));
 
         //Combine in the greedMap
-        newMap = Pathfinding.MapAdd(newMap, Pathfinding.MapMultiply(Pathfinding.toGoldMap, greed));
-        return newMap;
+        newMap = Pathfinding.MapAdd(newMap, Pathfinding.MapMultiply(Pathfinding.toGoldMap, greed));*/
+        return Pathfinding.toPlayerMap;
     }
 
-    ///try moving to or attacking a location.
-    public virtual bool AttackMove(Vector2Int targetDestination)
+    /// <summary>
+    /// Try moving to a location and, if we cannot, attack what is blocking us.
+    /// </summary>
+    /// <param name="targetDestination"></param>
+    /// <returns></returns>
+    protected bool AttackMove(Vector2Int targetDestination)
     {
         if (MoveToLocation(targetDestination))
         {
@@ -172,7 +188,12 @@ public class Unit : WorldObject
         return false;
     }
 
-    public virtual bool MeleeAttack(RoguelikeObject attackTarget)
+    /// <summary>
+    /// Melee attack a RoguelikeObject.
+    /// </summary>
+    /// <param name="attackTarget"></param>
+    /// <returns></returns>
+    private bool MeleeAttack(RoguelikeObject attackTarget)
     {
         if (attackTarget)
         {
@@ -187,6 +208,43 @@ public class Unit : WorldObject
         return false;
     }
 
+    /// <summary>
+    /// Here the unit decides what it wants to do and does it. Called when the unit's stepCounter counts down to 0;
+    /// </summary>
+    protected virtual void TakeTurn()
+    {
+        //figure out which direction we want to move
+        Vector2Int moveDirection = GetMoveDirection();
+
+        AttackMove(GetPositionOffset(moveDirection));
+    }
+    
+    public override void Die()
+    {
+        if (Dead)
+        {
+            base.Die();
+        }
+        else
+        {
+            Dead = true;
+            Health = HealthMax;
+        }
+    }
+
+    public override void Step()
+    {
+        base.Step();
+        stepCounter--;
+        if (stepCounter < 0)
+        {
+            //Readjust our speed after we take our action. !!!!placeholder. this should be dependant on the action taken.!!!!!
+            stepCounter += 20 - speed;
+
+            TakeTurn();
+        }
+    }
+    
     public override Inventory GetWorldObjectInventory(Vector2Int pos)
     {
         return GetUnitController().GetUnitInventory(pos);
@@ -204,12 +262,12 @@ public class Unit : WorldObject
     public override void OnCreate()
     {
         base.OnCreate();
-        UnitController.unitList.Add(this);
+        Unit.unitList.Add(this);
     }
 
     public override void DestroyObject()
     {
-        Assert.IsTrue(UnitController.unitList.Remove(this), "The unit being destroyed was not in the UnitList upon being destroyed. Something is terribly wrong.");
+        Assert.IsTrue(Unit.unitList.Remove(this), "The unit being destroyed was not in the UnitList upon being destroyed. Something is terribly wrong.");
         base.DestroyObject();
     }
 }

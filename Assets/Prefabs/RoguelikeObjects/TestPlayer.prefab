@@ -45,19 +45,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9646108563b4b7d46a33f2c625170bdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tags: 00000000
+  uniqueID: TestPlayer
+  objectName: Test Player
+  description: This is a test player.
+  myRogueSpriteRenderer: {fileID: 946566604047887834}
   itemSprite1: {fileID: -2554384418998969393, guid: f12372ca9b4f9964286dfb431a55497e,
     type: 3}
   itemSprite2: {fileID: 6881961456107711280, guid: 1c484c1ea2e9a60458b9bd432334808f,
     type: 3}
   animationSpeed: 0.7
-  myRogueSpriteRenderer: {fileID: 946566604047887834}
-  tags: 00000000
-  uniqueID: TestPlayer
-  objectName: Test Player
-  description: This is a test player.
+  healthMax: 10
   stackSizeMax: 1
   goldValue: 1
-  healthMax: 10
   flammable: 0
   explosive: 0
   worldSprite1: {fileID: -2554384418998969393, guid: f12372ca9b4f9964286dfb431a55497e,
@@ -65,17 +65,11 @@ MonoBehaviour:
   worldSprite2: {fileID: 6881961456107711280, guid: 1c484c1ea2e9a60458b9bd432334808f,
     type: 3}
   pathfindingCost: 3.4028235e+38
-  inventory: {fileID: 7442673971969599772}
-  greed: 0.5
-  fear: 0.1
-  aggression: 0.8
-  level: 1
-  strength: 5
+  unitTnventory: {fileID: 5475488527503361341, guid: 052d3fad934dba347bfd843798fd3038,
+    type: 3}
   speed: 5
-  intelligence: 5
-  dexterity: 5
-  endurance: 5
-  wisdom: 5
+  burrower: 0
+  dead: 0
 --- !u!114 &7442673971969599772
 MonoBehaviour:
   m_ObjectHideFlags: 0

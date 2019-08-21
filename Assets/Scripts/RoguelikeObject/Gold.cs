@@ -8,15 +8,24 @@ public class Gold : RoguelikeObject
     public static List<Gold> goldList = new List<Gold>();
 
     [Header("Gold")]
-    public Sprite copperSingle;
-    public Sprite copperStack;
-    public Sprite copperPile;
-    public Sprite silverSingle;
-    public Sprite silverStack;
-    public Sprite silverPile;
-    public Sprite goldSingle;
-    public Sprite goldStack;
-    public Sprite goldPile;
+    [SerializeField]
+    private Sprite copperSingle;
+    [SerializeField]
+    private Sprite copperStack;
+    [SerializeField]
+    private Sprite copperPile;
+    [SerializeField]
+    private Sprite silverSingle;
+    [SerializeField]
+    private Sprite silverStack;
+    [SerializeField]
+    private Sprite silverPile;
+    [SerializeField]
+    private Sprite goldSingle;
+    [SerializeField]
+    private Sprite goldStack;
+    [SerializeField]
+    private Sprite goldPile;
 
     public override Sprite GetCurrentSprite()
     {

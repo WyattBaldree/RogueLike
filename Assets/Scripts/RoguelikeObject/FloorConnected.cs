@@ -6,22 +6,38 @@ using static GameController;
 public class FloorConnected : Floor
 {
     [Header("Floor Connected")]
-    public Sprite topLeft;
-    public Sprite topRight;
-    public Sprite bottomLeft;
-    public Sprite bottomRight;
-    public Sprite top;
-    public Sprite left;
-    public Sprite right;
-    public Sprite bottom;
-    public Sprite alone;
-    public Sprite topCap;
-    public Sprite vertical;
-    public Sprite bottomCap;
-    public Sprite leftCap;
-    public Sprite horizontal;
-    public Sprite rightCap;
-    public Sprite surrounded;
+    [SerializeField]
+    private Sprite topLeft;
+    [SerializeField]
+    private Sprite topRight;
+    [SerializeField]
+    private Sprite bottomLeft;
+    [SerializeField]
+    private Sprite bottomRight;
+    [SerializeField]
+    private Sprite top;
+    [SerializeField]
+    private Sprite left;
+    [SerializeField]
+    private Sprite right;
+    [SerializeField]
+    private Sprite bottom;
+    [SerializeField]
+    private Sprite alone;
+    [SerializeField]
+    private Sprite topCap;
+    [SerializeField]
+    private Sprite vertical;
+    [SerializeField]
+    private Sprite bottomCap;
+    [SerializeField]
+    private Sprite leftCap;
+    [SerializeField]
+    private Sprite horizontal;
+    [SerializeField]
+    private Sprite rightCap;
+    [SerializeField]
+    private Sprite surrounded;
 
     public override Sprite GetWorldSprite()
     {

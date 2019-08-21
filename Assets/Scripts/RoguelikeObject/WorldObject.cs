@@ -39,11 +39,6 @@ public abstract class WorldObject : RoguelikeObject
         }
     }
 
-    [SerializeField]
-    /// <summary>
-    /// The cost that this object has for pathfinding.
-    /// </summary>
-    private float pathfindingCost = float.MaxValue;
 
     private bool placed = false;
     /// <summary>
@@ -60,60 +55,39 @@ public abstract class WorldObject : RoguelikeObject
         }
     }
 
+    [SerializeField]
     /// <summary>
-    /// Returns the current sprite that should be shown by this object based on the values.
+    /// The cost that this object has for pathfinding.
     /// </summary>
-    /// <returns>The Sprite that should be renderered.</returns>
-    public override Sprite GetCurrentSprite()
-    {
-        if (Placed)
-        {
-            return GetWorldSprite();
-        }
-        else
-        {
-            return base.GetCurrentSprite();
-        }
-    }
+    private float pathfindingCost = float.MaxValue;
 
     /// <summary>
-    /// Get the sprite for this object in the world. Can be overriden to change how the world sprite is chosen (like with connected walls/floors for example)
+    /// Make a new WorldObject and immediately call Place on it. Useful for creating objects into the world.
     /// </summary>
-    /// <returns>Returns the world sprite.</returns>
-    public virtual Sprite GetWorldSprite()
-    {
-        if (SpriteToggle && WorldSprite2)
-        {
-            return WorldSprite2;
-        }
-        else
-        {
-            return WorldSprite1;
-        }
-    }
-
-    /// <summary>
-    /// This function returns whether a given position is available to be moved into by this object. For walls, this function will typically check if 
-    /// there is an existing wall while for a unit, this function will check if there is an existing unit ect.
-    /// </summary>
-    /// <returns>Returns true if the space is available for this object to move to.</returns>
-    public virtual bool IsSpaceFree(Vector2Int pos)
-    {
-        if (    pos.x < 0 ||
-                pos.x >= GetGameController().ScreenResInUnits.x ||
-                pos.y < 0 ||
-                pos.y >= GetGameController().ScreenResInUnits.y)
-        {
-            return false;
-        }
-        return true;
-    }
-
-    /// <summary>
-    /// Return the world inventory at the supplied position for this object type. For walls, this will check the wallController.GetWallInventory(pos);
-    /// </summary>
+    /// <param name="source"></param>
+    /// <param name="pos"></param>
     /// <returns></returns>
-    public abstract Inventory GetWorldObjectInventory(Vector2Int pos);
+    public static WorldObject MakeAndPlaceWorldObject(WorldObject source, Vector2Int pos)
+    {
+        WorldObject newWorldObject = (WorldObject)MakeRoguelikeObjectTemporary(source, 1);
+
+        Inventory tempInv = GetGameController().temporaryInventory;
+
+        tempInv.AddItem(newWorldObject);
+
+        if (newWorldObject)
+        {
+            if (newWorldObject.Place(pos))
+            {
+                return newWorldObject;
+            }
+            else
+            {
+                newWorldObject.DestroyObject();
+            }
+        }
+        return null;
+    }
 
     /// <summary>
     /// This function checks if the supplied position is available for the world object (which depends on the object's implementation of IsSpaceFree),
@@ -167,6 +141,54 @@ public abstract class WorldObject : RoguelikeObject
     }
 
     /// <summary>
+    /// Returns the inventory located beneath the worldObject
+    /// </summary>
+    /// <returns></returns>
+    public Inventory GetInventoryBelow()
+    {
+        return GetItemController().GetInventory(GetPosition());
+    }
+
+    /// <summary>
+    /// Get the sprite for this object in the world. Can be overriden to change how the world sprite is chosen (like with connected walls/floors for example)
+    /// </summary>
+    /// <returns>Returns the world sprite.</returns>
+    public virtual Sprite GetWorldSprite()
+    {
+        if (SpriteToggle && WorldSprite2)
+        {
+            return WorldSprite2;
+        }
+        else
+        {
+            return WorldSprite1;
+        }
+    }
+
+    /// <summary>
+    /// This function returns whether a given position is available to be moved into by this object. For walls, this function will typically check if 
+    /// there is an existing wall while for a unit, this function will check if there is an existing unit ect.
+    /// </summary>
+    /// <returns>Returns true if the space is available for this object to move to.</returns>
+    public virtual bool IsSpaceFree(Vector2Int pos)
+    {
+        if (    pos.x < 0 ||
+                pos.x >= GetGameController().ScreenResInUnits.x ||
+                pos.y < 0 ||
+                pos.y >= GetGameController().ScreenResInUnits.y)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    /// <summary>
+    /// Return the world inventory at the supplied position for this object type. For walls, this will check the wallController.GetWallInventory(pos);
+    /// </summary>
+    /// <returns></returns>
+    public abstract Inventory GetWorldObjectInventory(Vector2Int pos);
+
+    /// <summary>
     /// Returns the Pathfinding cost of moving to this Object.
     /// </summary>
     /// <returns></returns>
@@ -176,58 +198,11 @@ public abstract class WorldObject : RoguelikeObject
     }
 
     /// <summary>
-    /// Make a new WorldObject and immediately call Place on it. Useful for creating objects into the world.
-    /// </summary>
-    /// <param name="source"></param>
-    /// <param name="pos"></param>
-    /// <returns></returns>
-    public static WorldObject MakeAndPlaceWorldObject(WorldObject source, Vector2Int pos)
-    {
-        WorldObject newWorldObject = (WorldObject)MakeRoguelikeObjectTemporary(source, 1);
-
-        Inventory tempInv = GetGameController().temporaryInventory;
-
-        tempInv.AddItem(newWorldObject);
-
-        if (newWorldObject)
-        {
-            if (newWorldObject.Place(pos))
-            {
-                return newWorldObject;
-            }
-            else
-            {
-                newWorldObject.DestroyObject();
-            }
-        }
-        return null;
-    }
-
-    /// <summary>
-    /// Called when this WorldObject is created.
-    /// </summary>
-    public override void OnCreate()
-    {
-        base.OnCreate();
-        worldObjectList.Add(this);
-    }
-
-    /// <summary>
-    /// Cleanly Destroy the item by removing it from all lists then destroying it.
-    /// </summary>
-    public override void DestroyObject()
-    {
-        //If we ever try to delete a roguelikeObject and it is not in "MyInventory" something is terribly wrong.
-        Assert.IsTrue(worldObjectList.Remove(this), "The roguelikeObject being destroyed was not in the RoguelikeObjectList upon being destroyed. Something is terribly wrong.");
-        base.DestroyObject();
-    }
-
-    /// <summary>
     /// Attempt to move to a location.
     /// </summary>
     /// <param name="targetDestination"></param>
     /// <returns></returns>
-    public bool MoveToLocation(Vector2Int targetDestination)
+    public virtual bool MoveToLocation(Vector2Int targetDestination)
     {
         if (IsSpaceFree(targetDestination))
         {
@@ -250,11 +225,37 @@ public abstract class WorldObject : RoguelikeObject
     }
 
     /// <summary>
-    /// Returns the inventory located beneath the worldObject
+    /// Returns the current sprite that should be shown by this object based on the values.
     /// </summary>
-    /// <returns></returns>
-    public Inventory GetInventoryBelow()
+    /// <returns>The Sprite that should be renderered.</returns>
+    public override Sprite GetCurrentSprite()
     {
-        return GetItemController().GetInventory(GetPosition());
+        if (Placed)
+        {
+            return GetWorldSprite();
+        }
+        else
+        {
+            return base.GetCurrentSprite();
+        }
+    }
+
+    /// <summary>
+    /// Called when this WorldObject is created.
+    /// </summary>
+    public override void OnCreate()
+    {
+        base.OnCreate();
+        worldObjectList.Add(this);
+    }
+
+    /// <summary>
+    /// Cleanly Destroy the item by removing it from all lists then destroying it.
+    /// </summary>
+    public override void DestroyObject()
+    {
+        //If we ever try to delete a roguelikeObject and it is not in "MyInventory" something is terribly wrong.
+        Assert.IsTrue(worldObjectList.Remove(this), "The roguelikeObject being destroyed was not in the RoguelikeObjectList upon being destroyed. Something is terribly wrong.");
+        base.DestroyObject();
     }
 }

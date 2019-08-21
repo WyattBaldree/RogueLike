@@ -9,6 +9,9 @@ public class RogueSpriteRenderer : MonoBehaviour
     private SpriteRenderer mySpriteRenderer;
 
     [SerializeField]
+    private SpriteRenderer deathSpriteRenderer;
+
+    [SerializeField]
     private Entry stackNumberEntry;
 
     [SerializeField]
@@ -57,6 +60,14 @@ public class RogueSpriteRenderer : MonoBehaviour
     {
         get => sortingGroup.sortingOrder;
         set => sortingGroup.sortingOrder = value;
+    }
+
+    public bool Dead
+    {
+        set
+        {
+            deathSpriteRenderer.gameObject.SetActive(value);
+        }
     }
 
     void Update()

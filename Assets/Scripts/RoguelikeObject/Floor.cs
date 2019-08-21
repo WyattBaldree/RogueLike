@@ -8,7 +8,7 @@ public class Floor : WorldObject
 {
     [Header("Floor")]
     [SerializeField]
-    private bool canSupportWall;
+    private bool canSupportWall = true;
     /// <summary>
     /// Can a wall be built on top of this floor?
     /// </summary>

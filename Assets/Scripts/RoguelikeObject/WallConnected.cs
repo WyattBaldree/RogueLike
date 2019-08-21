@@ -6,19 +6,32 @@ using static GameController;
 public class WallConnected : Wall
 {
     [Header("Wall Connected")]
-    public Sprite topLeft;
-    public Sprite topRight;
-    public Sprite bottomLeft;
-    public Sprite bottomRight;
-    public Sprite horizontal;
-    public Sprite vertical;
-    public Sprite bottomCap;
-    public Sprite surrounded;
-    public Sprite fourWay;
-    public Sprite tLeftRightDown;
-    public Sprite tLeftRightUp;
-    public Sprite tRightDownUp;
-    public Sprite tLeftDownUp;
+    [SerializeField]
+    private Sprite topLeft;
+    [SerializeField]
+    private Sprite topRight;
+    [SerializeField]
+    private Sprite bottomLeft;
+    [SerializeField]
+    private Sprite bottomRight;
+    [SerializeField]
+    private Sprite horizontal;
+    [SerializeField]
+    private Sprite vertical;
+    [SerializeField]
+    private Sprite bottomCap;
+    [SerializeField]
+    private Sprite surrounded;
+    [SerializeField]
+    private Sprite fourWay;
+    [SerializeField]
+    private Sprite tLeftRightDown;
+    [SerializeField]
+    private Sprite tLeftRightUp;
+    [SerializeField]
+    private Sprite tRightDownUp;
+    [SerializeField]
+    private Sprite tLeftDownUp;
 
     public override Sprite GetWorldSprite()
     {

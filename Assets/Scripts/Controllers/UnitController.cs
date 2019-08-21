@@ -6,7 +6,6 @@ using static GameController;
 
 public class UnitController : MonoBehaviour
 {
-    public static List<Unit> unitList = new List<Unit>();
 
     public enum GameStateEnum { enemyTurn, playerTurn }
     public GameStateEnum gameState = GameStateEnum.playerTurn;
@@ -75,7 +74,7 @@ public class UnitController : MonoBehaviour
 
         //When it is the player's turn, the step loop is broken. At the end of 
         //the player's turn, FinishStep is called and the remaining list is processed.
-        foreach (Unit u in UnitController.unitList)
+        foreach (Unit u in Unit.unitList)
         {
             u.Step();
         }
@@ -87,8 +86,8 @@ public class UnitController : MonoBehaviour
     {
         gameState = GameStateEnum.enemyTurn;
 
-        int playerIndex = unitList.IndexOf(player);
-        Unit[] list = UnitController.unitList.ToArray();
+        int playerIndex = Unit.unitList.IndexOf(player);
+        Unit[] list = Unit.unitList.ToArray();
 
         //Finish the step loop where we left off.
         for (int i = playerIndex + 1; i < list.Length; i++)

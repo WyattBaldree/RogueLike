@@ -7,20 +7,29 @@ using static GameController;
 public class PitConnected : Floor
 {
     [Header("Pit")]
-    public Sprite topLeft;
-    public Sprite topRight;
-    public Sprite top;
-    public Sprite left;
-    public Sprite right;
-    public Sprite topCap;
-    public Sprite vertical;
-    public Sprite surrounded;
-    public Sprite curveLeft;
-    public Sprite curveUp;
-    public Sprite curveRight;
-
-
-
+    [SerializeField]
+    private Sprite topLeft;
+    [SerializeField]
+    private Sprite topRight;
+    [SerializeField]
+    private Sprite top;
+    [SerializeField]
+    private Sprite left;
+    [SerializeField]
+    private Sprite right;
+    [SerializeField]
+    private Sprite topCap;
+    [SerializeField]
+    private Sprite vertical;
+    [SerializeField]
+    private Sprite surrounded;
+    [SerializeField]
+    private Sprite curveLeft;
+    [SerializeField]
+    private Sprite curveUp;
+    [SerializeField]
+    private Sprite curveRight;
+    
     public override Sprite GetWorldSprite()
     {
         /* At the end of the double for loop, nearbyList will be filled in this order

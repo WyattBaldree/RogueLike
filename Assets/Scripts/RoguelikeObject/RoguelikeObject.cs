@@ -14,7 +14,54 @@ public abstract class RoguelikeObject : MonoBehaviour
 
     public static List<RoguelikeObject> roguelikeObjectList = new List<RoguelikeObject>();
 
+    /// <summary>
+    /// The max amount of "on fire" possible
+    /// </summary>
+    private static int fireAmountMax = 3;
+
+    public enum TagEnum { item }
+
     [Header("Roguelike Object")]
+    
+    ///A list of tags that apply to this object.
+    public List<TagEnum> tags = new List<TagEnum>() { TagEnum.item };
+
+    [SerializeField]
+    private string uniqueID;
+    /// <summary>
+    /// READ ONLY. The objectName uniqueID. This ID is used for differentiiating between object that may have the same name. Used for stacking items.
+    /// </summary>
+    public string UniqueID
+    {
+        get => uniqueID;
+    }
+
+    [SerializeField]
+    private string objectName;
+    /// <summary>
+    /// READ ONLY. The objectName property represents just that, the name of whatever the object is. For example, the name of an arrow would just be "Arrow"
+    /// </summary>
+    public string ObjectName
+    {
+        get => objectName;
+    }
+
+    [SerializeField]
+    private string description;
+    /// <summary>
+    /// READ ONLY. The description property is a... description of the object. For example, an arrow might have the description:
+    /// "A sharp piece of metal, a wooden shaft, and feathers expertly fletched together. Can be fired out of a bow."
+    /// </summary>
+    public string Description
+    {
+        get => description;
+    }
+
+    /// <summary>
+    /// PRIVATE. The sprite renderer that this object uses in the world. This sprite renderer is used for showing an item lying on the ground, a wall placed in the world, or a floor placed on the ground, ect.
+    /// </summary>
+    [SerializeField]
+    public RogueSpriteRenderer myRogueSpriteRenderer;
 
     [SerializeField]
     private Sprite itemSprite1;
@@ -71,57 +118,31 @@ public abstract class RoguelikeObject : MonoBehaviour
         set => animationSpeed = value;
     }
 
-    /// <summary>
-    /// PRIVATE. The sprite renderer that this object uses in the world. This sprite renderer is used for showing an item lying on the ground, a wall placed in the world, or a floor placed on the ground, ect.
-    /// </summary>
     [SerializeField]
-    public RogueSpriteRenderer myRogueSpriteRenderer;
-
-
-    public enum TagEnum { item }
-
-    public List<TagEnum> tags = new List<TagEnum>(){TagEnum.item};
-
-    [SerializeField]
-    private string uniqueID;
+    private int healthMax = 10;
     /// <summary>
-    /// READ ONLY. The objectName uniqueID. This ID is used for differentiiating between object that may have the same name. Used for stacking items.
+    /// READ ONLY. The maximum health of this object.
     /// </summary>
-    public string UniqueID
+    public int HealthMax
     {
-        get => uniqueID;
+        get => healthMax;
     }
 
-    [SerializeField]
-    private string objectName;
+    private int health;
     /// <summary>
-    /// READ ONLY. The objectName property represents just that, the name of whatever the object is. For example, the name of an arrow would just be "Arrow"
+    /// The current healt of this object. When this value reaches 0 decrement the stackSize by 1 (health only represents the hitpoints of the item on top of the stack).
     /// </summary>
-    public string ObjectName
+    public int Health
     {
-        get => objectName;
-    }
-
-    [SerializeField]
-    private string description;
-    /// <summary>
-    /// READ ONLY. The description property is a... description of the object. For example, an arrow might have the description:
-    /// "A sharp piece of metal, a wooden shaft, and feathers expertly fletched together. Can be fired out of a bow."
-    /// </summary>
-    public string Description
-    {
-        get => description;
-    }
-    
-    private Inventory myInventory;
-    /// <summary>
-    /// READ ONLY. The description property is a... description of the object. For example, an arrow might have the description:
-    /// "A sharp piece of metal, a wooden shaft, and feathers expertly fletched together. Can be fired out of a bow."
-    /// </summary>
-    public Inventory MyInventory
-    {
-        get => myInventory;
-        set => myInventory = value;
+        get => health;
+        set
+        {
+            health = value;
+            if(health <= 0)
+            {
+                Die();
+            }
+        }
     }
 
     [SerializeField]
@@ -168,34 +189,6 @@ public abstract class RoguelikeObject : MonoBehaviour
     }
 
     [SerializeField]
-    private int healthMax = 10;
-    /// <summary>
-    /// READ ONLY. The maximum health of this object.
-    /// </summary>
-    public int HealthMax
-    {
-        get => healthMax;
-    }
-
-    private int health;
-    /// <summary>
-    /// The current healt of this object. When this value reaches 0 decrement the stackSize by 1 (health only represents the hitpoints of the item on top of the stack).
-    /// </summary>
-    public int Health
-    {
-        get => health;
-        set
-        {
-            health = value;
-            if(health <= 0)
-            {
-                health = HealthMax;
-                StackSize--;
-            }
-        }
-    }
-
-    [SerializeField]
     public static int weight = 1;
     /// <summary>
     /// READ ONLY. This represents the base sell/buy price of the object. The final buy/sell price will, of course, be effect by things like charisma.
@@ -214,11 +207,7 @@ public abstract class RoguelikeObject : MonoBehaviour
     {
         get => flammable;
     }
-
-    /// <summary>
-    /// The max amount of "on fire" possible
-    /// </summary>
-    private static int fireAmountMax = 3;
+    
     private int fireAmount = 0;
     /// <summary>
     /// How "on fire" is this thing? from
@@ -247,6 +236,16 @@ public abstract class RoguelikeObject : MonoBehaviour
         set => explosive = value;
     }
     
+    private Inventory myInventory;
+    /// <summary>
+    /// The inventory we are currently located in.
+    /// </summary>
+    public Inventory MyInventory
+    {
+        get => myInventory;
+        set => myInventory = value;
+    }
+    
     private bool exposed = false;
     /// <summary>
     /// This boolean represents wether this object is currently in an external or internal inventory.
@@ -260,57 +259,6 @@ public abstract class RoguelikeObject : MonoBehaviour
         {
             exposed = value;
             UpdateRogueSpriteRenderer();
-        }
-    }
-
-    /// <summary>
-    /// Called when the item is first created.
-    /// </summary>
-    public virtual void Initialize()
-    {
-        ItemSprite1 = itemSprite1;
-        Health = HealthMax;
-    }
-
-    /// <summary>
-    /// This function is used to get the name of an object as it appears in game. This will be generated differently depending on the child object.
-    /// For Example, a weapon may return its objectName appended with +<echantmentLevel> to indicate that it is enchanted. "Iron Sword +2"
-    /// </summary>
-    /// <returns>The name of the RoguelikeObject as it appears in game.</returns>
-    public virtual string GetFullName()
-    {
-        //return the plural version if applicable.
-        if(stackSize > 1)
-        {
-            return (StackSize) + " " + ObjectName + "s";
-        }
-        return ObjectName;
-    }
-
-    /// <summary>
-    /// when this function is called, MyRogueSpriteRenderer is updated based on the objects current values (GetCurrentSprite(), Exposed, ect.)
-    /// </summary>
-    public void UpdateRogueSpriteRenderer()
-    {
-        myRogueSpriteRenderer.gameObject.SetActive(Exposed);
-        myRogueSpriteRenderer.MySprite = GetCurrentSprite();
-        myRogueSpriteRenderer.StackSize = StackSize;
-        if(MyInventory) MyInventory.UpdateInventoryGUI(MyInventory.GetItemIndex(this));
-    }
-
-    /// <summary>
-    /// Returns the current sprite that should be shown by this object based on the values.
-    /// </summary>
-    /// <returns>The Sprite that should be renderered.</returns>
-    public virtual Sprite GetCurrentSprite()
-    {
-        if (SpriteToggle && ItemSprite2)
-        {
-            return ItemSprite2;
-        }
-        else
-        {
-            return ItemSprite1;
         }
     }
 
@@ -370,6 +318,106 @@ public abstract class RoguelikeObject : MonoBehaviour
     }
 
     /// <summary>
+    /// when this function is called, MyRogueSpriteRenderer is updated based on the objects current values (GetCurrentSprite(), Exposed, ect.)
+    /// </summary>
+    public void UpdateRogueSpriteRenderer()
+    {
+        myRogueSpriteRenderer.gameObject.SetActive(Exposed);
+        myRogueSpriteRenderer.MySprite = GetCurrentSprite();
+        myRogueSpriteRenderer.StackSize = StackSize;
+        if (MyInventory) MyInventory.UpdateInventoryGUI(MyInventory.GetItemIndex(this));
+    }
+
+    /// <summary>
+    /// A coroutine that toggles the between the object's srites.
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator ToggleRogulikeObjectSprites()
+    {
+        while (true)
+        {
+            SpriteToggle = !SpriteToggle;
+            yield return new WaitForSeconds(AnimationSpeed);
+        }
+    }
+    
+    /// <summary>
+    /// Get the current position of this object.
+    /// </summary>
+    /// <returns></returns>
+    public Vector2Int GetPosition()
+    {
+        return new Vector2Int((int)transform.position.x, (int)transform.position.y);
+    }
+
+    /// <summary>
+    /// Get the current position plus the supplied offset.
+    /// </summary>
+    /// <param name="offset"></param>
+    /// <returns></returns>
+    public Vector2Int GetPositionOffset(Vector2Int offset)
+    {
+        return GetPosition() + offset;
+    }
+
+    /// <summary>
+    /// Called when the item is first created.
+    /// </summary>
+    public virtual void Initialize()
+    {
+        ItemSprite1 = itemSprite1;
+        Health = HealthMax;
+    }
+
+    /// <summary>
+    /// This function is used to get the name of an object as it appears in game. This will be generated differently depending on the child object.
+    /// For Example, a weapon may return its objectName appended with +<echantmentLevel> to indicate that it is enchanted. "Iron Sword +2"
+    /// </summary>
+    /// <returns>The name of the RoguelikeObject as it appears in game.</returns>
+    public virtual string GetFullName()
+    {
+        //return the plural version if applicable.
+        if(stackSize > 1)
+        {
+            return (StackSize) + " " + ObjectName + "s";
+        }
+        return ObjectName;
+    }
+    
+    /// <summary>
+    /// Returns the current sprite that should be shown by this object based on the values.
+    /// </summary>
+    /// <returns>The Sprite that should be renderered.</returns>
+    public virtual Sprite GetCurrentSprite()
+    {
+        if (SpriteToggle && ItemSprite2)
+        {
+            return ItemSprite2;
+        }
+        else
+        {
+            return ItemSprite1;
+        }
+    }
+
+    /// <summary>
+    /// Called once per game step
+    /// </summary>
+    public virtual void Step()
+    {
+
+    }
+
+    /// <summary>
+    /// Called when the object's health = 0
+    /// </summary>
+    public virtual void Die()
+    {
+        health = HealthMax;
+        StackSize--;
+    }
+
+    /// <summary>
     /// Called when this RoguelikeObject is created.
     /// </summary>
     public virtual void OnCreate()
@@ -387,28 +435,5 @@ public abstract class RoguelikeObject : MonoBehaviour
         Assert.IsTrue(MyInventory.RemoveItem(this), "The roguelikeObject is not in it's own MyInventory upon attempting to delete itself.");
         Assert.IsTrue(roguelikeObjectList.Remove(this), "The roguelikeObject being destroyed was not in the RoguelikeObjectList upon being destroyed. Something is terribly wrong.");
         Destroy(this.gameObject);
-    }
-
-    /// <summary>
-    /// A coroutine that toggles the between the object's srites.
-    /// </summary>
-    /// <returns></returns>
-    IEnumerator ToggleRogulikeObjectSprites()
-    {
-        while (true)
-        {
-            SpriteToggle = !SpriteToggle;
-            yield return new WaitForSeconds(AnimationSpeed);
-        }
-    }
-
-    public Vector2Int GetPosition()
-    {
-        return new Vector2Int((int)transform.position.x, (int)transform.position.y);
-    }
-
-    public Vector2Int GetPositionOffset(Vector2Int offset)
-    {
-        return GetPosition() + offset;
     }
 }
