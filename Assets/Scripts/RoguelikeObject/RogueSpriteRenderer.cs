@@ -23,8 +23,24 @@ public class RogueSpriteRenderer : MonoBehaviour
     /// </summary>
     private Sprite debugSprite;
 
+    public void CopyValues(RogueSpriteRenderer source)
+    {
+        StackSize = source.StackSize;
+        MySprite = source.MySprite;
+        Dead = source.Dead;
+    }
+
+    public void ClearValues()
+    {
+        StackSize = 0;
+        MySprite = null;
+        Dead = false;
+    }
+
+    private int stackSize = 0;
     public int StackSize
     {
+        get => stackSize;
         set
         {
             stackNumberEntry.maxSize.x = mySpriteRenderer.bounds.size.x *.9f;
@@ -38,11 +54,14 @@ public class RogueSpriteRenderer : MonoBehaviour
                 stackNumberEntry.SetText(value.ToString());
             }
             stackNumberEntry.gameObject.transform.position = this.transform.position + new Vector3(0, stackNumberEntry.GetDimensions().y + mySpriteRenderer.bounds.size.y * .1f, 0);
+            stackSize = value;
         }
     }
 
+    private Sprite mySprite = null;
     public Sprite MySprite
     {
+        get => mySprite;
         set
         {
             if(value != null)
@@ -53,6 +72,18 @@ public class RogueSpriteRenderer : MonoBehaviour
             {
                 mySpriteRenderer.sprite = debugSprite;
             }
+            mySprite = value;
+        }
+    }
+
+    private bool dead = false;
+    public bool Dead
+    {
+        get => dead;
+        set
+        {
+            deathSpriteRenderer.gameObject.SetActive(value);
+            dead = value;
         }
     }
 
@@ -62,13 +93,6 @@ public class RogueSpriteRenderer : MonoBehaviour
         set => sortingGroup.sortingOrder = value;
     }
 
-    public bool Dead
-    {
-        set
-        {
-            deathSpriteRenderer.gameObject.SetActive(value);
-        }
-    }
 
     void Update()
     {

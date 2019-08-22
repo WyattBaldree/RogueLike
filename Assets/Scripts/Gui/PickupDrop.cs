@@ -181,9 +181,8 @@ public class PickupDrop : MonoBehaviour
             {
                 if (myIndex >= myInventoryGUI.targetInventory.inventoryCapacity || myInventoryGUI.targetInventory.GetItem(myIndex) == null)
                 {
-                    itemSpriteRenderer.MySprite = null;
                     itemSpriteRenderer.gameObject.SetActive(false);
-                    itemSpriteRenderer.StackSize = 0;
+                    itemSpriteRenderer.ClearValues();
                     return;
                 }
 
@@ -191,15 +190,13 @@ public class PickupDrop : MonoBehaviour
 
                 if (item)
                 {
-                    itemSpriteRenderer.MySprite = item.GetCurrentSprite();
-                    itemSpriteRenderer.StackSize = item.StackSize;
+                    itemSpriteRenderer.CopyValues(item.myRogueSpriteRenderer);
                 }
             }
             else
             {
-                itemSpriteRenderer.MySprite = null;
                 itemSpriteRenderer.gameObject.SetActive(false);
-                itemSpriteRenderer.StackSize = 0;
+                itemSpriteRenderer.ClearValues();
             }
 
         }
@@ -261,16 +258,6 @@ public class PickupDrop : MonoBehaviour
             itemSpriteRenderer.gameObject.transform.position = GameController.GetMousePosition();
         }
     }
-
-    //[Remove?]
-    /*/// <summary>
-    /// Set the item sprite
-    /// </summary>
-    /// <param name="s"></param>
-    public void SetSprite(Sprite s)
-    {
-        itemSpriteRenderer.sprite = s;
-    }*/
 
     private void OnValidate()
     {

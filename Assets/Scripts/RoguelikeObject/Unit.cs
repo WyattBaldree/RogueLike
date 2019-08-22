@@ -49,12 +49,12 @@ public class Unit : WorldObject
         set
         {
             dead = value;
-            myRogueSpriteRenderer.Dead = dead;
+            UpdateRogueSpriteRenderer();
         }
     }
 
     //our current speed counter. When this reaches 0, take an action.
-    private int stepCounter = 0;
+    private int turnCounter = 0;
 
     /// <summary>
     /// Returns the direction that we want to move in as a Vector2Int
@@ -197,13 +197,16 @@ public class Unit : WorldObject
     {
         if (attackTarget)
         {
-            int damageOutput = 1;
-            attackTarget.Health -= damageOutput;
             Vector2Int positionDelta = attackTarget.GetPosition() - GetPosition();
             myRogueSpriteRenderer.StartAnimation(RogueSpriteRenderer.AnimationStateEnum.BounceAnimation, 7, positionDelta.x, positionDelta.y, 1.2f);
-            attackTarget.myRogueSpriteRenderer.StartAnimation(RogueSpriteRenderer.AnimationStateEnum.BounceAnimation, 7, positionDelta.x, positionDelta.y, .3f);
-            GetLogController().NewEntry("<d>The " + GetFullName() + "<d> attacks " + attackTarget.GetFullName() + "<d> for <color.red>" + damageOutput + "<d> damage.");
-            return true;
+
+            if (!attackTarget.AttemptDodge(this))
+            {
+                int damageOutput = 1;
+                GetLogController().NewEntry("<d>The " + GetFullName() + "<d> attacks the " + attackTarget.GetFullName() + "<d> for <color.red>" + damageOutput + "<d> damage.");
+                attackTarget.TakeDamage(this, damageOutput);
+                return true;
+            }
         }
         return false;
     }
@@ -213,6 +216,8 @@ public class Unit : WorldObject
     /// </summary>
     protected virtual void TakeTurn()
     {
+        if (Dead) return;
+
         //figure out which direction we want to move
         Vector2Int moveDirection = GetMoveDirection();
 
@@ -227,22 +232,40 @@ public class Unit : WorldObject
         }
         else
         {
+            GetLogController().NewEntry("<d>The " + GetFullName() + "<d> dies...<color.red><size.13> HORRIBLY<d>.");
             Dead = true;
             Health = HealthMax;
+            Take(GetInventoryBelow());
         }
+    }
+
+    public override void UpdateRogueSpriteRenderer()
+    {
+        myRogueSpriteRenderer.Dead = dead;
+        base.UpdateRogueSpriteRenderer();
     }
 
     public override void Step()
     {
         base.Step();
-        stepCounter--;
-        if (stepCounter < 0)
+        turnCounter--;
+        if (turnCounter < 0)
         {
             //Readjust our speed after we take our action. !!!!placeholder. this should be dependant on the action taken.!!!!!
-            stepCounter += 20 - speed;
+            turnCounter += 20 - speed;
 
             TakeTurn();
         }
+    }
+
+    public override bool AttemptDodge(RoguelikeObject source)
+    {
+        if(Random.Range(0, 2) == 1)
+        {
+            Dodge(source);
+            return true;
+        }
+        return false;
     }
     
     public override Inventory GetWorldObjectInventory(Vector2Int pos)

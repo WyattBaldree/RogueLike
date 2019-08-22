@@ -100,7 +100,7 @@ public class Player : Unit
     {
         //base.PickUp();
         //inventory.ShowInventoryGUI();
-        GetPopupController().containerGUI.Popup(new Vector2(), GetInventoryBelow());
+        GetPopupController().containerGUI.Popup(new Vector2(0, 0), GetInventoryBelow());
     }
 
     public override void Initialize()
@@ -124,6 +124,8 @@ public class Player : Unit
 
     protected override void TakeTurn()
     {
+        if (Dead) return;
+
         //take turn
         UnitController unitController = GetUnitController();
         unitController.gameState = UnitController.GameStateEnum.playerTurn;

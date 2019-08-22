@@ -65,8 +65,7 @@ MonoBehaviour:
   worldSprite2: {fileID: 2111111184775580604, guid: 67281747d92aa4743a79667a79a63226,
     type: 3}
   pathfindingCost: 3.4028235e+38
-  unitTnventory: {fileID: 5475488527503361341, guid: 052d3fad934dba347bfd843798fd3038,
-    type: 3}
+  unitTnventory: {fileID: 2354240213092605224}
   speed: 5
   burrower: 0
   dead: 0

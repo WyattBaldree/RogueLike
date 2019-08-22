@@ -318,17 +318,6 @@ public abstract class RoguelikeObject : MonoBehaviour
     }
 
     /// <summary>
-    /// when this function is called, MyRogueSpriteRenderer is updated based on the objects current values (GetCurrentSprite(), Exposed, ect.)
-    /// </summary>
-    public void UpdateRogueSpriteRenderer()
-    {
-        myRogueSpriteRenderer.gameObject.SetActive(Exposed);
-        myRogueSpriteRenderer.MySprite = GetCurrentSprite();
-        myRogueSpriteRenderer.StackSize = StackSize;
-        if (MyInventory) MyInventory.UpdateInventoryGUI(MyInventory.GetItemIndex(this));
-    }
-
-    /// <summary>
     /// A coroutine that toggles the between the object's srites.
     /// </summary>
     /// <returns></returns>
@@ -361,12 +350,47 @@ public abstract class RoguelikeObject : MonoBehaviour
     }
 
     /// <summary>
+    /// Deal damage to the roguelikeObject
+    /// </summary>
+    /// <param name="source"></param>
+    /// <param name="damage"></param>
+    /// <returns></returns>
+    public bool TakeDamage(RoguelikeObject source, int damage)
+    {
+        bool didKill = false;
+        if (damage >= Health)
+        {
+            didKill = true;
+        }
+
+        if (source)
+        {
+            Vector2Int positionDelta = GetPosition() - source.GetPosition();
+            myRogueSpriteRenderer.StartAnimation(RogueSpriteRenderer.AnimationStateEnum.BounceAnimation, 7, positionDelta.x, positionDelta.y, .4f);
+        }
+
+        Health -= damage;
+        return didKill;
+    }
+
+    /// <summary>
     /// Called when the item is first created.
     /// </summary>
     public virtual void Initialize()
     {
         ItemSprite1 = itemSprite1;
         Health = HealthMax;
+    }
+
+    /// <summary>
+    /// when this function is called, MyRogueSpriteRenderer is updated based on the objects current values (GetCurrentSprite(), Exposed, ect.)
+    /// </summary>
+    public virtual void UpdateRogueSpriteRenderer()
+    {
+        myRogueSpriteRenderer.gameObject.SetActive(Exposed);
+        myRogueSpriteRenderer.MySprite = GetCurrentSprite();
+        myRogueSpriteRenderer.StackSize = StackSize;
+        if (MyInventory) MyInventory.UpdateInventoryGUI(MyInventory.GetItemIndex(this));
     }
 
     /// <summary>
@@ -415,6 +439,29 @@ public abstract class RoguelikeObject : MonoBehaviour
     {
         health = HealthMax;
         StackSize--;
+    }
+
+    /// <summary>
+    /// Attempt to dodge an attack. Return true if we were able to dodge.
+    /// </summary>
+    /// <returns></returns>
+    public virtual bool AttemptDodge(RoguelikeObject source)
+    {
+        return false;
+    }
+
+    /// <summary>
+    /// Dodge the attack from the source object.
+    /// </summary>
+    /// <param name="source"></param>
+    public virtual void Dodge(RoguelikeObject source)
+    {
+        if (source)
+        {
+            Vector2Int positionDelta = GetPosition() - source.GetPosition();
+            myRogueSpriteRenderer.StartAnimation(RogueSpriteRenderer.AnimationStateEnum.BounceAnimation, 7, positionDelta.y, positionDelta.x, .7f);
+            GetLogController().NewEntry("<d>The " + GetFullName() + "<d> dodges the attack of the " + source.GetFullName() + "<d>.");
+        }
     }
 
     /// <summary>
