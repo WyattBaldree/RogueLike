@@ -66,9 +66,13 @@
     <Compile Include="Assets\Scripts\Controllers\ItemController.cs" />
     <Compile Include="Assets\Scripts\Controllers\LogController.cs" />
     <Compile Include="Assets\Scripts\Controllers\MapController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\MouseInputController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\MouseInteractive.cs" />
     <Compile Include="Assets\Scripts\Controllers\PopupController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\TestMouseInteractive.cs" />
     <Compile Include="Assets\Scripts\Controllers\UnitController.cs" />
     <Compile Include="Assets\Scripts\Controllers\WallController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\WorldGridController.cs" />
     <Compile Include="Assets\Scripts\Darkness.cs" />
     <Compile Include="Assets\Scripts\Gui\Button.cs" />
     <Compile Include="Assets\Scripts\Gui\CharacterContainer.cs" />
@@ -85,6 +89,7 @@
     <Compile Include="Assets\Scripts\Gui\TabGroup.cs" />
     <Compile Include="Assets\Scripts\Gui\TestGUI.cs" />
     <Compile Include="Assets\Scripts\Gui\Window.cs" />
+    <Compile Include="Assets\Scripts\Gui\WorldGridInstance.cs" />
     <Compile Include="Assets\Scripts\Gui\triggerOnEnableInventoryTab.cs" />
     <Compile Include="Assets\Scripts\Healthbar.cs" />
     <Compile Include="Assets\Scripts\Helper.cs" />

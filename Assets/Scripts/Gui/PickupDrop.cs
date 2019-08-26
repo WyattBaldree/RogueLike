@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Assertions;
 
-public class PickupDrop : MonoBehaviour
+public class PickupDrop : MouseInteractive
 {
     //This class is used to make pickup and drop zones.
     //For example, the inventory is made from these and the equipment menu is made of these.
@@ -224,7 +224,7 @@ public class PickupDrop : MonoBehaviour
         UpdateSprite();
     }
 
-    private void OnMouseDown()
+    public override void CustomOnLeftMouseDown()
     {
         Pickup();
     }
@@ -234,7 +234,7 @@ public class PickupDrop : MonoBehaviour
         Drop();
     }
 
-    private void OnMouseEnter()
+    public override void CustomOnMouseEnter()
     {
         if (disabled || hidden) return;
         mouseHovering = true;
@@ -242,7 +242,7 @@ public class PickupDrop : MonoBehaviour
         UpdateSprite();
     }
 
-    private void OnMouseExit()
+    public override void CustomOnMouseExit()
     {
         if (disabled || hidden) return;
         mouseHovering = false;

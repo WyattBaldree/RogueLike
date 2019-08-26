@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour
     private static LogController logC = null;
     private static PopupController popupC = null;
     private static GUIController guiC = null;
+    private static WorldGridController worldGridC = null;
 
     // All of the controller instances in the scene.
     [Header("Controllers")]
@@ -24,6 +25,7 @@ public class GameController : MonoBehaviour
     public LogController logControllerInstance;
     public PopupController popupControllerInstance;
     public GUIController guiControllerInstance;
+    public WorldGridController worldGridControllerInstance;
 
     [Header("Misc")]
     public bool debug = false;
@@ -63,6 +65,7 @@ public class GameController : MonoBehaviour
         logC = logControllerInstance;
         popupC = popupControllerInstance;
         guiC = guiControllerInstance;
+        worldGridC = worldGridControllerInstance;
 
         //Initalize the controllers that require initialization
         logC.Initialize();
@@ -70,6 +73,8 @@ public class GameController : MonoBehaviour
         wallC.Initialize();
         itemC.Initialize();
         unitC.Initialize();
+
+        worldGridC.Initialize();
 
         CreateTestMap();
         floorC.UpdateAllFloorSprites();

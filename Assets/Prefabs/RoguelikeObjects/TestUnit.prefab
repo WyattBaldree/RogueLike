@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tags: 00000000
   uniqueID: TestUnit
-  objectName: Test Unit
+  objectName: Rat
   description: This is a test unit.
   myRogueSpriteRenderer: {fileID: 731740223531060445}
   itemSprite1: {fileID: 5463394359280153809, guid: c5abdbe5925046745aac14dfb8de4eae,
