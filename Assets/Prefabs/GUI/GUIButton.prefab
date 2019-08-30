@@ -89,8 +89,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021406422784339960}
-  - component: {fileID: 7021406422784339961}
   - component: {fileID: 7021406422784339910}
+  - component: {fileID: 7021406422784339961}
   - component: {fileID: 7018580525200347262}
   m_Layer: 0
   m_Name: GUIButton
@@ -114,6 +114,42 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7021406422784339910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7021406422784339911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5abee5d9bd9bb3f48a5438644433b4ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  horizontalAlignment: 0
+  verticalAlignment: 2
+  maxSize: {x: 0, y: 0}
+  minSize: {x: 0, y: 0}
+  myCollider: {fileID: 7021406422784339961}
+  buttonSpriteRenderer: {fileID: 7021406422447011745}
+  spriteOut: {fileID: 0}
+  spriteOutHighlight: {fileID: 0}
+  spriteOutDisabled: {fileID: 0}
+  spriteIn: {fileID: 0}
+  spriteInHighlight: {fileID: 0}
+  spriteInDisabled: {fileID: 0}
+  toggle: 0
+  disabled: 0
+  pressEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  releaseEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!61 &7021406422784339961
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -140,42 +176,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &7021406422784339910
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7021406422784339911}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5abee5d9bd9bb3f48a5438644433b4ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxSize: {x: 0, y: 0}
-  minSize: {x: 0, y: 0}
-  horizontalAlignment: 0
-  verticalAlignment: 2
-  buttonSpriteRenderer: {fileID: 7021406422447011745}
-  collider: {fileID: 7021406422784339961}
-  spriteOut: {fileID: 0}
-  spriteOutHighlight: {fileID: 0}
-  spriteOutDisabled: {fileID: 0}
-  spriteIn: {fileID: 0}
-  spriteInHighlight: {fileID: 0}
-  spriteInDisabled: {fileID: 0}
-  toggle: 0
-  disabled: 0
-  pressEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  releaseEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!210 &7018580525200347262
 SortingGroup:
   m_ObjectHideFlags: 0

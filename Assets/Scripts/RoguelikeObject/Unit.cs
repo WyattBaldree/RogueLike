@@ -9,12 +9,6 @@ public class Unit : WorldObject
     public static List<Unit> unitList = new List<Unit>();
 
     [Header("Unit")]
-    [SerializeField]
-    private Inventory unitTnventory;
-    /// <summary>
-    /// The inventory of this unit.
-    /// </summary>
-    public Inventory UnitInventory { get => unitTnventory; }
 
     [SerializeField]
     private int speed = 5;

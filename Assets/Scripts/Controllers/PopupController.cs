@@ -9,6 +9,7 @@ public class PopupController : MonoBehaviour
     private List<GUIPopup> popupStack = new List<GUIPopup>();
 
     public ContainerGUI containerGUI;
+    public ContextMenuGUI contextMenuGUI;
 
     public void PopupOpened(GUIPopup popup)
     {

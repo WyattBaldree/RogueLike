@@ -60,12 +60,12 @@ MonoBehaviour:
   goldValue: 1
   flammable: 0
   explosive: 0
+  myTnventory: {fileID: 7442673971969599772}
   worldSprite1: {fileID: -2554384418998969393, guid: f12372ca9b4f9964286dfb431a55497e,
     type: 3}
   worldSprite2: {fileID: 6881961456107711280, guid: 1c484c1ea2e9a60458b9bd432334808f,
     type: 3}
   pathfindingCost: 3.4028235e+38
-  unitTnventory: {fileID: 7442673971969599772}
   speed: 5
   burrower: 0
   dead: 0

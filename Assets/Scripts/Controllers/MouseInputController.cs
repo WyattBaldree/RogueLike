@@ -6,10 +6,16 @@ using UnityEngine.Events;
 
 public class MouseInputController : MonoBehaviour
 {
+    public static List<MouseInteractive> mouseInteractives = new List<MouseInteractive>();
     List<MouseInteractive> overList = new List<MouseInteractive>();
 
     private bool leftMouseDown;
     private bool rightMouseDown;
+
+    private void Awake()
+    {
+        mouseInteractives.Clear();
+    }
 
     // Update is called once per frame
     void Update()
@@ -23,8 +29,7 @@ public class MouseInputController : MonoBehaviour
         {
             if (!leftMouseDown)
             {
-                if(overList.Count > 0) overList[0].CustomOnLeftMouseDown();
-                leftMouseDown = true;
+                OnLeftClick();
             }
         }
         else
@@ -80,7 +85,7 @@ public class MouseInputController : MonoBehaviour
             {
                 //The new list no longer has this entry
                 //This interactive ahs been exited
-                existingMI.CustomOnMouseExit();
+                if (existingMI) existingMI.CustomOnMouseExit();
             }
         }
 
@@ -90,10 +95,22 @@ public class MouseInputController : MonoBehaviour
             {
                 //The existing list does not contain this new interactive
                 //this interactive has been entered
-                newMI.CustomOnMouseEnter();
+                if (newMI) newMI.CustomOnMouseEnter();
             }
         }
 
         overList = newOverList;
+    }
+
+    private void OnLeftClick()
+    {
+        if (overList.Count > 0) overList[0].CustomOnLeftMouseDown();
+
+        foreach(MouseInteractive mi in mouseInteractives)
+        {
+            if (overList.Contains(mi) == false) mi.CustomOnMouseClickedOutside();
+        }
+
+        leftMouseDown = true;
     }
 }

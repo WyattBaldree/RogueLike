@@ -13,7 +13,7 @@ public class Inventory : MonoBehaviour
     public int inventoryCapacity = 80;
 
     ///The gui we are currently hooked up to
-    public InventoryGUI myInventoryGUI;
+    public List<InventoryGUI> myInventoryGUIs = new List<InventoryGUI>();
 
     public string inventoryName = "default inventory";
 
@@ -113,7 +113,7 @@ public class Inventory : MonoBehaviour
         if (amount >= sourceItem.StackSize)
         {
             newStack = sourceItem;
-            if(newStack.MyInventory) newStack.MyInventory.RemoveItem(newStack);
+            if(newStack.ParentInventory) newStack.ParentInventory.RemoveItem(newStack);
         }
         else
         {
@@ -138,7 +138,7 @@ public class Inventory : MonoBehaviour
         newStack.transform.position = transform.position;
         newStack.transform.SetParent(gameObject.transform);
 
-        newStack.MyInventory = this;
+        newStack.ParentInventory = this;
         UpdateInventoryGUI(index);
         return newStack;
     }
@@ -310,9 +310,9 @@ public class Inventory : MonoBehaviour
     /// </summary>
     public void UpdateInventoryGUI(int index = -1)
     {
-        if (myInventoryGUI)
+        foreach(InventoryGUI gui in myInventoryGUIs)
         {
-            myInventoryGUI.UpdateFrameContent(index);
+            gui.UpdateFrameContent(index);
         }
     }
 }

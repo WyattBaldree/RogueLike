@@ -90,6 +90,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5641346981199709123}
   - component: {fileID: 7428790214194941017}
+  - component: {fileID: -7084016875714183532}
   - component: {fileID: -5699820052930330283}
   m_Layer: 0
   m_Name: WindowGUI
@@ -125,12 +126,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea2dae3475942f44185ba669594a1b1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSize: {x: 6.51, y: 6.43}
-  minSize: {x: 0, y: 0}
   horizontalAlignment: 0
   verticalAlignment: 2
+  maxSize: {x: 6.51, y: 6.43}
+  minSize: {x: 0, y: 0}
+  myCollider: {fileID: -7084016875714183532}
   backgroundSpriteRenderer: {fileID: 6079537925904558639}
   borderSize: {x: 0, y: 0}
+--- !u!61 &-7084016875714183532
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7761737987780160832}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!210 &-5699820052930330283
 SortingGroup:
   m_ObjectHideFlags: 0

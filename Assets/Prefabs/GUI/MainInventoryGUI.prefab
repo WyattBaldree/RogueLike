@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6193898851668122727}
   - component: {fileID: 1356086442712527106}
+  - component: {fileID: -3836145018261202952}
   - component: {fileID: 8750353820824978038}
   m_Layer: 0
   m_Name: MainInventoryGUI
@@ -48,6 +49,7 @@ MonoBehaviour:
   verticalAlignment: 1
   maxSize: {x: 8.1, y: 15.46}
   minSize: {x: 0, y: 0}
+  myCollider: {fileID: -3836145018261202952}
   targetInventory: {fileID: 0}
   separation: {x: 0.15, y: 0.15}
   scale: 1.885
@@ -56,6 +58,32 @@ MonoBehaviour:
   scrollAmount: 0
   pickupDropSource: {fileID: 4930997810015011465, guid: ce2f3d1c82f420f48861c4354dea1747,
     type: 3}
+--- !u!61 &-3836145018261202952
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6193898851668122724}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!210 &8750353820824978038
 SortingGroup:
   m_ObjectHideFlags: 0

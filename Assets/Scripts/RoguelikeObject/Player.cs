@@ -107,7 +107,7 @@ public class Player : Unit
     {
         base.Initialize();
         GetUnitController().player = this;
-        GetGUIController().mainInventoryGUI.ConnectToInventory(UnitInventory);
+        GetGUIController().mainInventoryGUI.ConnectToInventory(MyInventory);
     }
 
     public override bool MoveToLocation(Vector2Int targetDestination)

@@ -105,7 +105,7 @@ public abstract class WorldObject : RoguelikeObject
             //Get the inventory that we will be moving the object into (as determined by the implementation).
             Inventory targetInventory = GetWorldObjectInventory(pos);
             //Move the item into that inventory. This will automatically move the WorldObject to that inventory's location.
-            MyInventory.MoveItem(this, targetInventory, 1);
+            ParentInventory.MoveItem(this, targetInventory, 1);
             return true;
         }
         else
@@ -128,11 +128,11 @@ public abstract class WorldObject : RoguelikeObject
         //Attempt to move the worldObject
         if (index < 0)
         {
-            wasAddedToInventory = MyInventory.MoveItem(this, targetInventory);
+            wasAddedToInventory = ParentInventory.MoveItem(this, targetInventory);
         }
         else
         {
-            wasAddedToInventory = MyInventory.MoveItem(this, targetInventory, index, -1);
+            wasAddedToInventory = ParentInventory.MoveItem(this, targetInventory, index, -1);
         }
 
         //Update placed
@@ -210,7 +210,7 @@ public abstract class WorldObject : RoguelikeObject
             {
                 Vector2Int positionDelta = targetDestination - GetPosition();
                 myRogueSpriteRenderer.StartAnimation(RogueSpriteRenderer.AnimationStateEnum.MoveAnimation, 7, positionDelta.x, positionDelta.y, 1f);
-                MyInventory.MoveItem(this, GetWorldObjectInventory(targetDestination));
+                ParentInventory.MoveItem(this, GetWorldObjectInventory(targetDestination));
             }
             else
             {

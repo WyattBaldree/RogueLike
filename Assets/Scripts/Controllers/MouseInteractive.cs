@@ -5,6 +5,16 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public abstract class MouseInteractive : MonoBehaviour
 {
+    public void Start()
+    {
+        MouseInputController.mouseInteractives.Add(this);
+    }
+
+    public void OnDestroy()
+    {
+        MouseInputController.mouseInteractives.Remove(this);
+    }
+
     public virtual void CustomOnMouseEnter() { }
     public virtual void CustomOnMouseExit() { }
 
@@ -13,4 +23,6 @@ public abstract class MouseInteractive : MonoBehaviour
 
     public virtual void CustomOnRightMouseDown() { }
     public virtual void CustomOnRightMouseUp() { }
+
+    public virtual void CustomOnMouseClickedOutside() { }
 }

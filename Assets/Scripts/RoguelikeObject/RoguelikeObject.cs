@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using static GameController;
 
-public abstract class RoguelikeObject : MonoBehaviour
+public abstract class RoguelikeObject : Interactive
 {
     /* The RoguelikeObject class represents any object that can be interacted with in the world.
      * All RoguelikeObjects can be added to an inventory including the player's inventory, containers, and any ground space.
@@ -175,6 +175,7 @@ public abstract class RoguelikeObject : MonoBehaviour
                 return;
             }
             stackSize = Mathf.Clamp(value, 0, StackSizeMax);
+            UpdateRogueSpriteRenderer();
         }
     }
 
@@ -236,16 +237,23 @@ public abstract class RoguelikeObject : MonoBehaviour
         set => explosive = value;
     }
     
-    private Inventory myInventory;
+    private Inventory parentInventory;
     /// <summary>
     /// The inventory we are currently located in.
     /// </summary>
-    public Inventory MyInventory
+    public Inventory ParentInventory
     {
-        get => myInventory;
-        set => myInventory = value;
+        get => parentInventory;
+        set => parentInventory = value;
     }
-    
+
+    [SerializeField]
+    private Inventory myTnventory;
+    /// <summary>
+    /// The internal inventory of this object.
+    /// </summary>
+    public Inventory MyInventory { get => myTnventory; }
+
     private bool exposed = false;
     /// <summary>
     /// This boolean represents wether this object is currently in an external or internal inventory.
@@ -373,6 +381,14 @@ public abstract class RoguelikeObject : MonoBehaviour
         return didKill;
     }
 
+    public void OpenInventory()
+    {
+        if (MyInventory)
+        {
+            GetPopupController().containerGUI.Popup(GetPosition(), myTnventory);
+        }
+    }
+
     /// <summary>
     /// Called when the item is first created.
     /// </summary>
@@ -390,7 +406,7 @@ public abstract class RoguelikeObject : MonoBehaviour
         myRogueSpriteRenderer.gameObject.SetActive(Exposed);
         myRogueSpriteRenderer.MySprite = GetCurrentSprite();
         myRogueSpriteRenderer.StackSize = StackSize;
-        if (MyInventory) MyInventory.UpdateInventoryGUI(MyInventory.GetItemIndex(this));
+        if (ParentInventory) ParentInventory.UpdateInventoryGUI(ParentInventory.GetItemIndex(this));
     }
 
     /// <summary>
@@ -479,8 +495,23 @@ public abstract class RoguelikeObject : MonoBehaviour
     public virtual void DestroyObject()
     {
         //If we ever try to delete a roguelikeObject and it is not in "MyInventory" something is terribly wrong.
-        Assert.IsTrue(MyInventory.RemoveItem(this), "The roguelikeObject is not in it's own MyInventory upon attempting to delete itself.");
+        Assert.IsTrue(ParentInventory.RemoveItem(this), "The roguelikeObject is not in it's own MyInventory upon attempting to delete itself.");
         Assert.IsTrue(roguelikeObjectList.Remove(this), "The roguelikeObject being destroyed was not in the RoguelikeObjectList upon being destroyed. Something is terribly wrong.");
         Destroy(this.gameObject);
+    }
+
+    public override List<Interaction> GetInteractions()
+    {
+        List<Interaction> newInteractionList = new List<Interaction>();
+
+        newInteractionList.Add(new Interaction("<color.red>Kill", "Kill the object.", Die));
+        if(MyInventory) newInteractionList.Add(new Interaction("Open Inventory", "Opens the object's inventory.", OpenInventory));
+
+        return newInteractionList;
+    }
+
+    public override string GetInteractiveName()
+    {
+        return GetFullName();
     }
 }

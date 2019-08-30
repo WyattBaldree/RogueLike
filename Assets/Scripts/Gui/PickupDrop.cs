@@ -84,8 +84,8 @@ public class PickupDrop : MouseInteractive
     {
         if (disabled || hidden) return;
         held = true;
-        home = itemSpriteRenderer.gameObject.transform.position;
-        itemSpriteRenderer.SortingOrder++;
+        itemSpriteRenderer.transform.parent = null;
+        itemSpriteRenderer.transform.position = new Vector3(itemSpriteRenderer.transform.position.x, itemSpriteRenderer.transform.position.y, 0);
     }
 
     /// <summary>
@@ -129,10 +129,8 @@ public class PickupDrop : MouseInteractive
     void Drop()
     {
         held = false;
-
-        itemSpriteRenderer.gameObject.transform.position = backgroundSpriteRenderer.transform.position;//home;
-
-        itemSpriteRenderer.SortingOrder = defaultItemSortingOrder;
+        itemSpriteRenderer.gameObject.transform.position = backgroundSpriteRenderer.transform.position;
+        itemSpriteRenderer.transform.parent = this.transform;
 
         if (!disabled && !hidden) DropItem();
     }
@@ -255,7 +253,8 @@ public class PickupDrop : MouseInteractive
         //if we are held, let our item sprite renderere follow the movement of the mouse.
         if (held)
         {
-            itemSpriteRenderer.gameObject.transform.position = GameController.GetMousePosition();
+            Vector3 mousePos = GameController.GetMousePosition();
+            itemSpriteRenderer.gameObject.transform.position = new Vector3(mousePos.x, mousePos.y, 0);
         }
     }
 
