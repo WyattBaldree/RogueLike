@@ -69,7 +69,7 @@ MonoBehaviour:
   waveCharacterSpacing: 12
   rainbowDuration: 80
   rainbowCharacterSpacing: 40
-  bounceWaitTime: 0.1
+  bounceWaitTime: 0.7
 --- !u!61 &-7673648173333576921
 BoxCollider2D:
   m_ObjectHideFlags: 0

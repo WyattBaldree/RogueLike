@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PopupController : MonoBehaviour
 {
-    public Vector2 popupBounds = new Vector2(10, 10);
+    public Vector2 popupBoundsWorld = new Vector2(10, 10);
+    public Vector2 popupBoundsScreen = new Vector2(11, 11);
 
     private List<GUIPopup> popupStack = new List<GUIPopup>();
 
@@ -24,10 +25,20 @@ public class PopupController : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         // Draws a box around our text box.
-        Vector2 dim = popupBounds;
+        Vector2 dim = popupBoundsWorld;
         float boxWidth = dim.x;
         float boxHeight = dim.y;
 
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(transform.position, transform.position + new Vector3(boxWidth, 0, 0));
+        Gizmos.DrawLine(transform.position, transform.position + new Vector3(0, -boxHeight, 0));
+        Gizmos.DrawLine(transform.position + new Vector3(0, -boxHeight, 0), transform.position + new Vector3(boxWidth, -boxHeight, 0));
+        Gizmos.DrawLine(transform.position + new Vector3(boxWidth, 0, 0), transform.position + new Vector3(boxWidth, -boxHeight, 0));
+
+
+        dim = popupBoundsScreen;
+        boxWidth = dim.x;
+        boxHeight = dim.y;
         Gizmos.color = Color.green;
         Gizmos.DrawLine(transform.position, transform.position + new Vector3(boxWidth, 0, 0));
         Gizmos.DrawLine(transform.position, transform.position + new Vector3(0, -boxHeight, 0));

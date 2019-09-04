@@ -9,6 +9,9 @@ public class WorldGridInstance : MouseInteractive
     SpriteRenderer mySpriteRenderer;
 
     [SerializeField]
+    Interactive worldGridInteractive;
+
+    [SerializeField]
     Sprite hoveredSprite;
 
     public override void CustomOnMouseEnter()
@@ -23,11 +26,6 @@ public class WorldGridInstance : MouseInteractive
 
     public override void CustomOnRightMouseDown()
     {
-        Vector2Int targetDestination = new Vector2Int((int)transform.position.x, (int)transform.position.y);
-        WorldObject targetObject = GetUnitController().GetUnit(targetDestination);
-        if (!targetObject) targetObject = GetWallController().GetWall(targetDestination);
-        if (!targetObject) targetObject = GetFloorController().GetFloor(targetDestination);
-
-        GetPopupController().contextMenuGUI.Popup(targetDestination, targetObject);
+        GetPopupController().contextMenuGUI.Popup(MouseInputController.GetMousePosition(), worldGridInteractive);
     }
 }

@@ -85,25 +85,6 @@ public class GameController : MonoBehaviour
         Pathfinding.GenerateFleePlayerMap();
     }
 
-    /// <summary>
-    /// Returns the mosue position on the screen.
-    /// </summary>
-    /// <returns></returns>
-    static public Vector3 GetMousePosition()
-    {
-        Camera cam = Camera.main;
-        
-        Event currentEvent = Event.current;
-        Vector2 mousePos = new Vector2();
-
-        // Get the mouse position from Event.
-        // Note that the y position from Event is inverted.
-        mousePos.x = Input.mousePosition.x;
-        mousePos.y = Input.mousePosition.y;
-
-        return cam.ScreenToWorldPoint(new Vector3(mousePos.x - 25f, mousePos.y - 25f, cam.nearClipPlane));
-    }
-
     public static GameController GetGameController()
     {
         return gameC;

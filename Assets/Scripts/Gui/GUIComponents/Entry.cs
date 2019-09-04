@@ -12,7 +12,7 @@ public class Entry : GUIComponent
     public CharacterContainer CharacterContainerClass = null;
 
     public string text;
-    List<CharacterContainer> containers;
+    List<CharacterContainer> containers = new List<CharacterContainer>();
     Font font;
     
     [SerializeField]
@@ -32,6 +32,16 @@ public class Entry : GUIComponent
     public float textBoxWidth;
 
     float defaultFontSize;
+
+    float animationTime = 0;
+    private void Update()
+    {
+        animationTime += Time.deltaTime;
+        foreach(CharacterContainer cc in containers)
+        {
+            cc.Animate(animationTime);
+        }
+    }
 
     public void SetText(string str, float tbw = -1, Font entryFont = null)
     {
@@ -272,11 +282,11 @@ public class Entry : GUIComponent
             }
             else if (anim == CharacterContainer.AnimationStateEnum.wave)
             {
-                newChar.StartAnimation(CharacterContainer.AnimationStateEnum.wave, (waveCharacterSpacing - 1 - (i % waveCharacterSpacing)) / (waveCharacterSpacing), 0.0f, waveCharacterSpacing / waveDuration, 0.0f, 3f, 1.0f);
+                newChar.StartAnimation(CharacterContainer.AnimationStateEnum.wave, (waveCharacterSpacing - 1 - (i % waveCharacterSpacing)) / (waveCharacterSpacing), 0.0f, waveCharacterSpacing / waveDuration, 0.0f, .4f, 1.0f);
             }
             else if (anim == CharacterContainer.AnimationStateEnum.bounce)
             {
-                newChar.StartAnimation(CharacterContainer.AnimationStateEnum.bounce, 0.0f, bounceWaitTime, 1.6f, 0.0f, .09f, 1.0f);
+                newChar.StartAnimation(CharacterContainer.AnimationStateEnum.bounce, 0.0f, bounceWaitTime, 3f, 0.0f, .25f, 1.0f);
             }
             else if (anim == CharacterContainer.AnimationStateEnum.rainbow)
             {

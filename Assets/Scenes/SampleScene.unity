@@ -954,6 +954,7 @@ GameObject:
   m_Component:
   - component: {fileID: 425691510}
   - component: {fileID: 425691511}
+  - component: {fileID: 425691512}
   m_Layer: 0
   m_Name: MainTabs
   m_TagString: Untagged
@@ -1010,6 +1011,17 @@ MonoBehaviour:
   - {fileID: 2120936415}
   - {fileID: 51796280}
   - {fileID: 904433416}
+--- !u!210 &425691512
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 425691509}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1001 &444003679
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2236,6 +2248,10 @@ PrefabInstance:
       propertyPath: popupControllerInstance
       value: 
       objectReference: {fileID: 1856351212318500935}
+    - target: {fileID: 100542552, guid: c7e1af0dba765fd4183f1b9dbdd2deb0, type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7e1af0dba765fd4183f1b9dbdd2deb0, type: 3}
 --- !u!4 &1294772169 stripped
@@ -3738,6 +3754,26 @@ PrefabInstance:
         type: 3}
       propertyPath: popupBounds.y
       value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 1222655378147893516, guid: 54dd2574d4c5ab44db6d4ccb8584d744,
+        type: 3}
+      propertyPath: popupBoundsWorld.x
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 1222655378147893516, guid: 54dd2574d4c5ab44db6d4ccb8584d744,
+        type: 3}
+      propertyPath: popupBoundsWorld.y
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 1222655378147893516, guid: 54dd2574d4c5ab44db6d4ccb8584d744,
+        type: 3}
+      propertyPath: popupBoundsScreen.x
+      value: 33.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 1222655378147893516, guid: 54dd2574d4c5ab44db6d4ccb8584d744,
+        type: 3}
+      propertyPath: popupBoundsScreen.y
+      value: 29.9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54dd2574d4c5ab44db6d4ccb8584d744, type: 3}

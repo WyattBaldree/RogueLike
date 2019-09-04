@@ -17,6 +17,18 @@ public class MouseInputController : MonoBehaviour
         mouseInteractives.Clear();
     }
 
+    /// <summary>
+    /// Returns the mosue position on the screen.
+    /// </summary>
+    /// <returns></returns>
+    static public Vector3 GetMousePosition()
+    {
+        Camera cam = Camera.main;
+        Vector2 mousePos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+
+        return cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, cam.nearClipPlane));
+    }
+
     // Update is called once per frame
     void Update()
     {

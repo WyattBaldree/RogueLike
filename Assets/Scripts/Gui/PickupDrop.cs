@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Assertions;
+using static GameController;
 
 public class PickupDrop : MouseInteractive
 {
@@ -227,6 +228,15 @@ public class PickupDrop : MouseInteractive
         Pickup();
     }
 
+    public override void CustomOnRightMouseDown()
+    {
+        RoguelikeObject item = myInventoryGUI.targetInventory.GetItem(myIndex);
+        if (item)
+        {
+            GetPopupController().contextMenuGUI.Popup(MouseInputController.GetMousePosition(), item);
+        }
+    }
+
     private void OnMouseUp()
     {
         Drop();
@@ -253,8 +263,9 @@ public class PickupDrop : MouseInteractive
         //if we are held, let our item sprite renderere follow the movement of the mouse.
         if (held)
         {
-            Vector3 mousePos = GameController.GetMousePosition();
-            itemSpriteRenderer.gameObject.transform.position = new Vector3(mousePos.x, mousePos.y, 0);
+            Vector3 mousePos = MouseInputController.GetMousePosition();
+            Vector2 spriteRendererSize = itemSpriteRenderer.GetDimensions();
+            itemSpriteRenderer.gameObject.transform.position = new Vector3(mousePos.x - (spriteRendererSize.x/2), mousePos.y - (spriteRendererSize.y / 2), 0);
         }
     }
 

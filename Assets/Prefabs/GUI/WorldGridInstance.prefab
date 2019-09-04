@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 461921308413517125}
   - component: {fileID: 4369721904378677445}
   - component: {fileID: 6560669622656106898}
+  - component: {fileID: -3732309262629049580}
   m_Layer: 0
   m_Name: WorldGridInstance
   m_TagString: Untagged
@@ -46,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mySpriteRenderer: {fileID: 6560669622656106898}
+  worldGridInteractive: {fileID: -3732309262629049580}
   hoveredSprite: {fileID: 21300052, guid: 69c9982adf2b9be428067b80a19408e0, type: 3}
 --- !u!61 &4369721904378677445
 BoxCollider2D:
@@ -122,3 +124,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-3732309262629049580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8064593363030095222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ffbabd25ae76c74db1ae6eb9744adbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -93,6 +93,11 @@ public class RogueSpriteRenderer : MonoBehaviour
         set => sortingGroup.sortingOrder = value;
     }
 
+    public Vector2 GetDimensions()
+    {
+        return mySpriteRenderer.bounds.size;
+    }
+
 
     void Update()
     {

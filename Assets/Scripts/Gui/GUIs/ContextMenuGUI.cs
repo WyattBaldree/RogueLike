@@ -93,7 +93,7 @@ public class ContextMenuGUI : GUIPopup
     {
         titleEntry.SetText("<d>" + targetInteractive.GetInteractiveName());
         LoadButtons(targetInteractive.GetInteractions());
-        Popup(targetPosition);
+        Popup(targetPosition, false);
     }
 
     public override void CustomOnMouseClickedOutside()
