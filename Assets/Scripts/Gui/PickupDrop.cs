@@ -116,7 +116,8 @@ public class PickupDrop : MouseInteractive
                 }
                 RoguelikeObject heldItem = inv.itemList[myIndex];
 
-                inv.MoveItem(myIndex, pd.myInventoryGUI.targetInventory, pd.myIndex, amount);
+                //inv.MoveItem(myIndex, pd.myInventoryGUI.targetInventory, pd.myIndex, amount);
+                GetUnitController().player.MoveItem(heldItem, pd.myInventoryGUI.targetInventory, pd.myIndex, amount);
 
                 break;
             }
@@ -225,7 +226,21 @@ public class PickupDrop : MouseInteractive
 
     public override void CustomOnLeftMouseDown()
     {
-        Pickup();
+        if(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+        {
+            Inventory inv = myInventoryGUI.targetInventory;
+
+            RoguelikeObject item = inv.itemList[myIndex];
+
+            Player player = GetUnitController().player;
+
+            //inv.MoveItem(myIndex, pd.myInventoryGUI.targetInventory, pd.myIndex, amount);
+            player.MoveItem(item, player.MyInventory);
+        }
+        else
+        {
+            Pickup();
+        }
     }
 
     public override void CustomOnRightMouseDown()

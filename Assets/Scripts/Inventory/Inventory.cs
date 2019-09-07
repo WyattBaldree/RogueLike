@@ -66,6 +66,16 @@ public class Inventory : MonoBehaviour
         }
         if (!acceptable) return null;
 
+        if (index == -1)
+        {
+            index = GetAvailableStack(sourceItem, sourceItem.UniqueID);
+        }
+
+        if (index == -1)
+        {
+            index = GetFirstAvailableSlot();
+        }
+
         if (index < 0 || index >= inventoryCapacity) return null;
 
         if (!sourceItem) return null;

@@ -22,6 +22,17 @@ public class Unit : WorldObject
     }
 
     [SerializeField]
+    private int reach = 2;
+    /// <summary>
+    /// How far can this unit reach?
+    /// </summary>
+    public int Reach
+    {
+        get => reach;
+        set => reach = value;
+    }
+
+    [SerializeField]
     private bool burrower = false;
     /// <summary>
     /// Can this unit move through walls?
@@ -180,6 +191,34 @@ public class Unit : WorldObject
         MeleeAttack(targetObject);
 
         return false;
+    }
+
+    /// <summary>
+    /// This function is used to make the unit move an item from one inventory to another. Returns true if the item was moved.
+    /// </summary>
+    /// <param name="rlObject"></param>
+    /// <param name="targetInv"></param>
+    /// <param name="targetIndex"></param>
+    /// <param name="amount"></param>
+    /// <returns></returns>
+    public bool MoveItem(RoguelikeObject rlObject, Inventory targetInv, int targetIndex = -1, int amount = -1)
+    {
+        Inventory sourceInv = rlObject.ParentInventory;
+
+        float distance1 = Vector2.Distance(rlObject.GetPosition(), GetPosition());
+        float distance2 = Vector2.Distance(new Vector2(targetInv.transform.position.x, targetInv.transform.position.y), GetPosition());
+        if (distance1 < reach && distance2 < reach)
+        {
+            Debug.Log("You can reach that far.");
+
+            RoguelikeObject newStack = sourceInv.MoveItem(rlObject, targetInv, targetIndex, amount);
+            return true;
+        }
+        else
+        {
+            Debug.Log("You can't reach that far.");
+            return false;
+        }
     }
 
     /// <summary>

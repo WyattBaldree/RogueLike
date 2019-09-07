@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class PopupController : MonoBehaviour
 {
+    // Represents the bounds of the portion of the screen that is the "world"
     public Vector2 popupBoundsWorld = new Vector2(10, 10);
+    // Represents the bounds of the whole screen
     public Vector2 popupBoundsScreen = new Vector2(11, 11);
 
     private List<GUIPopup> popupStack = new List<GUIPopup>();
@@ -21,6 +23,7 @@ public class PopupController : MonoBehaviour
     {
         popupStack.Remove(popup);
     }
+
 
     void OnDrawGizmosSelected()
     {

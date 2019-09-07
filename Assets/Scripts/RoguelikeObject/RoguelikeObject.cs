@@ -381,7 +381,10 @@ public abstract class RoguelikeObject : Interactive
         return didKill;
     }
 
-    public void OpenInventory()
+    /// <summary>
+    /// Attempt to open the internal inventory of this object if it has one.
+    /// </summary>
+    public virtual void OpenInventory()
     {
         if (MyInventory)
         {
