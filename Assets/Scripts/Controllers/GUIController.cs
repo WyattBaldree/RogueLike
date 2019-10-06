@@ -9,4 +9,12 @@ public class GUIController : MonoBehaviour
     /// </summary>
 
     public InventoryGUI mainInventoryGUI;
+    public InventoryGUI equipmentGUIHead;
+    public InventoryGUI equipmentGUITorso;
+    public InventoryGUI equipmentGUILeftHand;
+    public InventoryGUI equipmentGUILeftArm;
+    public InventoryGUI equipmentGUILeftLeg;
+    public InventoryGUI equipmentGUIRightHand;
+    public InventoryGUI equipmentGUIRightArm;
+    public InventoryGUI equipmentGUIRightLeg;
 }

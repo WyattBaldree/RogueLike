@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 using static GameController;
+using static StringHelper;
 
 public abstract class RoguelikeObject : Interactive
 {
@@ -19,7 +20,7 @@ public abstract class RoguelikeObject : Interactive
     /// </summary>
     private static int fireAmountMax = 3;
 
-    public enum TagEnum { item }
+    public enum TagEnum { none, item, torso, leg, arm, head, weapon, shield }
 
     [Header("Roguelike Object")]
     
@@ -271,6 +272,7 @@ public abstract class RoguelikeObject : Interactive
     }
 
     /// <summary>
+    /// <summary>
     /// A function that is used to create a new RoguelikeObject and immediately place it into an inventory.
     /// </summary>
     /// <param name="source">The source of the RoguelikeObject being made.</param>
@@ -402,6 +404,14 @@ public abstract class RoguelikeObject : Interactive
     }
 
     /// <summary>
+    /// The verb used when attacking;
+    /// </summary>
+    public virtual string GetAttackVerb()
+    {
+        return "awkwardly bashes";
+    }
+
+    /// <summary>
     /// when this function is called, MyRogueSpriteRenderer is updated based on the objects current values (GetCurrentSprite(), Exposed, ect.)
     /// </summary>
     public virtual void UpdateRogueSpriteRenderer()
@@ -424,7 +434,7 @@ public abstract class RoguelikeObject : Interactive
         {
             return (StackSize) + " " + ObjectName + "s";
         }
-        return ObjectName;
+        return "<d>a " + ObjectName;
     }
     
     /// <summary>
@@ -479,7 +489,7 @@ public abstract class RoguelikeObject : Interactive
         {
             Vector2Int positionDelta = GetPosition() - source.GetPosition();
             myRogueSpriteRenderer.StartAnimation(RogueSpriteRenderer.AnimationStateEnum.BounceAnimation, 7, positionDelta.y, positionDelta.x, .7f);
-            GetLogController().NewEntry("<d>The " + GetFullName() + "<d> dodges the attack of the " + source.GetFullName() + "<d>.");
+            GetLogController().NewEntry("<d>" + CapitalizeFirst(GetFullName()) + "<d> dodges the attack of " + source.GetFullName() + "<d>.");
         }
     }
 

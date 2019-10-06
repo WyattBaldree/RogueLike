@@ -23,20 +23,6 @@ public class RogueSpriteRenderer : MonoBehaviour
     /// </summary>
     private Sprite debugSprite;
 
-    public void CopyValues(RogueSpriteRenderer source)
-    {
-        StackSize = source.StackSize;
-        MySprite = source.MySprite;
-        Dead = source.Dead;
-    }
-
-    public void ClearValues()
-    {
-        StackSize = 0;
-        MySprite = null;
-        Dead = false;
-    }
-
     private int stackSize = 0;
     public int StackSize
     {
@@ -93,6 +79,31 @@ public class RogueSpriteRenderer : MonoBehaviour
         set => sortingGroup.sortingOrder = value;
     }
 
+    public enum AnimationStateEnum { IdleAnimation, MoveAnimation, AttackAnimation, EatAnimation, HitAnimation, ShakeAnimation, BounceAnimation }
+
+    private float animationTime = 0.0f;
+    private float animationSpeed = 5f;
+    private bool isAnimating = false;
+    private AnimationStateEnum animationStateCurrent = AnimationStateEnum.IdleAnimation;
+
+    private float animationParam1 = 0;
+    private float animationParam2 = 0;
+    private float animationParam3 = 0;
+
+    public void CopyValues(RogueSpriteRenderer source)
+    {
+        StackSize = source.StackSize;
+        MySprite = source.MySprite;
+        Dead = source.Dead;
+    }
+
+    public void ClearValues()
+    {
+        StackSize = 0;
+        MySprite = null;
+        Dead = false;
+    }
+
     public Vector2 GetDimensions()
     {
         return mySpriteRenderer.bounds.size;
@@ -105,16 +116,7 @@ public class RogueSpriteRenderer : MonoBehaviour
     }
     // ------------------------------------------------------ANIMATION STUFF--------------------------------------------------------//
 
-    public enum AnimationStateEnum { IdleAnimation, MoveAnimation, AttackAnimation, EatAnimation, HitAnimation, ShakeAnimation, BounceAnimation }
-
-    private float animationTime = 0.0f;
-    private float animationSpeed = 5f;
-    private bool isAnimating = false;
-    private AnimationStateEnum animationStateCurrent = AnimationStateEnum.IdleAnimation;
-
-    private float animationParam1 = 0;
-    private float animationParam2 = 0;
-    private float animationParam3 = 0;
+    
 
     //Start an animation with various parameters
     public void StartAnimation(AnimationStateEnum animState, float speed = 5, float param1 = 1, float param2 = 0, float param3 = 1)

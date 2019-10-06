@@ -33,6 +33,9 @@ public class GameController : MonoBehaviour
     //How many blocks wide and tall the play field is.
     public Vector2Int ScreenResInUnits = new Vector2Int(20, 20);
 
+    //an instance of a single space inventory that other objects can clone.
+    public Inventory singleInventorySource;
+
     /// <summary>
     /// An instance of an inventory that objects can be instantiated into before being placed into the world. When something is put in here, it should immediately be removed.
     /// </summary>

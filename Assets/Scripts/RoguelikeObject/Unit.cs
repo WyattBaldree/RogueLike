@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 using static GameController;
+using static StringHelper;
 
 public class Unit : WorldObject
 {
     public static List<Unit> unitList = new List<Unit>();
+    public enum BodyTypeEnum { humanoid, mammal }
+    public enum GenderTypeEnum { animal, male, female }
 
     [Header("Unit")]
 
@@ -57,6 +60,54 @@ public class Unit : WorldObject
             UpdateRogueSpriteRenderer();
         }
     }
+
+    [SerializeField]
+    private BodyTypeEnum bodyType = BodyTypeEnum.humanoid;
+    /// <summary>
+    /// What body shape does this unit have?
+    /// </summary>
+    public BodyTypeEnum BodyType
+    {
+        get => bodyType;
+        set
+        {
+            bodyType = value;
+        }
+    }
+
+    [SerializeField]
+    private GenderTypeEnum gender = GenderTypeEnum.animal;
+    public GenderTypeEnum Gender{
+        get => gender;
+        set => gender = value;
+    }
+
+    //The root bodypart of the creature. Other bits get chopped off of this bit
+    [System.NonSerialized]
+    public Gib rootBodyPart;
+
+    //A list of all bodyparts
+    [System.NonSerialized]
+    public List<Gib> bodyParts = new List<Gib>();
+    
+    //A list of all body parts that can gras
+    [System.NonSerialized]
+    public List<Gib> bodyPartsGrasping = new List<Gib>();
+
+    //A list of all bodyparts that can think
+    [System.NonSerialized]
+    public List<Gib> bodyPartsThinking = new List<Gib>();
+
+    //A list of all bodyparts that are used for locomotion
+    [System.NonSerialized]
+    public List<Gib> bodyPartsLocomotion = new List<Gib>();
+
+    //A list of all bodyparts that can be attacked with
+    [System.NonSerialized]
+    public List<Gib> bodyPartsAttacking = new List<Gib>();
+
+    //The number of legs this creature is supposed to have
+    public int intendedNumberOfLegs = 0;
 
     //our current speed counter. When this reaches 0, take an action.
     private int turnCounter = 0;
@@ -233,13 +284,48 @@ public class Unit : WorldObject
             Vector2Int positionDelta = attackTarget.GetPosition() - GetPosition();
             myRogueSpriteRenderer.StartAnimation(RogueSpriteRenderer.AnimationStateEnum.BounceAnimation, 7, positionDelta.x, positionDelta.y, 1.2f);
 
-            if (!attackTarget.AttemptDodge(this))
+            bool atLeastOneHit = false;
+            foreach (Gib gib in bodyPartsAttacking)
             {
-                int damageOutput = 1;
-                GetLogController().NewEntry("<d>The " + GetFullName() + "<d> attacks the " + attackTarget.GetFullName() + "<d> for <color.red>" + damageOutput + "<d> damage.");
-                attackTarget.TakeDamage(this, damageOutput);
-                return true;
+                if (gib.Attacking)
+                {
+                    bool isUnarmedAttack;
+
+                    int damageOutput;
+                    string attackVerb;
+                    string itemNoun;
+                    if (gib.Grasping == false || gib.graspInv.itemList[0] == null)
+                    {
+                        //unarmed
+                        isUnarmedAttack = true;
+                        damageOutput = 1;
+                        attackVerb = gib.AttackVerb;
+                        itemNoun = GetPossessiveDeterminer() + " " + gib.partName;
+                    }
+                    else
+                    {
+                        isUnarmedAttack = false;
+                        damageOutput = gib.graspInv.itemList[0].MeleeDamage;
+                        attackVerb = gib.graspInv.itemList[0].GetAttackVerb();
+                        itemNoun = gib.graspInv.itemList[0].GetFullName();
+                    }
+
+                    if (!attackTarget.AttemptDodge(this))
+                    {
+                        if (isUnarmedAttack)
+                        {
+                            GetLogController().NewEntry("<d>" + CapitalizeFirst(GetFullName()) + "<d> " + attackVerb + "<d> " + attackTarget.GetFullName() + "<d> for <color.red>" + damageOutput + "<d> damage.");
+                        }
+                        else
+                        {
+                            GetLogController().NewEntry("<d>" + CapitalizeFirst(GetFullName()) + "<d> " + attackVerb + "<d> " + attackTarget.GetFullName() + "<d> with " + itemNoun + "<d> for <color.red>" + damageOutput + "<d> damage.");
+                        }
+                        attackTarget.TakeDamage(this, damageOutput);
+                        atLeastOneHit = true;
+                    }
+                }
             }
+            return atLeastOneHit;
         }
         return false;
     }
@@ -255,6 +341,104 @@ public class Unit : WorldObject
         Vector2Int moveDirection = GetMoveDirection();
 
         AttackMove(GetPositionOffset(moveDirection));
+    }
+
+    /// <summary>
+    /// Create all of the gibs(body parts) taht amake up this unit
+    /// </summary>
+    protected virtual Gib MakeBody(BodyTypeEnum bodyTypeParam)
+    {
+        //Remove all of the old body.
+        bodyParts.Clear();
+        bodyPartsAttacking.Clear();
+        bodyPartsGrasping.Clear();
+        bodyPartsLocomotion.Clear();
+        bodyPartsThinking.Clear();
+
+        if (bodyTypeParam == BodyTypeEnum.humanoid)
+        {
+            //create torso
+            Gib torso = rootBodyPart = new Gib(this, "torso", null);
+            torso.ArmorType = RoguelikeObject.TagEnum.torso;
+
+            //create arms
+            Gib leftArm = new Gib(this, "left arm", torso);
+            leftArm.ArmorType = RoguelikeObject.TagEnum.arm;
+            leftArm.Grasping = true;
+            leftArm.Attacking = true;
+
+            Gib rightArm = new Gib(this, "right arm", torso);
+            rightArm.ArmorType = RoguelikeObject.TagEnum.arm;
+            rightArm.Grasping = true;
+            rightArm.Attacking = true;
+
+            //create legs
+            Gib leftLeg = new Gib(this, "left leg", torso);
+            leftLeg.ArmorType = RoguelikeObject.TagEnum.leg;
+            leftLeg.Locomoting = true;
+
+            Gib rightLeg = new Gib(this, "right leg", torso);
+            rightLeg.ArmorType = RoguelikeObject.TagEnum.leg;
+            rightLeg.Locomoting = true;
+
+            //create head
+            Gib head = new Gib(this, "head", torso);
+            head.ArmorType = RoguelikeObject.TagEnum.head;
+            head.Thinking = true;
+
+            intendedNumberOfLegs = 2;
+        }
+        else if (bodyTypeParam == BodyTypeEnum.mammal)
+        {
+            //create torso
+            Gib torso = rootBodyPart = new Gib(this, "torso", null);
+
+            //create arms
+            Gib frontLeftLeg = new Gib(this, "front left leg", torso);
+            frontLeftLeg.Attacking = true;
+            frontLeftLeg.Locomoting = true;
+            frontLeftLeg.AttackVerb = "scratches";
+
+            Gib frontRightLeg = new Gib(this, "front right leg", torso);
+            frontRightLeg.Attacking = true;
+            frontRightLeg.Locomoting = true;
+            frontRightLeg.AttackVerb = "scratches";
+
+            //create legs
+            Gib backLeftLeg = new Gib(this, "back left leg", torso);
+            backLeftLeg.Locomoting = true;
+
+            Gib backRightLeg = new Gib(this, "back right leg", torso);
+            backRightLeg.Locomoting = true;
+
+            //create head
+            Gib head = new Gib(this, "head", torso);
+            head.Thinking = true;
+            head.Attacking = true;
+            head.AttackVerb = "bites";
+
+            intendedNumberOfLegs = 4;
+        }
+        BodyType = bodyTypeParam;
+        return rootBodyPart;
+    }
+
+    /// <summary>
+    /// This function returns the possesive determiner (its, his, her) for this unit based on its gender
+    /// </summary>
+    /// <returns></returns>
+    public string GetPossessiveDeterminer()
+    {
+        switch (Gender)
+        {
+            case GenderTypeEnum.animal:
+                return "its";
+            case GenderTypeEnum.male:
+                return "his";
+            case GenderTypeEnum.female:
+                return "her";
+        }
+        return "its";
     }
     
     public override void Die()
@@ -300,7 +484,16 @@ public class Unit : WorldObject
         }
         return false;
     }
+
+    public override void Initialize()
+    {
+        base.Initialize();
+
+        MakeBody(BodyType);
+    }
+
     
+
     public override Inventory GetWorldObjectInventory(Vector2Int pos)
     {
         return GetUnitController().GetUnitInventory(pos);
@@ -325,5 +518,154 @@ public class Unit : WorldObject
     {
         Assert.IsTrue(Unit.unitList.Remove(this), "The unit being destroyed was not in the UnitList upon being destroyed. Something is terribly wrong.");
         base.DestroyObject();
+    }
+
+    public override string GetFullName()
+    {
+        return "<d>the " + ObjectName;
+    }
+}
+
+//a gib represents a body part on the creature
+//can be cut off, puched, and potentialy unique attributes
+//for example, can this gib hold a weapon? An arm.
+public class Gib : Object
+{
+    private bool grasping = false;
+    public bool Grasping
+    {
+        get => grasping;
+        set
+        {
+            if (value)
+            {
+                grasping = true;
+                if (graspInv == null)
+                {
+                    graspInv = Instantiate<Inventory>(GetGameController().singleInventorySource, parentUnit.transform);
+                    graspInv.transform.localPosition = new Vector3();
+                    graspInv.inventoryName = "Weapon Slot " + partName;
+                    graspInv.gameObject.name = graspInv.inventoryName;
+                    graspInv.acceptableTypes.Add(RoguelikeObject.TagEnum.weapon);
+                    graspInv.acceptableTypes.Add(RoguelikeObject.TagEnum.shield);
+                }
+                parentUnit.bodyPartsGrasping.Add(this);
+                //drop weapon
+            }
+            else
+            {
+                grasping = false;
+                parentUnit.bodyPartsGrasping.Remove(this);
+            }
+        }
+    }
+
+
+    private bool thinking = false;
+    public bool Thinking
+    {
+        get => thinking;
+        set
+        {
+            if (value)
+            {
+                thinking = true;
+                parentUnit.bodyPartsThinking.Add(this);
+                //drop weapon
+            }
+            else
+            {
+                thinking = false;
+                parentUnit.bodyPartsThinking.Remove(this);
+            }
+        }
+    }
+
+    private bool attacking = false;
+    public bool Attacking
+    {
+        get => attacking;
+        set
+        {
+            if (value)
+            {
+                attacking = true;
+                parentUnit.bodyPartsAttacking.Add(this);
+                //drop weapon
+            }
+            else
+            {
+                attacking = false;
+                parentUnit.bodyPartsAttacking.Remove(this);
+            }
+        }
+    }
+
+    private string attackVerb = "punches";
+    public string AttackVerb
+    {
+        get => attackVerb;
+        set => attackVerb = value;
+    }
+
+    private bool locomoting = false;
+    public bool Locomoting
+    {
+        get => locomoting;
+        set
+        {
+            if (value)
+            {
+                locomoting = true;
+                parentUnit.bodyPartsLocomotion.Add(this);
+            }
+            else
+            {
+                locomoting = false;
+                parentUnit.bodyPartsLocomotion.Remove(this);
+            }
+        }
+    }
+
+    private RoguelikeObject.TagEnum armorType = RoguelikeObject.TagEnum.none;
+    public RoguelikeObject.TagEnum ArmorType
+    {
+        get => armorType;
+        set
+        {
+            armorType = value;
+            if (value != RoguelikeObject.TagEnum.none)
+            {
+                if (armorInv == null)
+                {
+                    armorInv = Instantiate<Inventory>(GetGameController().singleInventorySource, parentUnit.transform);
+                    armorInv.transform.localPosition = new Vector3();
+                    armorInv.inventoryName = "Armor Slot " + partName;
+                    armorInv.gameObject.name = armorInv.inventoryName;
+                }
+                armorInv.acceptableTypes.Clear();
+                armorInv.acceptableTypes.Add(value);
+            }
+        }
+    }
+
+    public string partName = "torso";
+    Gib parentGib = null;
+    List<Gib> children = new List<Gib>();
+    public Inventory armorInv = null;
+    public Inventory graspInv = null;
+
+    public Unit parentUnit;
+
+    public Gib(Unit parent, string newName, Gib newParent)
+    {
+        partName = newName;
+
+        parentGib = newParent;
+        if(parentGib != null) parentGib.children.Add(this);
+
+        parent.bodyParts.Add(this);
+
+        parentUnit = parent;
     }
 }

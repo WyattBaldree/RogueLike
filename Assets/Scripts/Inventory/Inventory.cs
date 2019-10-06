@@ -316,6 +316,18 @@ public class Inventory : MonoBehaviour
     }
 
     /// <summary>
+    /// returns true if the inventory is empty
+    /// </summary>
+    public bool isEmpty()
+    {
+        for (int i = 0; i < inventoryCapacity; i++)
+        {
+            if (itemList[i] != null) return false;
+        }
+        return true;
+    }
+
+    /// <summary>
     /// Update our inventoryGUI.
     /// </summary>
     public void UpdateInventoryGUI(int index = -1)

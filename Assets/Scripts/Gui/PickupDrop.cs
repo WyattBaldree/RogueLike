@@ -14,6 +14,7 @@ public class PickupDrop : MouseInteractive
     public static List<PickupDrop> pickupDropList = new List<PickupDrop>();
     public InventoryGUI myInventoryGUI;
     public SpriteRenderer backgroundSpriteRenderer;
+    public SpriteRenderer itemTypeSpriteRenderer;
     public RogueSpriteRenderer itemSpriteRenderer;
     public SpriteRenderer disabledSpriteRenderer;
     
@@ -153,11 +154,13 @@ public class PickupDrop : MouseInteractive
             itemSpriteRenderer.gameObject.SetActive(false);
             backgroundSpriteRenderer.gameObject.SetActive(false);
             disabledSpriteRenderer.gameObject.SetActive(false);
+            itemTypeSpriteRenderer.gameObject.SetActive(false);
         }
         else
         {
             itemSpriteRenderer.gameObject.SetActive(true);
             backgroundSpriteRenderer.gameObject.SetActive(true);
+            itemTypeSpriteRenderer.gameObject.SetActive(true);
 
             if (disabled)
             {
@@ -191,6 +194,11 @@ public class PickupDrop : MouseInteractive
                 if (item)
                 {
                     itemSpriteRenderer.CopyValues(item.myRogueSpriteRenderer);
+                    itemTypeSpriteRenderer.gameObject.SetActive(false);
+                }
+                else
+                {
+                    itemTypeSpriteRenderer.gameObject.SetActive(true);
                 }
             }
             else

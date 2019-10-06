@@ -110,6 +110,50 @@ public class Player : Unit
         GetGUIController().mainInventoryGUI.ConnectToInventory(MyInventory);
     }
 
+    protected override Gib MakeBody(BodyTypeEnum bodyTypeParam)
+    {
+        //create torso
+        Gib torso = rootBodyPart = new Gib(this, "Torso", null);
+        torso.ArmorType = RoguelikeObject.TagEnum.torso;
+        GetGUIController().equipmentGUITorso.ConnectToInventory(torso.armorInv);
+
+        //create arms
+        Gib leftArm = new Gib(this, "Left Arm", torso);
+        leftArm.ArmorType = RoguelikeObject.TagEnum.arm;
+        leftArm.Grasping = true;
+        leftArm.Attacking = true;
+        GetGUIController().equipmentGUILeftArm.ConnectToInventory(leftArm.armorInv);
+        GetGUIController().equipmentGUILeftHand.ConnectToInventory(leftArm.graspInv);
+
+        Gib rightArm = new Gib(this, "Right Arm", torso);
+        rightArm.ArmorType = RoguelikeObject.TagEnum.arm;
+        rightArm.Grasping = true;
+        rightArm.Attacking = true;
+        GetGUIController().equipmentGUIRightArm.ConnectToInventory(rightArm.armorInv);
+        GetGUIController().equipmentGUIRightHand.ConnectToInventory(rightArm.graspInv);
+
+        //create legs
+        Gib leftLeg = new Gib(this, "Left Leg", torso);
+        leftLeg.ArmorType = RoguelikeObject.TagEnum.leg;
+        leftLeg.Locomoting = true;
+        GetGUIController().equipmentGUILeftLeg.ConnectToInventory(leftLeg.armorInv);
+
+        Gib rightLeg = new Gib(this, "Right Leg", torso);
+        rightLeg.ArmorType = RoguelikeObject.TagEnum.leg;
+        rightLeg.Locomoting = true;
+        GetGUIController().equipmentGUIRightLeg.ConnectToInventory(rightLeg.armorInv);
+
+        //create head
+        Gib head = new Gib(this, "Head", torso);
+        head.ArmorType = RoguelikeObject.TagEnum.head;
+        head.Thinking = true;
+        GetGUIController().equipmentGUIHead.ConnectToInventory(head.armorInv);
+
+        intendedNumberOfLegs = 2;
+
+        return rootBodyPart;
+    }
+
     public override bool MoveToLocation(Vector2Int targetDestination)
     {
         GetPopupController().containerGUI.Hide();

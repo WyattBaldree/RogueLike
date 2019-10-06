@@ -97,9 +97,11 @@
     <Compile Include="Assets\Scripts\Helper.cs" />
     <Compile Include="Assets\Scripts\Inventory\Inventory.cs" />
     <Compile Include="Assets\Scripts\Pathfinding.cs" />
+    <Compile Include="Assets\Scripts\RoguelikeObject\Armor.cs" />
     <Compile Include="Assets\Scripts\RoguelikeObject\BasicItem.cs" />
     <Compile Include="Assets\Scripts\RoguelikeObject\BasicWall.cs" />
     <Compile Include="Assets\Scripts\RoguelikeObject\BasicWallConnected.cs" />
+    <Compile Include="Assets\Scripts\RoguelikeObject\Equipment.cs" />
     <Compile Include="Assets\Scripts\RoguelikeObject\Floor.cs" />
     <Compile Include="Assets\Scripts\RoguelikeObject\FloorConnected.cs" />
     <Compile Include="Assets\Scripts\RoguelikeObject\Gold.cs" />
@@ -112,9 +114,11 @@
     <Compile Include="Assets\Scripts\RoguelikeObject\Unit.cs" />
     <Compile Include="Assets\Scripts\RoguelikeObject\Wall.cs" />
     <Compile Include="Assets\Scripts\RoguelikeObject\WallConnected.cs" />
+    <Compile Include="Assets\Scripts\RoguelikeObject\Weapon.cs" />
     <Compile Include="Assets\Scripts\RoguelikeObject\WorldGridInteractive.cs" />
     <Compile Include="Assets\Scripts\RoguelikeObject\WorldObject.cs" />
     <Compile Include="Assets\Scripts\SortingLayerExposer.cs" />
+    <Compile Include="Assets\Scripts\StringHelper.cs" />
     <Compile Include="Assets\Scripts\moveup.cs" />
     <Compile Include="Assets\_ideas.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />

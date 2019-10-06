@@ -35,6 +35,9 @@ public class InventoryGUI : GUIComponent
     /// </summary>
     public PickupDrop pickupDropSource;
 
+    //The sprite to use in the backgroundof the pickupdrops.
+    public Sprite itemTypeSprite;
+
     //the total number of rows we have
     private int rows = 0;
 
@@ -67,6 +70,7 @@ public class InventoryGUI : GUIComponent
             pd.myIndex = i;
             pd.transform.localScale = new Vector3(scale, scale, 1);
             pd.myInventoryGUI = this;
+            pd.itemTypeSpriteRenderer.sprite = itemTypeSprite;
             pickupDropList.Add(pd);
         }
     }

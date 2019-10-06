@@ -44,6 +44,14 @@ public class ItemController : MonoBehaviour
             RoguelikeObject.MakeRoguelikeObject(itemArray[0], 32, inventoryArray[5 + i, 6]);
             RoguelikeObject.MakeRoguelikeObject(itemArray[2], 1, inventoryArray[5 + i, 6]);
             RoguelikeObject.MakeRoguelikeObject(itemArray[2], 1, inventoryArray[5 + i, 6]);
+
+            RoguelikeObject.MakeRoguelikeObject(itemArray[3], 1, inventoryArray[6 + i, 6]);
+            RoguelikeObject.MakeRoguelikeObject(itemArray[4], 1, inventoryArray[6 + i, 6]);
+            RoguelikeObject.MakeRoguelikeObject(itemArray[5], 1, inventoryArray[6 + i, 6]);
+            RoguelikeObject.MakeRoguelikeObject(itemArray[5], 1, inventoryArray[6 + i, 6]);
+            RoguelikeObject.MakeRoguelikeObject(itemArray[6], 1, inventoryArray[6 + i, 6]);
+            RoguelikeObject.MakeRoguelikeObject(itemArray[6], 1, inventoryArray[6 + i, 6]);
+            RoguelikeObject.MakeRoguelikeObject(itemArray[7], 1, inventoryArray[6 + i, 6]);
         }
     }
 
