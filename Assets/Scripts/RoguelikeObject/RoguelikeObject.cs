@@ -271,7 +271,39 @@ public abstract class RoguelikeObject : Interactive
         }
     }
 
+    [SerializeField]
+    public int meleeDamage = 1;
     /// <summary>
+    /// The amount of damage dealt by this weapon when swung at an enemy.
+    /// </summary>
+    public int MeleeDamage
+    {
+        get => meleeDamage;
+        set => meleeDamage = value;
+    }
+
+    [SerializeField]
+    public int meleeSpeed = 10;
+    /// <summary>
+    /// How fast this weapon can be swung.
+    /// </summary>
+    public int MeleeSpeed
+    {
+        get => meleeSpeed;
+        set => meleeSpeed = value;
+    }
+
+    [SerializeField]
+    public int projectileDamage = 1;
+    /// <summary>
+    /// How much damage this weapon does when fired or thrown.
+    /// </summary>
+    public int ProjectileDamage
+    {
+        get => projectileDamage;
+        set => projectileDamage = value;
+    }
+
     /// <summary>
     /// A function that is used to create a new RoguelikeObject and immediately place it into an inventory.
     /// </summary>
